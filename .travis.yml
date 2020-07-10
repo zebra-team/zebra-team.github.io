@@ -28,12 +28,11 @@ install:
 
 before_script:
   - export TZ='Asia/Shanghai'
-  - npm install -g gulp
+  - npm install -g
   - chmod +x _travis.sh
 
 script:
   - hexo clean && hexo g
-  - gulp
 
 after_success:
  # - LAST_BUILD_NUMBER=68
@@ -49,5 +48,4 @@ branches:
     - dev
 env:
  global:
-   - GH_REF: github.com/shenliyang/shenliyang.github.io.git
-
+   - GH_REF: github.com/zebra-team/zebra-team.github.io.git
