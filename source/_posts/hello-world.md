@@ -3,7 +3,7 @@ title: 面向大型中后台应用微前端解决方案
 tags: ['微前端','前端框架'] 
 ---
 
-# 第五期 - 「面向大型中后台应用微前端解决方案」 - 2020.4.11
+# 第五期 - 「面向大型中后台应用微前端解决方案」 - (2020.4.11)
 
 <br />![PPT首页.png](https://cdn.nlark.com/yuque/0/2020/png/595632/1586579649676-90e1eb92-cef6-46e8-a6ec-117264fe1181.png#align=left&display=inline&height=478&name=PPT%E9%A6%96%E9%A1%B5.png&originHeight=956&originWidth=1712&size=797621&status=done&style=none&width=856)<br />
 
