@@ -33,14 +33,13 @@ carousel:
 
 ## widgets
 widgets:
-  - search
+#  - search
   - notification
-  - social
+  - friends
+  - tagcloud
+#  - social
   - category
   - archive
-  - tagcloud
-  - friends
-
 
 ## 搜索
 jsonContent:
@@ -50,8 +49,8 @@ jsonContent:
     title: true
     text: true
     content: true
-    categories: false
-    tags: false
+    categories: true
+    tags: true
 
 ## 网站公告设置
 notification: |-
@@ -67,9 +66,6 @@ social:
  - name: 邮箱
    icon: envelope-o
    href: mailto:zebrateam@163.com
- - name: RSS
-   icon: feed
-   href: /atom.xml
 
 ## 文章分类设置
 cate_config:
@@ -158,8 +154,8 @@ reward:
 ## Valine评论
 valine:
    enable: true
-   appId: xOKV9J4UeQAtVkvnJC7Kq2Jn-gzGzoHsz
-   appKey: erIpQac4azoCmgfBB7Dl9maa
+   appId: 0q0vid2kizGymmd0dNKs3lOY-gzGzoHsz
+   appKey: wNj5sJAu5hReOirB3QbKqNiA
    placeholder: 说点什么吧
    notify: false
    verify: true
@@ -208,7 +204,6 @@ gitment:
 uyan:
   enable: false
   uyan_id: 1966422
-
 
 ## 网站访客统计
 visit_counter:
