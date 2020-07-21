@@ -8,11 +8,11 @@ menu:
 - page: home
   url: /
   icon:
-- page: 前端
-  url: /categories/前端/
+- page: 分享专栏
+  url: /categories/分享专栏/
   icon:
-- page: 工具
-  url: /categories/工具/
+- page: 解决方案
+  url: /categories/解决方案/
   icon:
 - page: 时间轴
   url: /archives/
@@ -26,8 +26,8 @@ rss: /atom.xml
 
 ## Carousel
 carousel:
-  img: './img/head-img.jpg'
-  url: 'https://promotion.aliyun.com/ntms/act/qwbk.html?userCode=xs0pypd2'
+  img: './img/head-bg.png'
+  url: 'https://www.yuque.com/zebratalk'
 
 # 各个小工具的设置
 
@@ -107,11 +107,11 @@ links:
 # 主题自定义个性化配置
 
 ## 网站宣传语
-branding:
+branding: 分享是件简单有趣的事情
 
 ## 设置banner背景图片
 banner:
-    img: http://snippet.shenliyang.com/img/banner.jpg
+    img: ./img/banner.jpg
 
 ## 首页列表底部面板
 homePanel: true
@@ -145,7 +145,7 @@ declaration:
   enable: true
   title: '转载声明'
   tip: |-
-      商业转载请联系作者获得授权,非商业转载请注明出处 © <a href="" target="_blank">Snippet</a>
+      商业转载请联系作者获得授权,非商业转载请注明出处 © <a href="" target="_blank">Zebra</a>
 
 ## 文章打赏
 reward:

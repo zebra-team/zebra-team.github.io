@@ -1,30 +1,34 @@
 ---
 title: 面向大型中后台应用微前端解决方案
-tags: ['微前端','前端框架'] 
+categories :
+- 分享专栏
+tags: ['Zebra', '微前端','前端框架'] 
 ---
 
 # 第五期 - 「面向大型中后台应用微前端解决方案」 - (2020.4.11)
 
-<br />![PPT首页.png](https://cdn.nlark.com/yuque/0/2020/png/595632/1586579649676-90e1eb92-cef6-46e8-a6ec-117264fe1181.png#align=left&display=inline&height=478&name=PPT%E9%A6%96%E9%A1%B5.png&originHeight=956&originWidth=1712&size=797621&status=done&style=none&width=856)<br />
+<br />![PPT首页.png](/images/zebra/5/banner.png)<br />
 
 > 本文是第五期分享主题 - 「面向大型中后台应用微前端解决方案」的文字稿，可以通过查看来巩固知识点。
-
-
-
-_**录播视频资源：**_
-[![第五期-面向大型中后台应用微前端解决方案.mp4 (56.5MB)](https://cdn.nlark.com/yuque/0/2020/jpeg/595632/1586614055621-7ffb2898-0de4-482c-a854-d757d0eb3706.jpeg?x-oss-process=image/resize,h_450)](https://www.yuque.com/zebratalk/sbumef/fxxf07?_lake_card=%7B%22status%22%3A%22done%22%2C%22name%22%3A%22%E7%AC%AC%E4%BA%94%E6%9C%9F-%E9%9D%A2%E5%90%91%E5%A4%A7%E5%9E%8B%E4%B8%AD%E5%90%8E%E5%8F%B0%E5%BA%94%E7%94%A8%E5%BE%AE%E5%89%8D%E7%AB%AF%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88.mp4%22%2C%22size%22%3A59240604%2C%22percent%22%3A0%2C%22id%22%3A%22cfydH%22%2C%22videoId%22%3A%22ae9b449d100542edb14b036c3ec4ce24%22%2C%22coverUrl%22%3A%22https%3A%2F%2Fcdn.nlark.com%2Fyuque%2F0%2F2020%2Fjpeg%2F595632%2F1586614055621-7ffb2898-0de4-482c-a854-d757d0eb3706.jpeg%22%2C%22aliyunVideoSrc%22%3Anull%2C%22taobaoVideoId%22%3A%22259403270907%22%2C%22uploaderId%22%3A595632%2C%22docUrl%22%3A%22https%3A%2F%2Fwww.yuque.com%2Fzebratalk%2Fsbumef%2Ffxxf07%22%2C%22card%22%3A%22video%22%7D#cfydH)> 备注：抱歉，前面有10几分钟忘记录屏。
 
 ## 一、前言
 **本文是根据2020.04.11 日，第三期分享主题「面向大型中后台应用微前端解决方案****」整理而来的文字稿。**
 
 本文分享以 “业务背景”和“应用实践” 为切入点，对大型中后台业务场景被背景，技术方案调研为前提，以实践为引导，带你定制开发最优微前端解决方案。
+
 ## 二、介绍
+
 #### 1. 我是谁？
+
 SCM，2009年参加工作，直到2014年中旬前主要从事后端JAVA开发，期间善于使用ExtJs，那会还没有明确的前后端之分，处于全栈开发时期。一个偶然的契机，接手了公司的前端框架，出于些特殊原因，要重新写一套适合公司的框架，EraJs应运而生，这目前还是公司占80%以上项目PC WEB项目的首选框架。这一从事前端框架开发，2014 ~ 至今，6年过去了，期间整过Jquery、Bootstrap、Zepto、Jquery UI、第三方UI插件等等源码，也产出了Eui1.0、T2.0、T3.0、T3.5(T系列框架主要使用于PC客户端)。构建从Grunt到后来的Gulp，再到现在的Webpack，现在主攻React方向中后端最佳解决方案，可视化开发、工程化建设、基建完善。
+
 #### 2. 我们的团队
+
 我所带领的前端框架组，目前主要3个人，主要服务于公司PC WEB、PC客户端项目框架支撑工作，逐渐完善框架体系，更好的提效，做好技术支撑工作。
+
 #### 3. 怎么联系我？
-下面是我的微信二维码，对前端基建充满兴趣的可以加我交流，我们也会定期的分享更多框架相关的主题。<br />![WechatIMG1.jpeg](https://cdn.nlark.com/yuque/0/2020/jpeg/595632/1584174268827-7aaf44fd-a257-4c9b-b64b-9f383d1930d2.jpeg#align=left&display=inline&height=296&name=WechatIMG1.jpeg&originHeight=896&originWidth=674&size=61371&status=done&style=none&width=223)<br />
+
+下面是我的微信二维码，对前端基建充满兴趣的可以加我交流，我们也会定期的分享更多框架相关的主题。<br />![WechatIMG1.jpeg](/images/wechat.jpeg#align=left&display=inline&height=296&name=WechatIMG1.jpeg&originHeight=896&originWidth=674&size=61371&status=done&style=none&width=223)<br />
 
 ## 三、主题背景
 
@@ -75,15 +79,16 @@ SCM，2009年参加工作，直到2014年中旬前主要从事后端JAVA开发�
 
 <br />在2018年的时候，当时还没了解到“微前端”这个概念。至于今天比较活跃的single-spa、qiankun，它们关注点在于如何解决跨技术栈，减轻应用之间的关联，主应用足够简单。这点来说，我们要支持多应用共存，还存在一定的交互，通信有些相悖。<br />
 <br />既然，没有直接可参考的解决方案，那我们就站在业务场景需求下，一个个去突破，解决。
-## 五、自研方案
 
+## 五、自研方案
 
 ### 5.1 架构设计
 
 <br />
-<br />![image.png](https://cdn.nlark.com/yuque/0/2020/png/595632/1586593982730-50c2e6e6-0e3f-4d65-b029-57c161b5364e.png#align=left&display=inline&height=273&name=image.png&originHeight=546&originWidth=1304&size=172393&status=done&style=none&width=652)
-### 5.2 快速使用
 
+![](/images/zebra/5/framework.png)
+
+### 5.2 快速使用
 
 #### 5.2.1 环境准备
 
@@ -290,11 +295,10 @@ Eui.App.initCompleted = function(){
 ## 六、业务落地
 
 <br />titanOne微前端解决方案，目前只服务于公司内部业务。大多是银行对私业务应用，这里以对公业务为例。<br />
-<br />![image.png](https://cdn.nlark.com/yuque/0/2020/png/595632/1586596636653-a3609a07-e962-4326-8687-41bec9ab750c.png#align=left&display=inline&height=304&name=image.png&originHeight=608&originWidth=1280&size=324392&status=done&style=none&width=640)<br />
-<br />
+<br />![image.png](/images/zebra/5/app.png)<br />
 <br />
 
-![image.png](https://cdn.nlark.com/yuque/0/2020/png/595632/1586596703103-0aea2591-add3-4fac-b549-62f53a71dcf4.png#align=left&display=inline&height=305&name=image.png&originHeight=610&originWidth=932&size=210554&status=done&style=none&width=466)
+![image.png](/images/zebra/5/app2.png)
 
 ## 七、微前端未来
 
