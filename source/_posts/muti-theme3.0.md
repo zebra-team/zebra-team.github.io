@@ -1,5 +1,6 @@
 ---
 title: 多主题集成方案及规范
+date: 2020/07/21
 categories :
 - 解决方案
 tags: ['titanOne3.0', 'theme'] 

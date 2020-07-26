@@ -29,6 +29,8 @@ carousel:
   img: './img/head-bg.png'
   url: 'https://www.yuque.com/zebratalk'
 
+display_updated: true
+
 # 各个小工具的设置
 
 ## widgets
