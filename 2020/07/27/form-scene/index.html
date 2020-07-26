@@ -1,0 +1,383 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+<head>
+    <!--Setting-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <meta http-equiv="Cache-Control" content="no-transform">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta name="apple-mobile-web-app-capable" content="Zebra前端团队博客">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no,email=no,adress=no">
+    <meta name="browsermode" content="application">
+    <meta name="screen-orientation" content="portrait">
+    <meta name="theme-version" content="1.0.0">
+    <meta name="root" content="/">
+    <link rel="dns-prefetch" href="http://blog.zebrateam.cn">
+    <!--SEO-->
+
+<meta name="keywords" content="titanOne3.0,theme" />
+
+
+<meta name="description" content="
+
+本文是第三期分享主题 - 表单场景封装/应用深度解析 的文字稿，可以通过查看来巩固知识点。
+
+一、前言本文是根据2020.03.28日，第三期分享主题「表单**场景封装/应用深度解析**」整..." />
+
+
+<meta name="robots" content="all" />
+<meta name="google" content="all" />
+<meta name="googlebot" content="all" />
+<meta name="verify" content="all" />
+    <!--Title-->
+
+<title>
+    
+    第三期 - 「表单场景封装/应用深度解析」 - (2020.3.28) |
+    
+    Zebra前端团队博客
+</title>
+
+<link rel="alternate" href="/atom.xml" title="Zebra前端团队博客" type="application/atom+xml">
+
+
+<link rel="icon" href="/favicon.ico">
+
+    
+
+
+<link rel="stylesheet" href="/css/bootstrap.min.css?rev=3.3.7.css">
+<link rel="stylesheet" href="/css/font-awesome.min.css?rev=4.7.0.css">
+<link rel="stylesheet" href="/css/style.css?rev=@@hash.css">
+
+    
+<div class="hide">
+    <script type="text/javascript">
+    var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+    document.write(unescape("%3Cspan class='cnzz_stat_icon_1263868967 hide' %3E%3Cscript%20src%3D%22https%3A%2F%2Fs95.cnzz.com%2Fz_stat.php%3Fweb_id%3D1272564536%22%3E%3C%2Fscript%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s19.cnzz.com/z_stat.php%3Fid%3D1263868967%26show%3Dpic1' type='text/javascript'%3E%3C/script%3E"));
+    </script>
+</div>
+
+
+
+
+    
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+<!--[if lte IE 8]>
+<style>
+    html{ font-size: 1em }
+</style>
+<![endif]-->
+<!--[if lte IE 9]>
+<div style="ie">你使用的浏览器版本过低，为了你更好的阅读体验，请更新浏览器的版本或者使用其他现代浏览器，比如Chrome、Firefox、Safari等。</div>
+<![endif]-->
+<body>
+    <header class="main-header"  style="background-image:url(
+    /./img/banner.jpg)"
+     >
+    <div class="main-header-box">
+        <a class="header-avatar" href="/" title='SCM'>
+            <img src="/img/avatar.jpg" alt="logo头像" class="img-responsive center-block">
+        </a>
+        <div class="branding">
+            <!--<h2 class="text-hide">Snippet主题,从未如此简单有趣</h2>-->
+            
+            <h2>
+                分享是件简单有趣的事情
+            </h2>
+            
+        </div>
+    </div>
+</header>
+    <nav class="main-navigation">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="navbar-header"><span class="nav-toggle-button collapsed pull-right" data-toggle="collapse" data-target="#main-menu" id="mnav">
+                        <span class="sr-only"></span>
+                        <i class="fa fa-bars"></i>
+                    </span>
+                    <a class="navbar-brand" href="http://blog.zebrateam.cn">
+                        Zebra前端团队博客</a>
+                </div>
+                <div class="collapse navbar-collapse" id="main-menu">
+                    <ul class="menu">
+                        
+                        <li role="presentation" class="text-center">
+                            <a href="/"><i class="fa "></i>
+                                首页</a>
+                        </li>
+                        
+                        <li role="presentation" class="text-center">
+                            <a href="/categories/分享专栏/"><i class="fa "></i>
+                                分享专栏</a>
+                        </li>
+                        
+                        <li role="presentation" class="text-center">
+                            <a href="/categories/解决方案/"><i class="fa "></i>
+                                解决方案</a>
+                        </li>
+                        
+                        <li role="presentation" class="text-center">
+                            <a href="/archives/"><i class="fa "></i>
+                                时间轴</a>
+                        </li>
+                        
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+    <section class="content-wrap">
+        <div class="container">
+            <div class="row">
+                <main class="col-md-8 main-content m-post">
+                    <p id="process"></p>
+<article class="post">
+    <div class="post-head">
+        <h1 id="第三期 - 「表单场景封装/应用深度解析」 - (2020.3.28)">
+            
+            第三期 - 「表单场景封装/应用深度解析」 - (2020.3.28)
+            
+        </h1>
+        <div class="post-meta">
+    
+    <span class="categories-meta fa-wrap">
+        <i class="fa fa-folder-open-o"></i>
+        <a class="category-link" href="/categories/%E5%88%86%E4%BA%AB%E4%B8%93%E6%A0%8F/">分享专栏</a>
+    </span>
+    
+    
+    <span class="fa-wrap">
+        <i class="fa fa-tags"></i>
+        <span class="tags-meta">
+            
+            <a class="tag-link" href="/tags/theme/" rel="tag">theme</a> <a class="tag-link" href="/tags/titanOne3-0/" rel="tag">titanOne3.0</a>
+            
+        </span>
+    </span>
+    
+    
+    
+    <span class="fa-wrap">
+        <i class="fa fa-clock-o"></i>
+        <span class="date-meta">
+            2020/07/27</span>
+    </span>
+    
+    
+</div>
+        
+        
+    </div>
+    
+    <div class="post-body post-content">
+        <p><img src="/images/zebra/3/banner.png" alt="PPT首页.png"></p>
+<blockquote>
+<p>本文是第三期分享主题 - 表单场景封装/应用深度解析 的文字稿，可以通过查看来巩固知识点。</p>
+</blockquote>
+<h1 id="一、前言"><a href="#一、前言" class="headerlink" title="一、前言"></a>一、前言</h1><p><strong>本文是根据2020.03.28日，第三期分享主题「表单**</strong>场景封装/应用深度解析<strong>**」整理而来的文字稿。</strong></p>
+<p>本文分享以 “如何封装”和“应用” 为切入点，对表单常见场景，框架是如何提炼、抽象、封装展开话题，以思路引导为主，带你理解框架的思考及实现过程。</p>
+<h1 id="二、介绍"><a href="#二、介绍" class="headerlink" title="二、介绍"></a>二、介绍</h1><h2 id="2-1-我是谁？"><a href="#2-1-我是谁？" class="headerlink" title="2.1. 我是谁？"></a>2.1. 我是谁？</h2><p>SCM，2009年参加工作，直到2014年中旬前主要从事后端JAVA开发，期间善于使用ExtJs，那会还没有明确的前后端之分，处于全栈开发时期。一个偶然的契机，接手了公司的前端框架，出于些特殊原因，要重新写一套适合公司的框架，EraJs应运而生，这目前还是公司占80%以上项目PC WEB项目的首选框架。这一从事前端框架开发，2014 ~ 至今，6年过去了，期间整过Jquery、Bootstrap、Zepto、Jquery UI、第三方UI插件等等源码，也产出了Eui1.0、T2.0、T3.0、T3.5(T系列框架主要使用于PC客户端)。构建从Grunt到后来的Gulp，再到现在的Webpack，现在主攻React方向中后端最佳解决方案，可视化开发、工程化建设、基建完善。</p>
+<h2 id="2-2-我们的团队"><a href="#2-2-我们的团队" class="headerlink" title="2.2. 我们的团队"></a>2.2. 我们的团队</h2><p>我所带领的前端框架组，目前主要3个人，主要服务于公司PC WEB、PC客户端项目框架支撑工作，逐渐完善框架体系，更好的提效，做好技术支撑工作。</p>
+<h2 id="2-3-怎么联系我？"><a href="#2-3-怎么联系我？" class="headerlink" title="2.3. 怎么联系我？"></a>2.3. 怎么联系我？</h2><p>下面是我的微信二维码，对前端基建充满兴趣的可以加我交流，我们也会定期的分享更多框架相关的主题。<br /><img src="/images/wechat.jpeg#align=left&display=inline&height=296&name=WechatIMG1.jpeg&originHeight=896&originWidth=674&size=61371&status=done&style=none&width=223" alt="WechatIMG1.jpeg"><br /></p>
+<h1 id="三、主题背景"><a href="#三、主题背景" class="headerlink" title="三、主题背景"></a>三、主题背景</h1><p><br />在实际业务开发中，可能会存在以下疑问：<br /></p>
+<ul>
+<li>重复的做crud功能，没技术含量可言，但是又只能继续coding</li>
+<li>想提取封装，抽象代码能力有限，达不到最大程度封装</li>
+<li>需求变更，导致每个功能点都要去改一遍</li>
+<li>…</li>
+</ul>
+<p><br /> 针对以上困惑，接下来会一步步带你打消你的疑问。 <br /></p>
+<h1 id="四、表单常见场景"><a href="#四、表单常见场景" class="headerlink" title="四、表单常见场景"></a>四、表单常见场景</h1><p><br />在中台应用中以下几种场景比较普遍：<br /></p>
+<ul>
+<li>查询条件表单：作为表格数据查询条件表单，查询参数有固定前缀，比如：queryParam；</li>
+<li>简单维护表单：维护类型表单，简单的单列或者多列布局方式，字段不会太多，对应后端单实体对象；</li>
+<li>复杂表单：有复杂的布局，比如多标签(tabs)、带文件上传组件、甚至包含维护表格(可能是可编辑表格)的场景；</li>
+<li>动态表单：存在联动操作，动态改变组件，可能是增加、删除组件，同时需动态添加或删除组件验证规则等。</li>
+</ul>
+<p><img src="/images/zebra/3/01.png" alt="image.png"><br /></p>
+<h1 id="五、表单加载过程分析"><a href="#五、表单加载过程分析" class="headerlink" title="五、表单加载过程分析"></a>五、表单加载过程分析</h1><h2 id="5-1-打开模态窗口加载过程介绍"><a href="#5-1-打开模态窗口加载过程介绍" class="headerlink" title="5.1 打开模态窗口加载过程介绍"></a>5.1 打开模态窗口加载过程介绍</h2><p><img src="/images/zebra/3/01.png" alt="image.png"><br /></p>
+<h2 id="5-2-loadForm方法详解"><a href="#5-2-loadForm方法详解" class="headerlink" title="5.2 loadForm方法详解"></a>5.2 loadForm方法详解</h2><p><br /><strong>参数详解：</strong></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">Eui.Form.loadForm 加载表单数据,批量设置值，方法及事件执行的顺序：</span><br><span class="line"></span><br><span class="line">- <span class="string">`远程`</span> : <span class="function"><span class="params">onBeforeLoad</span> =&gt;</span> <span class="function"><span class="params">showMask</span> =&gt;</span> <span class="function"><span class="params">onBeforeTransformData</span> =&gt;</span> <span class="function"><span class="params">setBindDatas</span> =&gt;</span> <span class="function"><span class="params">onLoadSuccess</span> =&gt;</span> <span class="function"><span class="params">setValues</span> =&gt;</span> onAfterLoad</span><br><span class="line">- <span class="string">`本地`</span>: <span class="function"><span class="params">onBeforeLoad</span> =&gt;</span> <span class="function"><span class="params">showMask</span> =&gt;</span> <span class="function"><span class="params">setValues</span> =&gt;</span> <span class="function"><span class="params">hideMask</span> =&gt;</span> <span class="function"><span class="params">setBindDatas</span> =&gt;</span> onAfterLoad</span><br><span class="line"></span><br><span class="line">注意：事件<span class="keyword">return</span> <span class="literal">false</span>,将不再继续往下执行.</span><br><span class="line"></span><br><span class="line">@param &#123;<span class="built_in">String</span>/HTMLElement&#125; target 选择器表达式或者HTMLElement对象.</span><br><span class="line">@param &#123;<span class="built_in">Object</span>&#125; options 参数配置项，具体查看子属性说明.</span><br><span class="line">@param &#123;<span class="built_in">String</span>/<span class="built_in">Object</span>/<span class="built_in">Function</span>&#125; options.data 请求地址或者数据也可以是方法（当为方法类型时提供<span class="string">'param'</span>参数，结果必须返回对象）.</span><br><span class="line">@param &#123;<span class="built_in">Object</span>&#125; [options.params] 请求参数.</span><br><span class="line">@param &#123;<span class="built_in">String</span>&#125; [options.dataPrefix] 数据添加的前缀，在&lt;code&gt;setValues&lt;<span class="regexp">/code&gt;前解析.</span></span><br><span class="line"><span class="regexp">@param &#123;Object&#125; [options.events] 加载表单相关事件.</span></span><br><span class="line"><span class="regexp">@param &#123;Function&#125; [options.events.onBeforeLoad] (Optional) 加载表单数据之前执行的事件，返回false来阻止表单数据加载.</span></span><br><span class="line"><span class="regexp">@param &#123;Object&#125; [options.events.onBeforeLoad.param] 请求参数.</span></span><br><span class="line"><span class="regexp">@param &#123;Object&#125; [options.events.onBeforeLoad.data] 数据或请求地址.</span></span><br><span class="line"><span class="regexp">@param &#123;Function&#125; [options.events.onLoadSuccess] 远程获取表单数据成功时执行.</span></span><br><span class="line"><span class="regexp">@param &#123;Object&#125; [options.events.onLoadSuccess.data] 数据.</span></span><br><span class="line"><span class="regexp">@param &#123;Object&#125; [options.events.onLoadSuccess.originalData] 原始数据.</span></span><br><span class="line"><span class="regexp">@param &#123;Function&#125; [options.events.onBeforeTransformData] 远程获取初始化数据时，转换数据(toDataObjects)之前执行事件，必须`return`处理后的数据对象，@since 2.0.0有效.</span></span><br><span class="line"><span class="regexp">@param &#123;Object&#125; [options.events.onBeforeTransformData.data] 转换之前的原始数据对象.</span></span><br><span class="line"><span class="regexp">@param &#123;Function&#125; [options.events.onAfterLoad] 表单加载数据批量赋值成功后执行，提供参数：data.</span></span><br><span class="line"><span class="regexp">@param &#123;Object&#125; [options.events.onAfterLoad.data] 处理后的数据（多层级通过'.'连接）.</span></span><br><span class="line"><span class="regexp">@param &#123;Object&#125; [options.events.onAfterLoad.originalData] 原始数据,当从远程获取数据时有效.</span></span><br><span class="line"><span class="regexp">@param &#123;Function&#125; [options.events.onLoadError] 远程获取表单数据失败执行.</span></span><br><span class="line"><span class="regexp">@param &#123;Function&#125; [options.events.onLoadFailure] 远程获取数据success状态为false，进入return false将不执行默认提示,@since 2.0.0有效.</span></span><br><span class="line"><span class="regexp">@param &#123;Object&#125; [options.events.onLoadFailure.rslt] 后端返回的数据.</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">@param &#123;String&#125; [options.dataNode='data'] 指定初始化数据节点路径.</span></span><br><span class="line"><span class="regexp">@param &#123;Boolean&#125; [options.showMask=true] 是否显示遮罩信息.</span></span><br><span class="line"><span class="regexp">@param &#123;String&#125; [options.maskMsg='IN_INIT_DATA'] 默认遮罩信息</span></span><br><span class="line"><span class="regexp">@param &#123;Boolean&#125; [options.isMerged=false] 调用&#123;@link Eui.Form#setBindDatas&#125;时是否合并原始绑定的数据(针对表单多次请求绑定数据有意义).</span></span><br><span class="line"><span class="regexp">@param &#123;Boolean&#125; [options.isBindOriginalData=true] 是否缓存原始数据，方便提交时做合并,默认与&#123;@link Eui.Form#isBindOriginalData isBindOriginalData&#125;一致.</span></span><br><span class="line"><span class="regexp">@param &#123;Array&#125; [options.filterFields] 当`isBindOriginalData`为true时，过滤缓存数据指定字段,比如：radio,checkbox 标签未选中，序列化时是忽略的，如果缓存了，会导致值还是会传递.</span></span><br></pre></td></tr></table></figure>
+
+<p><br /><strong>图解如下：</strong><br /></p>
+<p><img src="/images/zebra/3/03.png" alt="image.png"><br /></p>
+<h1 id="六、表单提交过程可能发生的事"><a href="#六、表单提交过程可能发生的事" class="headerlink" title="六、表单提交过程可能发生的事"></a>六、表单提交过程可能发生的事</h1><p><br /><img src="/images/zebra/3/04.png" alt="image.png"><br /></p>
+<h1 id="七、封装方法原则"><a href="#七、封装方法原则" class="headerlink" title="七、封装方法原则"></a>七、封装方法原则</h1><p><br /><img src="/images/zebra/3/05.png" alt="image.png"><br /><br /></p>
+<h1 id="八、在公司最佳实践"><a href="#八、在公司最佳实践" class="headerlink" title="八、在公司最佳实践"></a>八、在公司最佳实践</h1><p><br />我们首先来看下，定义一个按钮打开一个模态框加载一个指定页面，是怎么定义的：<br /></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&lt;button <span class="class"><span class="keyword">class</span></span>=<span class="string">"btn btn-danger"</span> </span><br><span class="line">			data-toggle=<span class="string">"modal"</span></span><br><span class="line">     custom-options=<span class="string">"</span></span><br><span class="line"><span class="string">            btnType:'modal',</span></span><br><span class="line"><span class="string">            langid:'ALERT_TITLE_SHOW',</span></span><br><span class="line"><span class="string">            title: 'Validate Form',</span></span><br><span class="line"><span class="string">            href:'base.html'</span></span><br><span class="line"><span class="string">     "</span></span><br><span class="line"> &gt;打开模态框&lt;<span class="regexp">/button&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="8-1-表单相关按钮扩展类型"><a href="#8-1-表单相关按钮扩展类型" class="headerlink" title="8.1 表单相关按钮扩展类型"></a>8.1 表单相关按钮扩展类型</h2><p>![image.png](<br /><img src="/images/zebra/3/06.png" alt="image.png"><br />)</p>
+<h2 id="8-2-如何自定义扩展按钮类型"><a href="#8-2-如何自定义扩展按钮类型" class="headerlink" title="8.2 如何自定义扩展按钮类型"></a>8.2 如何自定义扩展按钮类型</h2><p><br /><strong>注册扩展按钮类型：</strong></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">Eui.Extra.registerBtnType(</span><br><span class="line">      <span class="string">'按钮类型'</span>, <span class="comment">// 自定义按钮类型</span></span><br><span class="line">      &#123;</span><br><span class="line">        options:&#123;</span><br><span class="line">            <span class="comment">// 自定义配置项</span></span><br><span class="line">        &#125;,</span><br><span class="line">        handler: <span class="function"><span class="keyword">function</span>(<span class="params">target,options</span>)</span>&#123;</span><br><span class="line">            <span class="comment">// 具体实现</span></span><br><span class="line">        &#125;</span><br><span class="line">     &#125;</span><br><span class="line"> );</span><br></pre></td></tr></table></figure>
+
+<p><br />按钮扩展类型(btnType)包括：’action’,’modal’,’native’,’query’,’submit’等，每个实现都包含以下属性：<br /><br><br />options:默认配置项;<br>handler : 处理函数，包括：target,options两个参数.<br /><br><br />*<em>示例：定义一个按钮点击打开模态框 *</em></p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">button</span> <span class="attr">class</span>=<span class="string">"btn btn-danger"</span> <span class="attr">data-toggle</span>=<span class="string">"modal"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">custom-options</span>=<span class="string">"</span></span></span><br><span class="line"><span class="tag"><span class="string">       langid:'ALERT_TITLE_SHOW',</span></span></span><br><span class="line"><span class="tag"><span class="string">       title: 'Validate Form',</span></span></span><br><span class="line"><span class="tag"><span class="string">       href:'base.html'</span></span></span><br><span class="line"><span class="tag"><span class="string">    "</span></span></span><br><span class="line"><span class="tag">&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p><br />默认’btnType’的值”modal”，每个按钮都包括公共扩展属性’btnType’,’needAuthorized’,’controlTrigger’等， 详情可查看extBtnOptions介绍。</p>
+<h1 id="九、表单应用探索Formily"><a href="#九、表单应用探索Formily" class="headerlink" title="九、表单应用探索Formily"></a>九、表单应用探索Formily</h1><p><br />纵观近几年前端技术发展方向，以及延伸到未来前端发展方向，我们可以总结为以下几个阶段： <br /></p>
+<p><br /><img src="/images/zebra/3/07.png" alt="image.png"><br /></p>
+<ul>
+<li>F2V(Function函数驱动视图，以jQuery为代表)</li>
+<li>D2V（Data数据驱动视图，以MVVM框架React、Angular、Vue为代表）</li>
+<li>C2V(Component组件驱动视图，以Ant Design、Fusion Design为代表)</li>
+<li>T2V（Template模板驱动视图，以Ant Design Pro等为代表）</li>
+<li>S2V（Scene场景驱动视图）</li>
+<li>M2V（Model模型驱动视图）以及 AI2V建设（AI智能驱动视图，比如以ImageCook为典型代表）。 </li>
+</ul>
+<p><br />各个阶段从下至上环环相扣，紧密依赖，虽然各层在同一时期都有建设，但最终上层建设的完善离不开下层建设的基础。  在组件化、模板化建设趋于完善的状态下，通过特定场景（例如表单、列表等）进行提效是当下中后台建设的关键，即当前处于S2V场景驱动视图建设的关键时期。能否建立一套标准方案，使协议通、物料通、能力通，是开箱即用SDK战役核心要解决的问题，而在中后台业务中，表单是任何业务都避免不了的一个基本需求。在当前表单方案需求多、效率低、性能差，各BU业务都在重复性建设的背景下，表单核心要实现的目标如下：<br>统一表单解决方案，具备高可用、高性能、高扩展性等特点，避免重复建设；<br>建立一套标准表单Schema描述协议，提升表单开发效率及动态化需求，为未来自动化、智能化提供协议基石；<br>统一表单Schema协议渲染引擎，生态表单组件无缝接入，提供自定义组件机制及接入能力；<br>不断完善表单开发周边工具生态，降低表单开发门槛，提升表单开发效率。 <br /></p>
+<h2 id="9-1-四层建设"><a href="#9-1-四层建设" class="headerlink" title="9.1 四层建设"></a>9.1 四层建设</h2><p><br />4层建设分别为协议层、工具层、渲染引擎及表单组件层。协议层主要定义了表单的描述协议，有10+协议规范，部分仍在提案中（比如布局方案），完备的描述能力，后面会有详细描述。工具层是指在协议的基础上，提供一个可视化的协议生成工具，具备schema快速生成、可视化配置及实时预览功能。渲染引擎是基于标准schema协议的渲染实现，所有在协议层定义的能力都将在这一层实现，同时能够对react生态表单输入组件及自定义组件无缝接入，同样以@formily/react-schema-renderer NPM包的形式提供。表单组件层是渲染层实现的核心依赖，表单组件层负责表单消息通信、状态管理及副作用的逻辑处理，这一层对上层业务一般可以不关心，以@formily/core 包向上层输出能力。 <br /></p>
+<p><br /><img src="/images/zebra/3/08.png" alt="image.png"><br /></p>
+<h2 id="9-1-适用场景"><a href="#9-1-适用场景" class="headerlink" title="9.1 适用场景"></a>9.1 适用场景</h2><p><br />在业界已有很多表单方案的情况下，什么情况适用Formily表单呢？  <br /></p>
+<ul>
+<li>表单项不固定，对动态表单渲染有需求；</li>
+<li>表单项特别多，对渲染性能有严苛要求；</li>
+<li>对现有的表单组件不满意，寻求更好的解决方案。</li>
+</ul>
+<p><br /> 官网地址：<a href="https://formilyjs.org/" target="_blank" rel="noopener">https://formilyjs.org/</a><br />Github开源项目地址：<a href="https://github.com/alibaba/formily" target="_blank" rel="noopener">https://github.com/alibaba/formily</a> <br /></p>
+<blockquote>
+<p>声明：第九篇章，引用自Formily 自<a href="">https://mp.weixin.qq.com/s/pBQNtE1gBwH89-8KV07eMA</a> 的对外宣传。</p>
+</blockquote>
+<p><strong>看完如果有启发，给辛勤的开源者送颗稻草吧</strong><br />👇</p>
+
+    </div>
+    
+    <div class="post-footer">
+        <div>
+            
+            转载声明：
+            商业转载请联系作者获得授权,非商业转载请注明出处 © <a href="" target="_blank">Zebra</a>
+            
+            
+        </div>
+        <div>
+            
+        </div>
+    </div>
+</article>
+<div class="article-nav prev-next-wrap clearfix">
+    
+    
+    <a href="/2020/07/26/component-dev/" class="next-post btn btn-default" title='第四期 - 「如何二次开发组件及使用」 - 2020.4.4'>
+        <span class="hidden-lg">下一篇</span>
+        <span class="hidden-xs">
+            第四期 - 「如何二次开发组件及使用」 - 2020.4.4</span><i class="fa fa-angle-right fa-fw"></i>
+    </a>
+    
+</div>
+
+<div id="comments">
+    
+
+<div id="vcomments" class="valine"></div>
+
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="/assets/valine.min.js"></script>
+
+<script>
+new Valine({
+    av: AV,
+    el: '#vcomments',
+    appId: '0q0vid2kizGymmd0dNKs3lOY-gzGzoHsz',
+    appKey: 'wNj5sJAu5hReOirB3QbKqNiA',
+    placeholder: '说点什么吧',
+    notify: false,
+    verify: true,
+    avatar: 'mm',
+    meta: 'nick,mail'.split(','),
+    pageSize: '10',
+    path: window.location.pathname,
+    lang: 'zh-CN'.toLowerCase()
+})
+</script>
+
+
+</div>
+
+                </main>
+                
+                    <aside id="article-toc" role="navigation" class="col-md-4">
+    <div class="widget">
+        <h3 class="title">
+            文章目录
+        </h3>
+        
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#一、前言"><span class="toc-text">一、前言</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#二、介绍"><span class="toc-text">二、介绍</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#2-1-我是谁？"><span class="toc-text">2.1. 我是谁？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-2-我们的团队"><span class="toc-text">2.2. 我们的团队</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-3-怎么联系我？"><span class="toc-text">2.3. 怎么联系我？</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#三、主题背景"><span class="toc-text">三、主题背景</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#四、表单常见场景"><span class="toc-text">四、表单常见场景</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#五、表单加载过程分析"><span class="toc-text">五、表单加载过程分析</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#5-1-打开模态窗口加载过程介绍"><span class="toc-text">5.1 打开模态窗口加载过程介绍</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-2-loadForm方法详解"><span class="toc-text">5.2 loadForm方法详解</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#六、表单提交过程可能发生的事"><span class="toc-text">六、表单提交过程可能发生的事</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#七、封装方法原则"><span class="toc-text">七、封装方法原则</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#八、在公司最佳实践"><span class="toc-text">八、在公司最佳实践</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#8-1-表单相关按钮扩展类型"><span class="toc-text">8.1 表单相关按钮扩展类型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#8-2-如何自定义扩展按钮类型"><span class="toc-text">8.2 如何自定义扩展按钮类型</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#九、表单应用探索Formily"><span class="toc-text">九、表单应用探索Formily</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#9-1-四层建设"><span class="toc-text">9.1 四层建设</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#9-1-适用场景"><span class="toc-text">9.1 适用场景</span></a></li></ol></li></ol>
+        
+    </div>
+</aside>
+                
+            </div>
+        </div>
+    </section>
+    <footer class="main-footer">
+    <div class="container">
+        <div class="row">
+        </div>
+    </div>
+</footer>
+<a id="back-to-top" class="icon-btn hide">
+    <i class="fa fa-chevron-up"></i>
+</a>
+    <div class="copyright">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="busuanzi">
+    
+</div>
+            </div>
+            <div class="col-sm-12">
+                <span>Copyright &copy;
+                    2020
+                    
+                </span> |
+                <span>
+                    Powered by <a href="//hexo.io" class="copyright-links" target="_blank" rel="nofollow">Hexo</a>
+                </span> |
+                <span>
+                    Theme by <a href="//github.com/shenliyang/hexo-theme-snippet.git" class="copyright-links" target="_blank" rel="nofollow">Snippet</a>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<script src="/assets/tagcanvas.min.js?rev=2.9.js"></script>
+
+<script>
+var tagOption = {
+    textColour: '#444', // 字体颜色
+    outlineMethod: 'block', // 选中模式
+    outlineColour: '#FFDAB9', // 选中模式的颜色
+    interval: 30 || 30, // 动画帧之间的时间间隔，值越大，转动幅度越大
+    textHeight: 13,
+    outlineRadius: 3,
+    freezeActive: true || '', // 选中的标签是否继续滚动
+    frontSelect: true || '', // 不选标签云后部的标签
+    initial: [0.1, -0.1],
+    depth: 0.5,
+    decel: 0.95,
+    maxSpeed: 0.03,
+    reverse: true || '', // 是否反向触发
+    fadeIn: 500, // 进入动画时间
+    wheelZoom: false || '' // 是否启用鼠标滚轮
+}
+TagCanvas.Start('tag-cloud-3d', '', tagOption);
+</script>
+
+
+
+<script src="/js/app.js?rev=@@hash.js"></script>
+
+</body>
+</html>
