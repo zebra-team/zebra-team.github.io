@@ -1,6 +1,6 @@
 ---
 title: 第四期 - 「如何二次开发组件及使用」 - 2020.4.4
-date: 2020/07/26
+date: 2020/04/04
 categories :
 - 分享专栏
 tags: ['Zebra', 'ui component','jquery'] 
@@ -71,8 +71,6 @@ SCM，2009年参加工作，直到2014年中旬前主要从事后端JAVA开发�
 $( "#datepicker" ).datepicker();
 ```
 
-<br />效果图：<br />![image.png](https://cdn.nlark.com/yuque/0/2020/png/595632/1585981141989-5586aa7f-7a74-40e9-b9f5-7e35cc83a8d3.png#align=left&display=inline&height=67&name=image.png&originHeight=134&originWidth=452&size=10838&status=done&style=none&width=226)
-
 ## 5.2 react代表antd库
 
 <br />在这里antd以DatePicker组件使用为例：<br />
@@ -81,8 +79,6 @@ $( "#datepicker" ).datepicker();
 import { DatePicker } from 'antd';
 <DatePicker />
 ```
-
-<br />效果图：<br />![image.png](https://cdn.nlark.com/yuque/0/2020/png/595632/1585981394145-48712170-d75e-4fe9-8767-d3f22856846a.png#align=left&display=inline&height=42&name=image.png&originHeight=43&originWidth=162&size=5193&status=done&style=none&width=157)<br />
 
 ## 5.3 vue代表element库
 
@@ -96,7 +92,6 @@ import { DatePicker } from 'antd';
 </el-date-picker>
 ```
 
-<br />效果图：<br />![image.png](https://cdn.nlark.com/yuque/0/2020/png/595632/1585981631084-ec48b63d-46b9-4191-bd52-6108dcb10ddf.png#align=left&display=inline&height=37&name=image.png&originHeight=54&originWidth=242&size=5266&status=done&style=none&width=166)<br />
 <br />通过上述不同组件库的定义方式我们可能想到了什么：<br />
 
 - jquery ui：组件必须需要js来初始化(如果我现在页面上有100以上个组件)，这将会怎么样？
