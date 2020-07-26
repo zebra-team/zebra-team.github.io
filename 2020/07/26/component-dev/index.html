@@ -1,0 +1,619 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+<head>
+    <!--Setting-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <meta http-equiv="Cache-Control" content="no-transform">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta name="apple-mobile-web-app-capable" content="Zebra前端团队博客">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no,email=no,adress=no">
+    <meta name="browsermode" content="application">
+    <meta name="screen-orientation" content="portrait">
+    <meta name="theme-version" content="1.0.0">
+    <meta name="root" content="/">
+    <link rel="dns-prefetch" href="http://blog.zebrateam.cn">
+    <!--SEO-->
+
+<meta name="keywords" content="Zebra,ui component,jquery" />
+
+
+<meta name="description" content="
+
+本文是第四期分享主题 - 「如何二次开发组件及使用」的文字稿，可以通过查看来巩固知识点。
+
+一、前言本文是根据2020.04.04 日，第四期分享主题「如何二次开发组件及使用」整理而来的文字..." />
+
+
+<meta name="robots" content="all" />
+<meta name="google" content="all" />
+<meta name="googlebot" content="all" />
+<meta name="verify" content="all" />
+    <!--Title-->
+
+<title>
+    
+    第四期 - 「如何二次开发组件及使用」 - 2020.4.4 |
+    
+    Zebra前端团队博客
+</title>
+
+<link rel="alternate" href="/atom.xml" title="Zebra前端团队博客" type="application/atom+xml">
+
+
+<link rel="icon" href="/favicon.ico">
+
+    
+
+
+<link rel="stylesheet" href="/css/bootstrap.min.css?rev=3.3.7.css">
+<link rel="stylesheet" href="/css/font-awesome.min.css?rev=4.7.0.css">
+<link rel="stylesheet" href="/css/style.css?rev=@@hash.css">
+
+    
+<div class="hide">
+    <script type="text/javascript">
+    var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+    document.write(unescape("%3Cspan class='cnzz_stat_icon_1263868967 hide' %3E%3Cscript%20src%3D%22https%3A%2F%2Fs95.cnzz.com%2Fz_stat.php%3Fweb_id%3D1272564536%22%3E%3C%2Fscript%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s19.cnzz.com/z_stat.php%3Fid%3D1263868967%26show%3Dpic1' type='text/javascript'%3E%3C/script%3E"));
+    </script>
+</div>
+
+
+
+
+    
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+<!--[if lte IE 8]>
+<style>
+    html{ font-size: 1em }
+</style>
+<![endif]-->
+<!--[if lte IE 9]>
+<div style="ie">你使用的浏览器版本过低，为了你更好的阅读体验，请更新浏览器的版本或者使用其他现代浏览器，比如Chrome、Firefox、Safari等。</div>
+<![endif]-->
+<body>
+    <header class="main-header"  style="background-image:url(
+    /./img/banner.jpg)"
+     >
+    <div class="main-header-box">
+        <a class="header-avatar" href="/" title='SCM'>
+            <img src="/img/avatar.jpg" alt="logo头像" class="img-responsive center-block">
+        </a>
+        <div class="branding">
+            <!--<h2 class="text-hide">Snippet主题,从未如此简单有趣</h2>-->
+            
+            <h2>
+                分享是件简单有趣的事情
+            </h2>
+            
+        </div>
+    </div>
+</header>
+    <nav class="main-navigation">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="navbar-header"><span class="nav-toggle-button collapsed pull-right" data-toggle="collapse" data-target="#main-menu" id="mnav">
+                        <span class="sr-only"></span>
+                        <i class="fa fa-bars"></i>
+                    </span>
+                    <a class="navbar-brand" href="http://blog.zebrateam.cn">
+                        Zebra前端团队博客</a>
+                </div>
+                <div class="collapse navbar-collapse" id="main-menu">
+                    <ul class="menu">
+                        
+                        <li role="presentation" class="text-center">
+                            <a href="/"><i class="fa "></i>
+                                首页</a>
+                        </li>
+                        
+                        <li role="presentation" class="text-center">
+                            <a href="/categories/分享专栏/"><i class="fa "></i>
+                                分享专栏</a>
+                        </li>
+                        
+                        <li role="presentation" class="text-center">
+                            <a href="/categories/解决方案/"><i class="fa "></i>
+                                解决方案</a>
+                        </li>
+                        
+                        <li role="presentation" class="text-center">
+                            <a href="/archives/"><i class="fa "></i>
+                                时间轴</a>
+                        </li>
+                        
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+    <section class="content-wrap">
+        <div class="container">
+            <div class="row">
+                <main class="col-md-8 main-content m-post">
+                    <p id="process"></p>
+<article class="post">
+    <div class="post-head">
+        <h1 id="第四期 - 「如何二次开发组件及使用」 - 2020.4.4">
+            
+            第四期 - 「如何二次开发组件及使用」 - 2020.4.4
+            
+        </h1>
+        <div class="post-meta">
+    
+    <span class="categories-meta fa-wrap">
+        <i class="fa fa-folder-open-o"></i>
+        <a class="category-link" href="/categories/%E5%88%86%E4%BA%AB%E4%B8%93%E6%A0%8F/">分享专栏</a>
+    </span>
+    
+    
+    <span class="fa-wrap">
+        <i class="fa fa-tags"></i>
+        <span class="tags-meta">
+            
+            <a class="tag-link" href="/tags/Zebra/" rel="tag">Zebra</a> <a class="tag-link" href="/tags/jquery/" rel="tag">jquery</a> <a class="tag-link" href="/tags/ui-component/" rel="tag">ui component</a>
+            
+        </span>
+    </span>
+    
+    
+    
+    <span class="fa-wrap">
+        <i class="fa fa-clock-o"></i>
+        <span class="date-meta">
+            2020/07/26</span>
+    </span>
+    
+    
+</div>
+        
+        
+    </div>
+    
+    <div class="post-body post-content">
+        <p><img src="/images/zebra/4/banner.png" alt="PPT首页.png"></p>
+<blockquote>
+<p>本文是第四期分享主题 - 「如何二次开发组件及使用」的文字稿，可以通过查看来巩固知识点。</p>
+</blockquote>
+<h1 id="一、前言"><a href="#一、前言" class="headerlink" title="一、前言"></a>一、前言</h1><p><strong>本文是根据2020.04.04 日，第四期分享主题「如何二次开发组件及使用」整理而来的文字稿。</strong></p>
+<p>本文分享以 “如何”和“实践” 为切入点，对常用组件使用正常模式及二次开发后使用作对比来阐述其意义，介绍在公司实践中如何封装作为引导，了解封装组件的方法，带你理解框架的思考及实现过程。</p>
+<h1 id="二、介绍"><a href="#二、介绍" class="headerlink" title="二、介绍"></a>二、介绍</h1><h2 id="2-1-我是谁？"><a href="#2-1-我是谁？" class="headerlink" title="2.1. 我是谁？"></a>2.1. 我是谁？</h2><p>SCM，2009年参加工作，直到2014年中旬前主要从事后端JAVA开发，期间善于使用ExtJs，那会还没有明确的前后端之分，处于全栈开发时期。一个偶然的契机，接手了公司的前端框架，出于些特殊原因，要重新写一套适合公司的框架，EraJs应运而生，这目前还是公司占80%以上项目PC WEB项目的首选框架。这一从事前端框架开发，2014 ~ 至今，6年过去了，期间整过Jquery、Bootstrap、Zepto、Jquery UI、第三方UI插件等等源码，也产出了Eui1.0、T2.0、T3.0、T3.5(T系列框架主要使用于PC客户端)。构建从Grunt到后来的Gulp，再到现在的Webpack，现在主攻React方向中后端最佳解决方案，可视化开发、工程化建设、基建完善。</p>
+<h2 id="2-2-我们的团队"><a href="#2-2-我们的团队" class="headerlink" title="2.2. 我们的团队"></a>2.2. 我们的团队</h2><p>我所带领的前端框架组，目前主要3个人，主要服务于公司PC WEB、PC客户端项目框架支撑工作，逐渐完善框架体系，更好的提效，做好技术支撑工作。</p>
+<h2 id="2-3-怎么联系我？"><a href="#2-3-怎么联系我？" class="headerlink" title="2.3. 怎么联系我？"></a>2.3. 怎么联系我？</h2><p>下面是我的微信二维码，对前端基建充满兴趣的可以加我交流，我们也会定期的分享更多框架相关的主题。<br /><img src="/images/wechat.jpeg#align=left&display=inline&height=296&name=WechatIMG1.jpeg&originHeight=896&originWidth=674&size=61371&status=done&style=none&width=223" alt="WechatIMG1.jpeg"><br /></p>
+<h1 id="三、主题背景"><a href="#三、主题背景" class="headerlink" title="三、主题背景"></a>三、主题背景</h1><p>在中后台应用中，大多功能都在跟表单(Form)、表格(Datagrid)、窗口(Window)、模态框(Modal)、布局(Layout)打交道，从第三方开源的UI库中选型时，你会发现普遍存在一个现象，不管第三方库开源者背景如何，社区如何活跃，亦不管处于当下的什么阶段：<br /></p>
+<ul>
+<li>F2V： Function函数驱动视图，以jQuery为代表，代表库Bootstrap、Jquery UI、各种Jquery UI插件、        EasyUI、Layui等等；</li>
+<li>D2V：Data数据驱动视图，以MVVM框架React(Antd、Fusion Design)、Angular(Ng-zorro、Angular Material)、Vue(Element、Iview)为代表；</li>
+<li>C2V：Component组件驱动视图，以Ant Design、Fusion Design为代表；</li>
+<li>T2V：Template模板驱动视图，以Ant Design Pro等为代表；</li>
+<li>S2V：Scene场景驱动视图；</li>
+<li>M2V：Model模型驱动视图；</li>
+<li>AI2V建设：AI智能驱动视图，比如以ImageCook为典型代表</li>
+</ul>
+<p><br /> 以上不同阶段，典型的代表UI库，虽然能在基础库上满足业务中需求，但是在实际应用中，你会发现在代码上存在重复定义，甚至在需求变更时导致整个应用中组件使用定义需要改动。总结几个缺点如下：<br /></p>
+<ul>
+<li>代码量：你会发现整个应用中重复的代码比较多，但是又不能省；</li>
+<li>可扩展性：需求变更，全局性的污染，需要作出相应改动；</li>
+<li>统一性：不同第三方组件库整合，在使用、主题等不统一，无法很好定制主题、多语言等场景；</li>
+<li>未来发展：使用方法过于局限，难以规划未来往场景驱动、模型驱动、智能驱动实践。</li>
+</ul>
+<p><br />要避免上述缺点，我们可以从业务需求场景出发，深度定制二次开发，约定大于配置的原则，以统一模式配置化方式来支持灵活多变的场景，减轻不同技术栈切换带来学习的成本。</p>
+<h1 id="四、常见组件"><a href="#四、常见组件" class="headerlink" title="四、常见组件"></a>四、常见组件</h1><h1 id="五、二次开发组件的意义"><a href="#五、二次开发组件的意义" class="headerlink" title="五、二次开发组件的意义"></a>五、二次开发组件的意义</h1><p><br />在谈论二次开发组件的意义前，我们先来看下常规模式下，不同技术栈使用第三方组件的标准用法。<br /></p>
+<h2 id="5-1-jquery代表jquery-ui库"><a href="#5-1-jquery代表jquery-ui库" class="headerlink" title="5.1 jquery代表jquery ui库"></a>5.1 jquery代表jquery ui库</h2><p><br />在这里jquery ui库以datepicker组件使用为例：<br /></p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">p</span>&gt;</span>日期：<span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"text"</span> <span class="attr">id</span>=<span class="string">"datepicker"</span>&gt;</span><span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p><br />初始化方式：<br /></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$( <span class="string">"#datepicker"</span> ).datepicker();</span><br></pre></td></tr></table></figure>
+
+<p><br />效果图：<br /><img src="https://cdn.nlark.com/yuque/0/2020/png/595632/1585981141989-5586aa7f-7a74-40e9-b9f5-7e35cc83a8d3.png#align=left&display=inline&height=67&name=image.png&originHeight=134&originWidth=452&size=10838&status=done&style=none&width=226" alt="image.png"></p>
+<h2 id="5-2-react代表antd库"><a href="#5-2-react代表antd库" class="headerlink" title="5.2 react代表antd库"></a>5.2 react代表antd库</h2><p><br />在这里antd以DatePicker组件使用为例：<br /></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; DatePicker &#125; <span class="keyword">from</span> <span class="string">'antd'</span>;</span><br><span class="line">&lt;DatePicker /&gt;</span><br></pre></td></tr></table></figure>
+
+<p><br />效果图：<br /><img src="https://cdn.nlark.com/yuque/0/2020/png/595632/1585981394145-48712170-d75e-4fe9-8767-d3f22856846a.png#align=left&display=inline&height=42&name=image.png&originHeight=43&originWidth=162&size=5193&status=done&style=none&width=157" alt="image.png"><br /></p>
+<h2 id="5-3-vue代表element库"><a href="#5-3-vue代表element库" class="headerlink" title="5.3 vue代表element库"></a>5.3 vue代表element库</h2><p><br />在这里element以DatePicker组件使用为例：<br /></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;el-date-picker</span><br><span class="line">    v-model&#x3D;&quot;value1&quot;</span><br><span class="line">    type&#x3D;&quot;date&quot;</span><br><span class="line">    placeholder&#x3D;&quot;选择日期&quot;&gt;</span><br><span class="line">&lt;&#x2F;el-date-picker&gt;</span><br></pre></td></tr></table></figure>
+
+<p><br />效果图：<br /><img src="https://cdn.nlark.com/yuque/0/2020/png/595632/1585981631084-ec48b63d-46b9-4191-bd52-6108dcb10ddf.png#align=left&display=inline&height=37&name=image.png&originHeight=54&originWidth=242&size=5266&status=done&style=none&width=166" alt="image.png"><br /><br><br />通过上述不同组件库的定义方式我们可能想到了什么：<br /></p>
+<ul>
+<li>jquery ui：组件必须需要js来初始化(如果我现在页面上有100以上个组件)，这将会怎么样？</li>
+<li>antd：组件支持全局重写组件的默认显示格式吗？</li>
+<li>vue：组件支持显示格式与序列化表单获取的格式不一样吗？</li>
+</ul>
+<p><br />而这些疑问，恰恰是实际业务中，普遍存在的需求场景。如果UI 组件本身不能很好的支持解决上述问题，那使用者注定不能愉快、轻松的工作。<br /><br><br />我们今天的主题正是要解答你的疑虑，并提供一种行之有效的解决方案：二次开发组件想法方法。</p>
+<h1 id="六、如何二次开发组件"><a href="#六、如何二次开发组件" class="headerlink" title="六、如何二次开发组件"></a>六、如何二次开发组件</h1><p><br />任何的解决方案都是为了更好的解决现实中存在的需求。公司目前主要包括jquery和react技术栈，今天也会以我是如何在公司中约定二次开发的规则及实现的展开话题。<br /><br><br />在这里主要以jquery技术栈为主。</p>
+<h2 id="6-1-约定关键字"><a href="#6-1-约定关键字" class="headerlink" title="6.1 约定关键字"></a>6.1 约定关键字</h2><p><br />为了最大程度减少以js驱动初始化UI组件，约定了<code>xtype</code> 标识来区分不同组件类型，以<code>**custom-options**</code>扩展属性来达到参数配置化目的。<br /><br><br /><strong><em>我们来看个例子：</em></strong><br /><br><br />定义常规日期组件：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">p</span>&gt;</span>日期：<span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"text"</span> <span class="attr">xtype</span>=<span class="string">"datepicker"</span>&gt;</span><span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>备注：以上定义即完成了组件的初始化，如果有其他属性需要定义，可以配置在custom-options中。</p>
+</blockquote>
+<p><br />定义个两个日期比较范围：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">p</span>&gt;</span>开始时间：<span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"text"</span> </span></span><br><span class="line"><span class="tag">               <span class="attr">id</span>=<span class="string">"startDate"</span> </span></span><br><span class="line"><span class="tag">               <span class="attr">xtype</span>=<span class="string">"datepicker"</span> </span></span><br><span class="line"><span class="tag">               <span class="attr">custom-options</span>=<span class="string">"</span></span></span><br><span class="line"><span class="tag"><span class="string">  								lessToPicker: '#endDate'</span></span></span><br><span class="line"><span class="tag"><span class="string">  						 "</span>&gt;</span><span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">p</span>&gt;</span>结束时间：<span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"text"</span></span></span><br><span class="line"><span class="tag">               <span class="attr">id</span>=<span class="string">"endDate"</span> </span></span><br><span class="line"><span class="tag">               <span class="attr">xtype</span>=<span class="string">"datepicker"</span></span></span><br><span class="line"><span class="tag">               <span class="attr">custom-options</span>=<span class="string">"</span></span></span><br><span class="line"><span class="tag"><span class="string">  								greaterToPicker: '#startDate'</span></span></span><br><span class="line"><span class="tag"><span class="string">  						 "</span></span></span><br><span class="line"><span class="tag">               &gt;</span><span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+
+<blockquote>
+<p>仔细观察的同学，也许发现了，开始时间增加了配置”lessToPicker”，结束时间增加了配置”greaterToPicker”。我们就是通过增加了扩展配置来达到省去了监听组件的onchange事件去与另个组件的交互代码。</p>
+</blockquote>
+<h2 id="6-2-API-设计"><a href="#6-2-API-设计" class="headerlink" title="6.2 API 设计"></a>6.2 API 设计</h2><p><br />要达到上述可配置，我们必须先设计好我们整体的解析规则。接下来我们先来看下设计的API，注册扩展UI组件类型的用法。<br /><br><br />框架封装了方法Eui.Extra.registerUiExtType来支持自定义扩展组件类型。<br /><br><br />参数介绍：<br /></p>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>说明</th>
+<th>类型</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>uiType</td>
+<td>组件约定类型，注意唯一</td>
+<td>String</td>
+</tr>
+<tr>
+<td>parser</td>
+<td>解析实现，包含：options, handler两个属性</td>
+<td>Object/Function</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p>备注：parser参数也支持是function类型，在无需默认配置项时，可直接定义成funciton类型。</p>
+</blockquote>
+<p><br /><em><strong>API调用格式：</strong></em></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">Eui.Extra.registerUiExtType(</span><br><span class="line">    <span class="string">'组件扩展类型'</span>,&#123;</span><br><span class="line">    options: &#123;</span><br><span class="line">        <span class="comment">// 默认配置项</span></span><br><span class="line">    &#125;,</span><br><span class="line">    handler: <span class="function"><span class="keyword">function</span>(<span class="params">target,options</span>)</span>&#123;</span><br><span class="line">        <span class="comment">//具体扩展解析实现</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<p><br /><em><strong>以扩展switch为例：</strong></em><br /></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">Eui.Extra.registerUiExtType(</span><br><span class="line">  	<span class="string">'switch'</span>,	&#123;</span><br><span class="line">      options: &#123;</span><br><span class="line">        onText: <span class="string">"ON"</span>,</span><br><span class="line">        offText: <span class="string">"OFF"</span></span><br><span class="line">      &#125;,</span><br><span class="line">      handler: <span class="function"><span class="keyword">function</span>(<span class="params">target,options</span>)</span>&#123;</span><br><span class="line">        <span class="keyword">var</span> $target = $(target),</span><br><span class="line">            opts = options || &#123;&#125;,</span><br><span class="line">            onText = opts.onText,</span><br><span class="line">            offText = opts.offText;</span><br><span class="line">        <span class="keyword">if</span>(!$target.parent(<span class="string">"label"</span>).hasClass(<span class="string">"toggle"</span>))&#123;</span><br><span class="line">          $target.wrap(<span class="string">'&lt;label class="toggle"&gt;&lt;/label&gt;'</span>)</span><br><span class="line">            .after(<span class="string">'&lt;i data-swchon-text="'</span> + onText + <span class="string">' " data-swchoff-text="'</span> + offText + <span class="string">'"&gt;&lt;/i&gt;'</span>);</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">  &#125;);</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>介绍到这里的时候，是不是已经对二次开发组件有一定的了解了。</p>
+</blockquote>
+<h2 id="6-3-约定大于配置"><a href="#6-3-约定大于配置" class="headerlink" title="6.3 约定大于配置"></a>6.3 约定大于配置</h2><p><br />“约定大于配置”这个原则，在框架封装过程中，尤其重要，我们虽然可以直接在custom-options中去配置参数，但是如果你的参数是具有普遍代表性的，你决定这样做还合理吗？自然 “say no”。<br /><br><br />在封装组件时，我们应该遵循这个原则，将具有代表性的参数可以定义在options中。这里我们以封装第三方日期组件<a href="http://www.jemui.com/uidoc/jedate-jquery.html" target="_blank" rel="noopener">jedate</a>为例来体验它的意义。<br /></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">		 * <span class="doctag">@singleton</span></span></span><br><span class="line"><span class="comment">		 * <span class="doctag">@class </span>Eui.uiExtensions.Jedate</span></span><br><span class="line"><span class="comment">		 *</span></span><br><span class="line"><span class="comment">		 * 基于第三方[Jedate](http://www.jemui.com/uidoc/jedate-jquery.html)组件扩展 xtype='jedate'，jeDate包含日历固定、有效无效日期、日期时间戳转换、日期加减、限制时分秒、初始化日期加减N、</span></span><br><span class="line"><span class="comment">		 * 日期标注点、输入框可以直接输入时间、设定年月（YYYY-MM）、日期范围限制、开始日期设定、自定义日期格式、当天的前后若干天返回、时分秒选择、智能响应、自动纠错、节日识别，操作等常规功能外，</span></span><br><span class="line"><span class="comment">		 * 根据不同的日期格式，显示不同内容。同时扩展升级到了6.0版本增加提交格式转化，配置日期关联等。</span></span><br><span class="line"><span class="comment">		 *</span></span><br><span class="line"><span class="comment">		 */</span></span><br><span class="line">		Eui.Extra.registerUiExtType(</span><br><span class="line">			<span class="string">"jedate"</span>,&#123;</span><br><span class="line">				priority: <span class="number">2</span>,</span><br><span class="line">				options: &#123;</span><br><span class="line">					<span class="comment">/**</span></span><br><span class="line"><span class="comment">					 * <span class="doctag">@cfg <span class="type">&#123;String&#125;</span> </span>日期默认显示格式</span></span><br><span class="line"><span class="comment">					 */</span></span><br><span class="line">					format: <span class="string">'YYYY-MM-DD'</span>,</span><br><span class="line"></span><br><span class="line">					transformFormat: <span class="literal">true</span>,</span><br><span class="line">					<span class="comment">/**</span></span><br><span class="line"><span class="comment">					 * <span class="doctag">@cfg <span class="type">&#123;String&#125;</span> </span>日期当前格式，支持有效的Eui.Date所支持的日期格式</span></span><br><span class="line"><span class="comment">					 */</span></span><br><span class="line">					fromFormat: <span class="string">'Y-m-d'</span>,</span><br><span class="line">					<span class="comment">/**</span></span><br><span class="line"><span class="comment">					 * <span class="doctag">@cfg <span class="type">&#123;String&#125;</span> </span>提交格式，支持有效的Eui.Date所支持的日期格式</span></span><br><span class="line"><span class="comment">					 */</span></span><br><span class="line">					toFormat: <span class="string">'Ymd'</span>,</span><br><span class="line">					<span class="comment">/**</span></span><br><span class="line"><span class="comment">					 * <span class="doctag">@cfg <span class="type">&#123;Boolean&#125;</span> </span>是否显示图标</span></span><br><span class="line"><span class="comment">					 */</span></span><br><span class="line">					showIcon: <span class="literal">true</span>,</span><br><span class="line">					<span class="comment">/**</span></span><br><span class="line"><span class="comment">					 * <span class="doctag">@cfg <span class="type">&#123;Boolean&#125;</span> </span>选择日期之后是否关闭选择框，为true时，不立即关闭点击确认之后才关闭</span></span><br><span class="line"><span class="comment">					 */</span></span><br><span class="line">					onClose: <span class="literal">true</span>,</span><br><span class="line">					<span class="comment">/**</span></span><br><span class="line"><span class="comment">					 * <span class="doctag">@cfg <span class="type">&#123;String&#125;</span> </span>日期图标的字体样式</span></span><br><span class="line"><span class="comment">					 */</span></span><br><span class="line">					iconCls: <span class="string">"glyphicon-calendar"</span>,</span><br><span class="line">					<span class="comment">/**</span></span><br><span class="line"><span class="comment">					 * <span class="doctag">@cfg <span class="type">&#123;Boolean&#125;</span> </span>是否显示'清除'按钮</span></span><br><span class="line"><span class="comment">					 */</span></span><br><span class="line">					isClear:<span class="literal">false</span>,</span><br><span class="line">					<span class="comment">/**</span></span><br><span class="line"><span class="comment">					 * <span class="doctag">@cfg <span class="type">&#123;Boolean&#125;</span> </span>是否禁用组件</span></span><br><span class="line"><span class="comment">					 */</span></span><br><span class="line">					disabled: <span class="literal">false</span>,</span><br><span class="line">					<span class="comment">/**</span></span><br><span class="line"><span class="comment">					 * <span class="doctag">@cfg <span class="type">&#123;Boolean&#125;</span> </span>是否只读</span></span><br><span class="line"><span class="comment">					 */</span></span><br><span class="line">					readOnly: <span class="literal">true</span>,</span><br><span class="line">					<span class="comment">/**</span></span><br><span class="line"><span class="comment">					 * <span class="doctag">@cfg <span class="type">&#123;String&#125;</span> </span>对应的结束日期组件的对象选择器，如'#jeDateID'</span></span><br><span class="line"><span class="comment">					 */</span></span><br><span class="line">					lessToPicker:<span class="string">''</span>,</span><br><span class="line">					<span class="comment">/**</span></span><br><span class="line"><span class="comment">					 * <span class="doctag">@cfg <span class="type">&#123;String&#125;</span> </span>对应的开始日期组件的对象选择器</span></span><br><span class="line"><span class="comment">					 */</span></span><br><span class="line">					greaterToPicker:<span class="string">''</span></span><br><span class="line">				&#125;,</span><br><span class="line">				handler: <span class="function"><span class="keyword">function</span> (<span class="params">target, options</span>) </span>&#123;</span><br><span class="line">					<span class="keyword">var</span> $target = $(target),</span><br><span class="line">						opts = $.extend(&#123;&#125;,options || &#123;&#125;);</span><br><span class="line">          </span><br><span class="line">          <span class="comment">// 中间省去具体实现逻辑</span></span><br><span class="line">					...</span><br><span class="line">					$target.jeDate(opts);</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">		)</span><br></pre></td></tr></table></figure>
+
+<p><br />在扩展jedate组件过程中，我们做了什么：<br /></p>
+<ul>
+<li>支持组件显示格式、提交到后端格式自定义</li>
+<li>支持日期范围限制</li>
+<li>以及重写组件原生默认参数</li>
+</ul>
+<p><br />我们这么做的意义就在于，在使用过程中，避免重复定义，又能支持特定场景下的重写，满足特殊需求。</p>
+<h2 id="6-4-可延伸扩展"><a href="#6-4-可延伸扩展" class="headerlink" title="6.4 可延伸扩展"></a>6.4 可延伸扩展</h2><p><br />如果细心的同学，可能发现了：虽然将通用的配置提取到options默认约定了，但是如果实际中对于框架所默认约定有异议呢？以目前的设计，看不到如何很好的支持全局重写。“是的，你没错，你的疑虑是对的”。<br /><br><br />所以，横向支持扩展，这点也很重要。我们可以怎么做呢？<br /><br><br /><strong><em>以下以下拉组件select2组件为例：</em></strong><br />**<br />假设我们有以下需求：<br /></p>
+<ul>
+<li>下拉选项支持多数据源(dataMode)，比如：<ul>
+<li><code>dom</code>: 页面”option”的dom</li>
+<li><code>var</code>: js变量，组件data属性引用</li>
+<li><code>remote</code>: 从远程获取，指定组件的url属性，如果后端返回数据非标准格式，可指定扩展属性dataNode</li>
+<li><code>ls</code>: 从localStorage中获取初始化数据项，此时storeNode必须指定存储节点名称</li>
+<li><code>local</code>: 从框架<a href="http://127.0.0.1:8080/eui3.0/#!/api/Eui.LocalStore-cfg-dictionaries" target="_blank" rel="noopener">dictionaries</a>全局对象上获取，此时storeNode必须指定存储节点名称</li>
+</ul>
+</li>
+<li>增加默认”全部”选项(defaultOption)，且支持文本(defaultText)，值(defaultValue)自定义</li>
+<li>每个选项对象，支持指定文本(textField)、值(valueField)对应字段</li>
+<li>支持级联组件(refSmId)</li>
+<li>… 等等可能的需求</li>
+</ul>
+<blockquote>
+<p>当看到这么多需求的时候，可能会觉得不可思议，但是这些确实都是实际场景中提取抽象出来的。</p>
+</blockquote>
+<p><br />先来看个使用实例：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">select</span> <span class="attr">xtype</span>=<span class="string">"select2"</span> </span></span><br><span class="line"><span class="tag">        <span class="attr">name</span>=<span class="string">"language"</span> </span></span><br><span class="line"><span class="tag">        <span class="attr">style</span>=<span class="string">"width:100%"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">custom-options</span>=<span class="string">"</span></span></span><br><span class="line"><span class="tag"><span class="string">          data: [</span></span></span><br><span class="line"><span class="tag"><span class="string">             &#123;id:'java',text:'Java'&#125;,</span></span></span><br><span class="line"><span class="tag"><span class="string">             &#123;id:'ruby',text:'Ruby'&#125;</span></span></span><br><span class="line"><span class="tag"><span class="string">          ]</span></span></span><br><span class="line"><span class="tag"><span class="string">				"</span> /&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p><br />代码实现：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> ExtSelect = Eui.uiExtensions.Select2 = &#123;</span><br><span class="line">		extSelect2Options: &#123;</span><br><span class="line">			<span class="comment">/**</span></span><br><span class="line"><span class="comment">			 * <span class="doctag">@cfg <span class="type">&#123;String&#125;</span> </span>组件数据来源，可以是：</span></span><br><span class="line"><span class="comment">			 *</span></span><br><span class="line"><span class="comment">			 * - `dom`: 页面`select`选项元素</span></span><br><span class="line"><span class="comment">			 * - `remote` : 服务器端请求数据</span></span><br><span class="line"><span class="comment">			 * - `local`: js对象本地存储，绑定到&#123;<span class="doctag">@link </span>Eui.LocalStore#dictionaries&#125;对象的数据</span></span><br><span class="line"><span class="comment">			 * - `ls`: 从localStorage缓存中读取</span></span><br><span class="line"><span class="comment">			 */</span></span><br><span class="line">			dataMode: <span class="string">"ls"</span>,</span><br><span class="line">			<span class="comment">/**</span></span><br><span class="line"><span class="comment">			 * <span class="doctag">@cfg <span class="type">&#123;String&#125;</span> </span>显示文本的字段(在`loadFilter`扩展中重新组装数据时使用)</span></span><br><span class="line"><span class="comment">			 */</span></span><br><span class="line">			textField: <span class="string">"label"</span>,</span><br><span class="line">			<span class="comment">/**</span></span><br><span class="line"><span class="comment">			 * <span class="doctag">@cfg <span class="type">&#123;String&#125;</span> </span>值对应的字段(在`loadFilter`扩展中重新组装数据时使用)</span></span><br><span class="line"><span class="comment">			 */</span></span><br><span class="line">			valueField: <span class="string">"value"</span>,</span><br><span class="line">			<span class="comment">/**</span></span><br><span class="line"><span class="comment">			 * <span class="doctag">@cfg <span class="type">&#123;Boolean&#125;</span> </span>是否显示搜索过滤选项框，相当于插件原生支持的属性minimumResultsForSearch: Infinity.</span></span><br><span class="line"><span class="comment">			 */</span></span><br><span class="line">			allowSearch: <span class="literal">false</span>,</span><br><span class="line">			<span class="comment">/**</span></span><br><span class="line"><span class="comment">			 * <span class="doctag">@cfg <span class="type">&#123;Boolean&#125;</span> </span>是否显示"x"清除图标</span></span><br><span class="line"><span class="comment">			 */</span></span><br><span class="line">			allowClear: <span class="literal">false</span>,</span><br><span class="line">			theme: <span class="string">"classic"</span>,</span><br><span class="line">			<span class="comment">/**</span></span><br><span class="line"><span class="comment">			 * <span class="doctag">@cfg <span class="type">&#123;String&#125;</span> </span>默认缺省的提示信息初始值</span></span><br><span class="line"><span class="comment">			 */</span></span><br><span class="line">			placeholder: <span class="string">"Select a state"</span>,</span><br><span class="line">			<span class="comment">/**</span></span><br><span class="line"><span class="comment">			 * <span class="doctag">@cfg <span class="type">&#123;Boolean&#125;</span> </span>是否加载默认项</span></span><br><span class="line"><span class="comment">			 */</span></span><br><span class="line">			defaultOption: <span class="literal">false</span>,</span><br><span class="line">			<span class="comment">/**</span></span><br><span class="line"><span class="comment">			 * <span class="doctag">@cfg <span class="type">&#123;String&#125;</span> </span>默认项的文本内容</span></span><br><span class="line"><span class="comment">			 */</span></span><br><span class="line">			defaultText: <span class="string">"DEFAULT_SELECT_TEXT"</span>,</span><br><span class="line">			<span class="comment">/**</span></span><br><span class="line"><span class="comment">			 * <span class="doctag">@cfg <span class="type">&#123;String&#125;</span> </span>默认项的值</span></span><br><span class="line"><span class="comment">			 */</span></span><br><span class="line">			defaultValue: <span class="string">""</span>,</span><br><span class="line">			<span class="comment">/**</span></span><br><span class="line"><span class="comment">			 * <span class="doctag">@cfg <span class="type">&#123;String/Boolean&#125;</span> </span>当dataMode是'ls'时，指定缓存key的前缀，即：`$&#123;lsStorePrefix&#125;:$&#123;storeNode&#125;`</span></span><br><span class="line"><span class="comment">			 */</span></span><br><span class="line">			lsStorePrefix: <span class="literal">false</span>,</span><br><span class="line">			<span class="comment">/**</span></span><br><span class="line"><span class="comment">			 * <span class="doctag">@cfg <span class="type">&#123;Array&#125;</span> </span>初始化数据</span></span><br><span class="line"><span class="comment">			 */</span></span><br><span class="line">			data: []</span><br><span class="line">		&#125;,</span><br><span class="line">  </span><br><span class="line">  	_loadFilter: <span class="function"><span class="keyword">function</span> (<span class="params"> response,opts</span>) </span>&#123;</span><br><span class="line">    	<span class="comment">//这里省去转换处理数据过程</span></span><br><span class="line">      ...</span><br><span class="line">      <span class="keyword">return</span> response;</span><br><span class="line">    &#125;,</span><br><span class="line">  </span><br><span class="line">  	parseExtUiSelect2: <span class="function"><span class="keyword">function</span> (<span class="params">target,options</span>) </span>&#123;</span><br><span class="line"></span><br><span class="line">			<span class="keyword">var</span> self = <span class="keyword">this</span>,</span><br><span class="line">				$target = Eui.getJqDom(target);</span><br><span class="line"></span><br><span class="line">			<span class="keyword">return</span> $target.each(<span class="function"><span class="keyword">function</span> (<span class="params">index, element</span>) </span>&#123;</span><br><span class="line"></span><br><span class="line">				<span class="keyword">var</span> $t = $(element),</span><br><span class="line">					opts = Eui.domData($t,<span class="string">"select2.options"</span>) || $.extend(<span class="literal">true</span>,&#123;&#125;,self.extSelect2Options);</span><br><span class="line">				$.extend(<span class="literal">true</span>,opts,options);</span><br><span class="line">				</span><br><span class="line">        <span class="comment">// 这里省去具体解析实现</span></span><br><span class="line">				...</span><br><span class="line">				$t.select2(opts);</span><br><span class="line">			&#125;);</span><br><span class="line">		&#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">Eui.Extra.registerUiExtType(</span><br><span class="line">		<span class="string">"select2"</span>,&#123;</span><br><span class="line">			priority: <span class="number">4</span>,</span><br><span class="line">			options: &#123;</span><br><span class="line">				<span class="comment">/**</span></span><br><span class="line"><span class="comment">				 * <span class="doctag">@cfg <span class="type">&#123;String&#125;</span> </span>级联下拉组件的ID</span></span><br><span class="line"><span class="comment">				 */</span></span><br><span class="line">				refSmId: <span class="string">''</span>,</span><br><span class="line">				<span class="comment">/**</span></span><br><span class="line"><span class="comment">				 * <span class="doctag">@cfg <span class="type">&#123;String&#125;</span> </span>级联下拉组件请求的路径</span></span><br><span class="line"><span class="comment">				 */</span></span><br><span class="line">				refUrl: <span class="string">''</span>,</span><br><span class="line">				<span class="comment">/**</span></span><br><span class="line"><span class="comment">				 * <span class="doctag">@cfg <span class="type">&#123;String&#125;</span> </span>级联条件参数指定的参数名，默认与valueField定义的值一致</span></span><br><span class="line"><span class="comment">				 */</span></span><br><span class="line">				refParam: <span class="string">''</span>,</span><br><span class="line">				<span class="comment">/**</span></span><br><span class="line"><span class="comment">				 * <span class="doctag">@cfg <span class="type">&#123;String&#125;</span> </span>指定远程返回数据下拉项数据节点，dataMode为'remote'时有效（在`processResults`方法中解析该扩展属性）.</span></span><br><span class="line"><span class="comment">				 */</span></span><br><span class="line">				dataNode: <span class="string">''</span>,  <span class="comment">//dataMode为'remote'时有效</span></span><br><span class="line">				<span class="comment">/**</span></span><br><span class="line"><span class="comment">				 * <span class="doctag">@cfg <span class="type">&#123;String&#125;</span> </span>存储中对应的key，不为空，将会调用_getStoreData方法获取数据（dataMode为'local'或'ls'时有效）</span></span><br><span class="line"><span class="comment">				 */</span></span><br><span class="line">				storeNode: <span class="string">""</span>, <span class="comment">// 存储中对应的key（dataMode为'local'或'ls'时有效）</span></span><br><span class="line">				<span class="comment">/**</span></span><br><span class="line"><span class="comment">				 * <span class="doctag">@cfg <span class="type">&#123;Function&#125;</span> </span>[loadFilter] 在渲染选项前，提供接口可以重新组装数据，提供参数：data.</span></span><br><span class="line"><span class="comment">				 */</span></span><br><span class="line">				loadFilter: <span class="function"><span class="keyword">function</span> (<span class="params">data</span>) </span>&#123;</span><br><span class="line">					<span class="keyword">return</span> ExtSelect._loadFilter(data,<span class="keyword">this</span>.options.options);</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;,</span><br><span class="line">			handler: <span class="function"><span class="keyword">function</span> (<span class="params">target, options</span>) </span>&#123;</span><br><span class="line">				<span class="keyword">return</span> ExtSelect.parseExtUiSelect2(target,options);</span><br><span class="line">			&#125;,</span><br><span class="line">			afterReady: <span class="function"><span class="keyword">function</span> (<span class="params">target,options</span>) </span>&#123;</span><br><span class="line">				<span class="comment">// 这里做些事件绑定</span></span><br><span class="line">				<span class="keyword">var</span> opts = Eui.domData(target,<span class="string">"select2.options"</span>) || options;</span><br><span class="line">				<span class="keyword">var</span> events = opts.events;</span><br><span class="line"></span><br><span class="line">				<span class="keyword">if</span>(events)&#123;</span><br><span class="line">					$.each(events,<span class="function"><span class="keyword">function</span> (<span class="params">name, fn</span>) </span>&#123;</span><br><span class="line">						target.on(name,<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">							Eui.pass(fn,<span class="built_in">arguments</span>)();</span><br><span class="line">						&#125;);</span><br><span class="line">					&#125;);</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	);</span><br></pre></td></tr></table></figure>
+
+<p><br />在封装select2的时候我们多做了什么？<br /></p>
+<ul>
+<li>部分方法提取，调用外部方法</li>
+<li>部分参数提取到外部约定默认值</li>
+</ul>
+<p><br />这么做的目的正是考虑到，框架的约定不能满足于业务需求的多变，留个后路供全局重写默认参数、方法。解析优先级由低到高：组件默认配置 -&gt; options默认配置 -&gt; 全局extSelect2Options配置 -&gt; custom-options配置。</p>
+<h1 id="七、在公司实践"><a href="#七、在公司实践" class="headerlink" title="七、在公司实践"></a>七、在公司实践</h1><p><br />在公司实践中，我们封装了常用的所有相关组件，包括：button、comboGrid、comboTree、grid、jedate、modal、select2、multipleSelect、timepicker、weekTime、spinner、numberspinner等等，覆盖业务开发过程中基础组件大多场景可配置化。<br /><br><br /><strong>这里主要来介绍下按钮场景的实践。</strong><br /><br><br />按钮在项目中比较常见，比如：表单提交、关闭窗口、打开模态框、查询等。对于以扩展方式配置实现的按钮点击事件，框架统一会控制短时间内重复执行。详细场景配置可参考BtnTypeMap配置说明。<br /></p>
+<h2 id="7-1-按钮扩展类型"><a href="#7-1-按钮扩展类型" class="headerlink" title="7.1 按钮扩展类型"></a>7.1 按钮扩展类型</h2><p><br />按钮扩展类型(btnType)包括：’action’,’modal’,’native’,’query’,’submit’等，每个实现都包含以下属性：<br /></p>
+<ul>
+<li><code>options</code>: 默认配置项</li>
+<li><code>handler</code> : 处理函数，包括：target,options两个参数</li>
+</ul>
+<p><br /><em>实例：点击按钮打开新增模态页面</em><br />_</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">button</span> <span class="attr">class</span>=<span class="string">"btn btn-danger"</span> <span class="attr">data-toggle</span>=<span class="string">"modal"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">custom-options</span>=<span class="string">"</span></span></span><br><span class="line"><span class="tag"><span class="string">    title: 'Validate Form',</span></span></span><br><span class="line"><span class="tag"><span class="string">    href:'base.html'</span></span></span><br><span class="line"><span class="tag"><span class="string">"</span>&gt;</span>新增<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="7-1-1-action"><a href="#7-1-1-action" class="headerlink" title="7.1.1 action"></a>7.1.1 action</h3><p><br />与后端交互操作封装，底层调用Eui.uiExtensions.Button.executeAction方法。<br /></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;**</span><br><span class="line"> * @property &#123;Boolean&#125; [action.mask&#x3D;true] 是否显示遮罩</span><br><span class="line"> * @property &#123;String&#125; [action.maskEl&#x3D;&quot;&quot;] 遮罩区域</span><br><span class="line"> * @property &#123;String&#125; [action.maskMsg&#x3D;&quot;IN_PROCESSING&quot;] 遮罩的显示信息</span><br><span class="line"> *</span><br><span class="line"> * @property &#123;String&#125; [action.refDgId&#x3D;&quot;&quot;] 关联表格id（不为空表示必须选中行）.</span><br><span class="line"> * @property &#123;Boolean&#125; [action.singleSelect&#x3D;true] refDgId不为空时，表格的选中模式，单选 or 多选.</span><br><span class="line"> * @property &#123;String&#125; [action.identifyField&#x3D;&quot;id&quot;] 组装表格参数的标识字段，可多个（数组格式）.</span><br><span class="line"> *</span><br><span class="line"> * @property &#123;String&#125; [action.paramPrefix&#x3D;&quot;&quot;]  添加对参数前缀</span><br><span class="line"> * @property &#123;Array&#125; [action.ignorePrefixKeys&#x3D;[]] paramPrefix不为空时，定义忽略添加前缀对字段(备注：singleSelect为true时有效) @since 2.1.5有效.</span><br><span class="line"> *</span><br><span class="line"> * @property &#123;Object&#125; [action.extraParams&#x3D;&#123;&#125;] 额外参数，将会与动态组装的参数合并（备注：paramPrefix对它无效） @since 2.1.5有效.</span><br><span class="line"> * @property &#123;Boolean&#125; [action.warp&#x3D;true] 是否需要reqJson,默认与全局&#123;@link Eui.Extra#warp warp&#125;一致</span><br><span class="line"> * @property &#123;Array&#125; [action.ignoreWarpKeys&#x3D;[]] warp为true时，可定义忽略warp的字段（忽略字段不执行reqJson操作，前提：singleSelect为true时有效）</span><br><span class="line"> *</span><br><span class="line"> * @property &#123;Function&#125; [action.beforeExecute] 提交后端之前执行的事件,return false将阻止继续执行，提供参数(params，options).</span><br><span class="line"> * @property &#123;String&#125; [action.url&#x3D;&quot;&quot;] 远程请求地址</span><br><span class="line"> * @property &#123;Object&#125; [action.ajax] 可定义ajax支持的配置项</span><br><span class="line"> *</span><br><span class="line"> * @property &#123;Function&#125; [action.callback] 后端成功返回数据后的回调，提供参数：(response,options)，return false将不再执行&#123;@link Eui.uiExtensions.Button#defaultActionCallback defaultActionCallback&#125;默认回调.</span><br><span class="line"> * @property &#123;String&#125; [action.autoRefresh&#x3D;false] 自动刷新表格数据（前提：refDgId不为空）</span><br><span class="line"> *&#x2F;</span><br></pre></td></tr></table></figure>
+
+<h3 id="7-1-2-export"><a href="#7-1-2-export" class="headerlink" title="7.1.2 export"></a>7.1.2 export</h3><p><br />导出满足关联表单条件的excel数据，按钮定义在form内部。<br /></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;**</span><br><span class="line"> * 备注：支持&#123;@link Eui.Form.submitForm&#125;相关配置项及BeforePrepareParams事件执行之前的相关事件.</span><br><span class="line"> *</span><br><span class="line"> * @property &#123;String&#125; export.url 请求服务地址</span><br><span class="line"> * @property &#123;String&#125; [export.mask&#x3D;false]</span><br><span class="line"> * @property &#123;String&#125; [export.fileType&#x3D;&#39;xls&#39;]</span><br><span class="line"> * @property &#123;String&#125; [export.filename] 默认当前时间格式化(YmdHis)后的时间字符串</span><br><span class="line"> *&#x2F;</span><br></pre></td></tr></table></figure>
+
+<h3 id="7-1-3-modal"><a href="#7-1-3-modal" class="headerlink" title="7.1.3 modal"></a>7.1.3 modal</h3><p><br />缺省打开模态框及表单相关初始化，详情可以参考Eui.Extra.openModalWin方法， 更多配置项可查看defaultModalOptions, formOptions(<code>autoLoad</code>为true时有效)详解。<br /></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;**</span><br><span class="line"> * @property &#123;String&#125; [modal.refDgId&#x3D;&quot;&quot;] 关联表格id（不为空表示必须选中行）,如果已经选中行，将动态给param赋值，dataMode为&#39;local&#39;时，将会给data参数赋值（行记录对象）.</span><br><span class="line"> * @property &#123;String&#125; [modal.identifyField&#x3D;&quot;&quot;] 组装表格参数的标识字段，可多个（数组格式）.</span><br><span class="line"> * @property &#123;Boolean&#125; [modal.singleSelect&#x3D;true] refDgId不为空时，表格的选中模式，单选 or 多选.</span><br><span class="line"> *</span><br><span class="line"> * @property &#123;Function&#125; [modal.beforeRender] 模态框打开之前执行的事件，return false将阻止打开模态框.</span><br><span class="line"> * @property &#123;Object&#125; modal.beforeRender.options 配置项</span><br><span class="line"> *</span><br><span class="line"> * @property &#123;Boolean&#125; [modal.localize&#x3D;true] 是否需要本地化标题，默认与全局&#123;@link Eui.Locale#localize localize&#125;一致.</span><br><span class="line"> *</span><br><span class="line"> * @property &#123;Object&#125; [modal.extraParams&#x3D;&#123;&#125;] 额外参数，将会与表格组装的参数合并</span><br><span class="line"> * @property &#123;String&#125; [modal.dataMode&#x3D;&quot;local&quot;] 数据加载模式，可选&quot;local&quot; or &quot;remote&quot;</span><br><span class="line"> *</span><br><span class="line"> * - &#96;local&#96;: 数据从行记录中获取</span><br><span class="line"> * - &#96;remote&#96;: 数据发起远程请求获取</span><br><span class="line"> *</span><br><span class="line"> * @property &#123;Boolean&#125; [modal.autoLoad&#x3D;false] 显示模态框后是否自动赋值，如果为true，&#123;@link Eui.uiExtensions.Modal#formOptions formOptions&#125;相关配置项生效</span><br><span class="line"> *&#x2F;</span><br></pre></td></tr></table></figure>
+
+<h3 id="7-1-4-native"><a href="#7-1-4-native" class="headerlink" title="7.1.4 native"></a>7.1.4 native</h3><p><br />原生onclick实现（备注：为了统一控制重复提交，建议使用该方式替换onclick的实现)。<br /></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;**</span><br><span class="line"> * @property &#123;Function&#125; native.handler 点击时触发的方法.</span><br><span class="line"> * @property &#123;Function&#125; native.handler.el 当前按钮的dom元素</span><br><span class="line"> *&#x2F;</span><br></pre></td></tr></table></figure>
+
+<h3 id="7-1-5-query"><a href="#7-1-5-query" class="headerlink" title="7.1.5 query"></a>7.1.5 query</h3><p><br />关联表格查询实现，自动组装查询表单条件， 底层调用crudSearch方法。<br /></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;**</span><br><span class="line"> * 备注：跟参数相关的配置，比如：&#96;ignorePrefixKeys&#96;,&#96;warp&#96;等，请查看表格相关扩展配置。</span><br><span class="line"> *</span><br><span class="line"> * @property &#123;String&#125; query.refDgId 关联表格ID(必需)</span><br><span class="line"> * @property &#123;Boolean&#125; [query.validate&#x3D;false] 查询之前是否需要验证，关联表格定义了扩展属性&#96;queryFormName&#96;.</span><br><span class="line"> *</span><br><span class="line"> * @property &#123;Function&#125; [query.beforeExecute] 执行查询之前触发事件，return false阻止继续执行.</span><br><span class="line"> * @property &#123;Object&#125; [query.beforeExecute.queryParams] 条件参数，参数的处理将会在提交参数前，有表格扩展统一解析.</span><br><span class="line"> *&#x2F;</span><br></pre></td></tr></table></figure>
+
+<h3 id="7-1-6-submit"><a href="#7-1-6-submit" class="headerlink" title="7.1.6 submit"></a>7.1.6 submit</h3><p><br />“保存按钮”扩展配置项，底层调用Eui.Form.submitForm；options详情可以查看Eui.Form.defaultOptions， 主要涉及到遮罩及提交前验证及执行操作。<br /></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;**</span><br><span class="line"> * @property &#123;String&#125; [submit.url] 远程服务地址，为空时将会解析表单的&quot;action&quot;属性值.</span><br><span class="line"> * @property &#123;String&#125; [submit.refFormName] 待提交表单的name属性值</span><br><span class="line"> *</span><br><span class="line"> * @property &#123;String&#125; [submit.mask&#x3D;true] 是否显示提交等待信息.</span><br><span class="line"> * @property &#123;String&#125; [submit.maskEl] 遮罩区域(jq对象或选择器表达式)，默认表单区域.</span><br><span class="line"> * @property &#123;String&#125; [submit.maskMsg] 遮罩的提示信息，为空时默认与&#123;@link Eui.Extra#showMask&#125;方法&quot;maskMsg&quot;参数值一致.</span><br><span class="line"> *</span><br><span class="line"> * @property &#123;Boolean&#125; [submit.validate] 表单是否需要验证，默认与全局&#123;@link Eui#globalValidated&#125;一致.</span><br><span class="line"> * @property &#123;Function&#125; [submit.beforeValidate] 验证之前执行的事件，参数:$form；return false将退出.</span><br><span class="line"> * @property &#123;Eui&#125; [submit.beforeValidate.form] 表单目标jq对象.</span><br><span class="line"> *</span><br><span class="line"> * @property &#123;Function&#125; [submit.beforeExecute] 提交之前执行的事件,async为true时，return false将会退出提交，否则会弹出确认操作提示框.</span><br><span class="line"> * @property &#123;Object&#125; [submit.beforeExecute.submitParams] 提交的参数对象.</span><br><span class="line"> * @property &#123;Object&#125; [submit.beforeExecute.form] 表单jq对象(@since 2.1.5).</span><br><span class="line"> * @property &#123;Object&#125; [submit.beforeExecute.options] 按钮所有扩展配置项对象(@since 2.1.5).</span><br><span class="line"> *</span><br><span class="line"> * @property &#123;Boolean&#125; [submit.async&#x3D;true] 是否异步提交，为false时，将会弹出确认框.</span><br><span class="line"> * @property &#123;String&#125; [submit.confireMsg&#x3D;&#39;CONFIRM_INFO&#39;] 同步提交时(async为false)，确认框提示信息.</span><br><span class="line"> *</span><br><span class="line"> * @property &#123;String&#125; [submit.paramPrefix] 参数前缀.</span><br><span class="line"> * @property &#123;Array&#125; [submit.ignorePrefixKeys&#x3D;[]] 忽略添加前缀的参数键(@since 2.1.5有效).</span><br><span class="line"> * @property &#123;Object&#125; [submit.extraParams&#x3D;&#123;&#125;] 额外参数，将会与动态参数合并（备注：paramPrefix对它无效，@since 2.1.5有效).</span><br><span class="line"> * @property &#123;Boolean&#125; [submit.warp&#x3D;true] 使用使用reqJson包装参数，默认与全局的&#123;@link Eui.Extra#warp warp&#125;一致(@since 2.1.5有效).</span><br><span class="line"> * @property &#123;Array&#125; [action.ignoreWarpKeys&#x3D;[]] warp为true时，可定义忽略warp的字段（忽略字段不执行reqJson操作)</span><br><span class="line"> *</span><br><span class="line"> * @property &#123;Object&#125; [submit.ajax] 可以配置ajax配置项，比如：&#123;type:&#39;GET&#39;&#125;(@since 2.1.5有效).</span><br><span class="line"> *</span><br><span class="line"> * @property &#123;Function&#125; [submit.callback] 成功回调函数，return false将终止继续执行自动关闭模态框，刷新表格，成功后默认解析的扩展可通过以下方式扩展.</span><br><span class="line"> * @property &#123;Object&#125; [submit.callback.response] 返回数据对象.</span><br><span class="line"> *</span><br><span class="line"> * 		Eui.apply(Eui.Defaults._afterSubmitFormTodos,&#123;</span><br><span class="line"></span><br><span class="line">			&#x2F;&#x2F; 提交表单后自动关闭模态框</span><br><span class="line">			&quot;closeModal&quot;: function ($form, options) &#123;</span><br><span class="line">				var openMode &#x3D; options.openMode,</span><br><span class="line">					autoClose &#x3D; options.autoClose;</span><br><span class="line"></span><br><span class="line">				if(!!autoClose &amp;&amp; openMode &amp;&amp; openMode &#x3D;&#x3D;&#x3D; &quot;modal&quot;)&#123;</span><br><span class="line">					var modalDialog &#x3D; $form.closest(&quot;div[role&#x3D;&#39;dialog&#39;]&quot;);</span><br><span class="line">					modalDialog.modal(&quot;hide&quot;);</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;);</span><br><span class="line"> *</span><br><span class="line"> * @property &#123;String&#125; [submit.openMode&#x3D;&#39;modal&#39;] 当前窗口的打开模式，默认是&#39;模态框&#39;(@since 2.1.5有效).</span><br><span class="line"> * @property &#123;Boolean&#125; [submit.autoClose&#x3D;true] 是否自动关闭，如果非窗口打开请设置false(@since 2.1.5有效).</span><br><span class="line"> * @property &#123;String&#125; [submit.refDgId] 自动刷新表格的ID，需要自动刷表格时可设置(@since 2.1.5有效).</span><br><span class="line"> *</span><br><span class="line"> *&#x2F;</span><br></pre></td></tr></table></figure>
+
+<h2 id="7-2-自定义按钮扩展类型"><a href="#7-2-自定义按钮扩展类型" class="headerlink" title="7.2 自定义按钮扩展类型"></a>7.2 自定义按钮扩展类型</h2><p><br />开发人员可自定义按钮扩展类型，包含参数：自定义btnType名称、具体触发click事件时执行函数(包含options,handler)。<br /><br><br /><em><strong>参数介绍：</strong></em></p>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>说明</th>
+<th>类型</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>btnType</td>
+<td>按钮类型</td>
+<td>String</td>
+</tr>
+<tr>
+<td>parser</td>
+<td>解析实现，包含：options, handler两个属性</td>
+<td>Object/Function</td>
+</tr>
+</tbody></table>
+<p><br /><em><strong>代码格式：</strong></em></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"> Eui.Extra.registerBtnType(</span><br><span class="line">    <span class="string">'custom'</span>, <span class="comment">// 自定义按钮类型</span></span><br><span class="line">    &#123;</span><br><span class="line">        options:&#123;</span><br><span class="line">            <span class="comment">// 自定义配置项</span></span><br><span class="line">        &#125;,</span><br><span class="line">        handler: <span class="function"><span class="keyword">function</span>(<span class="params">target,options</span>)</span>&#123;</span><br><span class="line">            <span class="comment">// 具体实现</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+
+<h2 id="7-3-表格扩展"><a href="#7-3-表格扩展" class="headerlink" title="7.3 表格扩展"></a>7.3 表格扩展</h2><p><br />为了更方便的初始化表格，框架实现了扩展类型xtype=’datagrid’, 主要对数据读取，列名本地化，关联查询表单扩展，实现配置化； 如下定义一个简单的表格：<br /></p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">table</span> <span class="attr">id</span>=<span class="string">"jqGrid"</span> <span class="attr">xtype</span>=<span class="string">"datagrid"</span></span></span><br><span class="line"><span class="tag">       <span class="attr">custom-options</span>=<span class="string">"</span></span></span><br><span class="line"><span class="tag"><span class="string">            url: 'static/json/griddata.json',</span></span></span><br><span class="line"><span class="tag"><span class="string">            langNode: 'jqGrid',</span></span></span><br><span class="line"><span class="tag"><span class="string">            colModel: [</span></span></span><br><span class="line"><span class="tag"><span class="string">               &#123; label: '机构编号', name: 'bankId', width: 45, key: true &#125;,</span></span></span><br><span class="line"><span class="tag"><span class="string">               &#123; label: '机构名称', name: 'chsName', width: 75 &#125;,</span></span></span><br><span class="line"><span class="tag"><span class="string">               &#123; label: '所属机构', name: 'headName', width: 90 &#125;,</span></span></span><br><span class="line"><span class="tag"><span class="string">               &#123; label: '机构级别', name: 'levelDisplay', width: 100 &#125;,</span></span></span><br><span class="line"><span class="tag"><span class="string">               &#123; label: '机构状态', name: 'enabledDisplay', width: 80 &#125;,</span></span></span><br><span class="line"><span class="tag"><span class="string">               &#123; label: '机构类型', name: 'typeDisplay', width: 80 &#125;</span></span></span><br><span class="line"><span class="tag"><span class="string">          ],</span></span></span><br><span class="line"><span class="tag"><span class="string">        	queryFormName: 'logListForm'</span></span></span><br><span class="line"><span class="tag"><span class="string">   "</span> /&gt;</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>备注：该配置实现列名本地化（langNode)，关联查询表单(queryFormName)，加载{data: {result: {datals:[]}}}格式的数据。langNode指向Eui.Locale.locales对象存储的数据。</p>
+</blockquote>
+<h3 id="7-3-1-后端返回数据非标准格式"><a href="#7-3-1-后端返回数据非标准格式" class="headerlink" title="7.3.1 后端返回数据非标准格式?"></a>7.3.1 后端返回数据非标准格式?</h3><p><br />可以通过定义dataNode，配合jsonReader：<br /></p>
+<ul>
+<li><code>dataNode</code>: 定义表格数据上层节点的路径，默认值”data.result”</li>
+<li><code>jsonReader</code>: jgrid插件所支持的配置项，关键配置项root、page、total、records</li>
+</ul>
+<p><br />详细说明可以参考jsonReader详解介绍：</p>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>说明</th>
+<th>默认值</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>root</td>
+<td>代表实际模型数据的入口</td>
+<td>‘datals’</td>
+</tr>
+<tr>
+<td>page</td>
+<td>代表当前页码</td>
+<td>‘page’</td>
+</tr>
+<tr>
+<td>total</td>
+<td>代表页码总数</td>
+<td>‘totalPage’</td>
+</tr>
+<tr>
+<td>records</td>
+<td>代表数据总条数</td>
+<td>‘total’</td>
+</tr>
+</tbody></table>
+<p><br />如果返回结果数据分页信息非start、pageSize、total参数，还需重写transformReaderKey扩展参数（方法类型），如下默认实现：<br /></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">transformReaderKey: <span class="function"><span class="keyword">function</span> (<span class="params">results</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> self = <span class="keyword">this</span>,</span><br><span class="line">        reader = self.jsonReader;</span><br><span class="line">    <span class="keyword">var</span> pageKey = reader.page,</span><br><span class="line">        totalKey = reader.total;</span><br><span class="line">    <span class="keyword">var</span> total = results.total,</span><br><span class="line">        start = results.start,</span><br><span class="line">        pageSize = results.pageSize;</span><br><span class="line"></span><br><span class="line">    results[totalKey] = <span class="built_in">Math</span>.ceil(total/pageSize);</span><br><span class="line">    results[pageKey] = <span class="built_in">Math</span>.ceil(start/pageSize);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> results;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>该方法返回的results包含的分页信息必须与jsonReader定义的保持一致。</p>
+</blockquote>
+<h3 id="7-3-2-分页查询时，分页条件的参数跟约定的不一致时，如何处理"><a href="#7-3-2-分页查询时，分页条件的参数跟约定的不一致时，如何处理" class="headerlink" title="7.3.2 分页查询时，分页条件的参数跟约定的不一致时，如何处理?"></a>7.3.2 分页查询时，分页条件的参数跟约定的不一致时，如何处理?</h3><p><br />框架提供了全局范围参数定义，如果是项目级别的重写，可以通过重写全局变量pageStart,pageSize:<br /></p>
+<ul>
+<li><code>pageStart</code>: 页码标识字段名，默认’pageStart’</li>
+<li><code>pageSzie</code>: 分页大小标识字段，默认’pageLimit’</li>
+</ul>
+<p><br />上述配置项也支持组件级别的定义。<br /></p>
+<h3 id="7-3-3-如果分页，后端需要的非开始页码pageStart，分页大小pageLimit参数？"><a href="#7-3-3-如果分页，后端需要的非开始页码pageStart，分页大小pageLimit参数？" class="headerlink" title="7.3.3 如果分页，后端需要的非开始页码pageStart，分页大小pageLimit参数？"></a>7.3.3 如果分页，后端需要的非开始页码pageStart，分页大小pageLimit参数？</h3><p><br />如果遇到的是该情况，可以重写全局的customPageParam方法，默认实现：<br /></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">customPageParam: <span class="function"><span class="keyword">function</span> (<span class="params">opts,postData</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> self = <span class="keyword">this</span>;</span><br><span class="line">    Eui.Extra.replaceKeys(postData,&#123;</span><br><span class="line">      <span class="string">"page"</span>: $.<span class="built_in">Object</span>.getKeyValue(opts,<span class="string">"pageStart"</span>,self.pageStart),</span><br><span class="line">      <span class="string">"rows"</span>: $.<span class="built_in">Object</span>.getKeyValue(opts,<span class="string">"pageSize"</span>,self.pageSize)</span><br><span class="line">    &#125;);</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="7-4-span支持表单赋值扩展"><a href="#7-4-span支持表单赋值扩展" class="headerlink" title="7.4 span支持表单赋值扩展"></a>7.4 span支持表单赋值扩展</h2><p><br />span标签默认只显示文本值，为了更多样化的显示格式，<code>custom-options</code>提供了扩展配置项<code>formatter。</code><br /><br><br />具体用法如下：<br /></p>
+<ul>
+<li>简单用法</li>
+<li>自定义扩展属性及解析方法</li>
+<li>使用框架默认提供的解析器</li>
+</ul>
+<blockquote>
+<p>备注：关键字：custom-options、initname、formatter。</p>
+</blockquote>
+<h3 id="7-4-1-简单用法"><a href="#7-4-1-简单用法" class="headerlink" title="7.4.1 简单用法"></a>7.4.1 简单用法</h3><p><br />指向自定义的方法（方法名任意），场景如下：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">span</span> <span class="attr">initname</span>=<span class="string">"price"</span></span></span><br><span class="line"><span class="tag">     <span class="attr">custom-options</span>=<span class="string">"formatter:spanFormatter"</span></span></span><br><span class="line"><span class="tag"> &gt;</span><span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p><br />定义JS方法spanFormatter:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">spanFormatter</span>(<span class="params">value</span>)</span>&#123;</span><br><span class="line">     <span class="comment">//value 是 1234,使用工具类将value值格式化</span></span><br><span class="line">    <span class="keyword">var</span> result =Eui.util.Format.number(value,<span class="string">'0,000'</span>);</span><br><span class="line">    <span class="comment">//格式化后的b=1,234</span></span><br><span class="line">    <span class="keyword">return</span> result;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="7-4-2-自定义扩展属性及解析方法"><a href="#7-4-2-自定义扩展属性及解析方法" class="headerlink" title="7.4.2 自定义扩展属性及解析方法"></a>7.4.2 自定义扩展属性及解析方法</h3><p><br />为了解析方法复用，我们一般可以采用同一方法解析扩展配置属性动态解析。<br /><br><br /><em><strong>比如：格式化数字有效位数</strong></em></p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">span</span> <span class="attr">initname</span>=<span class="string">"price"</span></span></span><br><span class="line"><span class="tag">     <span class="attr">custom-options</span>=<span class="string">"</span></span></span><br><span class="line"><span class="tag"><span class="string">         format:'0.00',</span></span></span><br><span class="line"><span class="tag"><span class="string">         formatter:numberFormat</span></span></span><br><span class="line"><span class="tag"><span class="string">     "</span>&gt;</span><span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p><br />定义JS方法numberFormat：<br /><br><br />备注：参数arguments包含:val,element,original,options(除formatter以外的所有扩展属性)。<br /></p>
+<ul>
+<li>value: 值</li>
+<li>element: 当前span目标元素</li>
+<li>original: 原始值</li>
+<li>options: 自定义扩展的属性，排除formatter以外所有属性</li>
+<li>values: 完整的赋值对下<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">numberFormat</span>(<span class="params">val,element,original,options,values</span>)</span>&#123;</span><br><span class="line">   <span class="keyword">var</span> opts = options || &#123;&#125;,</span><br><span class="line">       format = opts.format || <span class="string">'0'</span>; <span class="comment">//默认只显示整数,没有小数位数.</span></span><br><span class="line">   <span class="keyword">return</span> Eui.util.Format.number(val,format);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h3 id="7-4-3-使用框架默认提供的解析器"><a href="#7-4-3-使用框架默认提供的解析器" class="headerlink" title="7.4.3 使用框架默认提供的解析器"></a>7.4.3 使用框架默认提供的解析器</h3><p><br />框架默认扩展了”currency”,”datetime”,亦可自定义解析器：<br /></p>
+<ul>
+<li>currency: 金额解析</li>
+<li>datetime: 日期格式解析</li>
+</ul>
+<p><em><strong>格式化金额数据(currency)：</strong></em><br /><br><br />参数介绍：<br /></p>
+<ul>
+<li>formatter:’currency’ 针对金额数据封装的方法名，参数值固定</li>
+<li>sign：使用的货币符号,默认值：’$’， 与Eui.util.Format.currencySign一致</li>
+<li>decimals：使用的货币值小数点后的位数,默认值：2， 与Eui.util.Format.currencyPrecision一致</li>
+<li>end：如果为true则货币符号应追加在字符串的结尾,默认值：false， 与Eui.util.Format.currencyAtEnd一致</li>
+</ul>
+<p><br />THML定义示例：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">// 230 =&gt;  230.00RMB</span><br><span class="line">   <span class="tag">&lt;<span class="name">span</span> <span class="attr">initname</span>=<span class="string">"appIdName"</span></span></span><br><span class="line"><span class="tag">         <span class="attr">custom-options</span>=<span class="string">"</span></span></span><br><span class="line"><span class="tag"><span class="string">             sign :'RMB',</span></span></span><br><span class="line"><span class="tag"><span class="string">             end : true,</span></span></span><br><span class="line"><span class="tag"><span class="string">             formatter:'currency'</span></span></span><br><span class="line"><span class="tag"><span class="string">   "</span>&gt;</span><span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p><em>*<em>格式化日期(datetime) *</em></em></p>
+<p><br />参数说明：<br /></p>
+<ul>
+<li>fromFormat: 值的格式,默认’Ymd’</li>
+<li>toFormat: 转换后显示格式,默认’Y-m-d’</li>
+</ul>
+<blockquote>
+<p>备注：支持Eui.Date支持的所有格式化格式。</p>
+</blockquote>
+<p><br />THML定义示例：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">// 20160301 ==》2016-03-01</span><br><span class="line"><span class="tag">&lt;<span class="name">span</span> <span class="attr">initname</span>=<span class="string">"dateVal"</span></span></span><br><span class="line"><span class="tag">      <span class="attr">custom-options</span>=<span class="string">"</span></span></span><br><span class="line"><span class="tag"><span class="string">         formatter:'datetime'</span></span></span><br><span class="line"><span class="tag"><span class="string">"</span>&gt;</span><span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="7-4-4-自定义formatter解析器"><a href="#7-4-4-自定义formatter解析器" class="headerlink" title="7.4.4 自定义formatter解析器"></a>7.4.4 自定义formatter解析器</h3><p><br />框架已经默认提供了’currency’等解析器；项目开发过程中，开发人员自己也可以自己注册自定义方法。<br /></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Eui.Extra.registerFormatter(<span class="string">'解析器名'</span>,&#123;</span><br><span class="line">     options : &#123;&#125;, <span class="comment">//默认配置项</span></span><br><span class="line">     handler : <span class="function"><span class="keyword">function</span>(<span class="params">value,context,payload,options</span>)</span>&#123;</span><br><span class="line">     &#125;</span><br><span class="line"> &#125;);</span><br></pre></td></tr></table></figure>
+
+<p><br />以自定义扩展一个以特定模版转译html内容为例子，formatter值：’htmlEncode’:<br /></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">Eui.Extra.registerFormatter(<span class="string">'htmlEncode'</span>,&#123;</span><br><span class="line">    options: &#123;</span><br><span class="line">        tpl: <span class="string">""</span></span><br><span class="line">    &#125;,</span><br><span class="line">    handler: <span class="function"><span class="keyword">function</span> (<span class="params">value,context,payload,options</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">var</span> args = <span class="built_in">arguments</span>,</span><br><span class="line">            len = args.length;</span><br><span class="line">            <span class="keyword">var</span> opts = args[len - <span class="number">1</span>],</span><br><span class="line">            tpl = opts.tpl;</span><br><span class="line">        <span class="keyword">if</span>(tpl)&#123;</span><br><span class="line">            value = Eui.String.format(tpl, value);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> Eui.String.htmlEncode(value);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<p><br /><em><strong>更多扩展直接查看官方API文档，有疑问也欢迎反馈。</strong></em></p>
+<h1 id="八、未来规划"><a href="#八、未来规划" class="headerlink" title="八、未来规划"></a>八、未来规划</h1><p><br />将具有通用性的功能场景，抽象约定schema json定义，来动态生成，在基础上提供可视化开发工具辅助。更好的版本迭代，朝着智能化方向探索，发展。<br /><br><br /><strong>看完如果有启发，给辛勤的开源者送颗稻草吧</strong><br />👇</p>
+
+    </div>
+    
+    <div class="post-footer">
+        <div>
+            
+            转载声明：
+            商业转载请联系作者获得授权,非商业转载请注明出处 © <a href="" target="_blank">Zebra</a>
+            
+            
+        </div>
+        <div>
+            
+        </div>
+    </div>
+</article>
+<div class="article-nav prev-next-wrap clearfix">
+    
+    <a href="/2020/07/26/muti-theme3.0/" class="pre-post btn btn-default" title='多主题集成方案及规范'>
+        <i class="fa fa-angle-left fa-fw"></i><span class="hidden-lg">上一篇</span>
+        <span class="hidden-xs">
+            多主题集成方案及规范</span>
+    </a>
+    
+    
+</div>
+
+<div id="comments">
+    
+
+<div id="vcomments" class="valine"></div>
+
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="/assets/valine.min.js"></script>
+
+<script>
+new Valine({
+    av: AV,
+    el: '#vcomments',
+    appId: '0q0vid2kizGymmd0dNKs3lOY-gzGzoHsz',
+    appKey: 'wNj5sJAu5hReOirB3QbKqNiA',
+    placeholder: '说点什么吧',
+    notify: false,
+    verify: true,
+    avatar: 'mm',
+    meta: 'nick,mail'.split(','),
+    pageSize: '10',
+    path: window.location.pathname,
+    lang: 'zh-CN'.toLowerCase()
+})
+</script>
+
+
+</div>
+
+                </main>
+                
+                    <aside id="article-toc" role="navigation" class="col-md-4">
+    <div class="widget">
+        <h3 class="title">
+            文章目录
+        </h3>
+        
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#一、前言"><span class="toc-text">一、前言</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#二、介绍"><span class="toc-text">二、介绍</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#2-1-我是谁？"><span class="toc-text">2.1. 我是谁？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-2-我们的团队"><span class="toc-text">2.2. 我们的团队</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-3-怎么联系我？"><span class="toc-text">2.3. 怎么联系我？</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#三、主题背景"><span class="toc-text">三、主题背景</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#四、常见组件"><span class="toc-text">四、常见组件</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#五、二次开发组件的意义"><span class="toc-text">五、二次开发组件的意义</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#5-1-jquery代表jquery-ui库"><span class="toc-text">5.1 jquery代表jquery ui库</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-2-react代表antd库"><span class="toc-text">5.2 react代表antd库</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-3-vue代表element库"><span class="toc-text">5.3 vue代表element库</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#六、如何二次开发组件"><span class="toc-text">六、如何二次开发组件</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#6-1-约定关键字"><span class="toc-text">6.1 约定关键字</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-2-API-设计"><span class="toc-text">6.2 API 设计</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-3-约定大于配置"><span class="toc-text">6.3 约定大于配置</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-4-可延伸扩展"><span class="toc-text">6.4 可延伸扩展</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#七、在公司实践"><span class="toc-text">七、在公司实践</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#7-1-按钮扩展类型"><span class="toc-text">7.1 按钮扩展类型</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#7-1-1-action"><span class="toc-text">7.1.1 action</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-1-2-export"><span class="toc-text">7.1.2 export</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-1-3-modal"><span class="toc-text">7.1.3 modal</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-1-4-native"><span class="toc-text">7.1.4 native</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-1-5-query"><span class="toc-text">7.1.5 query</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-1-6-submit"><span class="toc-text">7.1.6 submit</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#7-2-自定义按钮扩展类型"><span class="toc-text">7.2 自定义按钮扩展类型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#7-3-表格扩展"><span class="toc-text">7.3 表格扩展</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#7-3-1-后端返回数据非标准格式"><span class="toc-text">7.3.1 后端返回数据非标准格式?</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-3-2-分页查询时，分页条件的参数跟约定的不一致时，如何处理"><span class="toc-text">7.3.2 分页查询时，分页条件的参数跟约定的不一致时，如何处理?</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-3-3-如果分页，后端需要的非开始页码pageStart，分页大小pageLimit参数？"><span class="toc-text">7.3.3 如果分页，后端需要的非开始页码pageStart，分页大小pageLimit参数？</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#7-4-span支持表单赋值扩展"><span class="toc-text">7.4 span支持表单赋值扩展</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#7-4-1-简单用法"><span class="toc-text">7.4.1 简单用法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-4-2-自定义扩展属性及解析方法"><span class="toc-text">7.4.2 自定义扩展属性及解析方法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-4-3-使用框架默认提供的解析器"><span class="toc-text">7.4.3 使用框架默认提供的解析器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-4-4-自定义formatter解析器"><span class="toc-text">7.4.4 自定义formatter解析器</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#八、未来规划"><span class="toc-text">八、未来规划</span></a></li></ol>
+        
+    </div>
+</aside>
+                
+            </div>
+        </div>
+    </section>
+    <footer class="main-footer">
+    <div class="container">
+        <div class="row">
+        </div>
+    </div>
+</footer>
+<a id="back-to-top" class="icon-btn hide">
+    <i class="fa fa-chevron-up"></i>
+</a>
+    <div class="copyright">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="busuanzi">
+    
+</div>
+            </div>
+            <div class="col-sm-12">
+                <span>Copyright &copy;
+                    2020
+                    
+                </span> |
+                <span>
+                    Powered by <a href="//hexo.io" class="copyright-links" target="_blank" rel="nofollow">Hexo</a>
+                </span> |
+                <span>
+                    Theme by <a href="//github.com/shenliyang/hexo-theme-snippet.git" class="copyright-links" target="_blank" rel="nofollow">Snippet</a>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<script src="/assets/tagcanvas.min.js?rev=2.9.js"></script>
+
+<script>
+var tagOption = {
+    textColour: '#444', // 字体颜色
+    outlineMethod: 'block', // 选中模式
+    outlineColour: '#FFDAB9', // 选中模式的颜色
+    interval: 30 || 30, // 动画帧之间的时间间隔，值越大，转动幅度越大
+    textHeight: 13,
+    outlineRadius: 3,
+    freezeActive: true || '', // 选中的标签是否继续滚动
+    frontSelect: true || '', // 不选标签云后部的标签
+    initial: [0.1, -0.1],
+    depth: 0.5,
+    decel: 0.95,
+    maxSpeed: 0.03,
+    reverse: true || '', // 是否反向触发
+    fadeIn: 500, // 进入动画时间
+    wheelZoom: false || '' // 是否启用鼠标滚轮
+}
+TagCanvas.Start('tag-cloud-3d', '', tagOption);
+</script>
+
+
+
+<script src="/js/app.js?rev=@@hash.js"></script>
+
+</body>
+</html>
