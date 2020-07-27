@@ -1,0 +1,565 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+<head>
+    <!--Setting-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <meta http-equiv="Cache-Control" content="no-transform">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta name="apple-mobile-web-app-capable" content="Zebra前端团队博客">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no,email=no,adress=no">
+    <meta name="browsermode" content="application">
+    <meta name="screen-orientation" content="portrait">
+    <meta name="theme-version" content="1.0.0">
+    <meta name="root" content="/">
+    <link rel="dns-prefetch" href="http://blog.zebrateam.cn">
+    <!--SEO-->
+
+<meta name="keywords" content="Zebra,3.0,ajax" />
+
+
+<meta name="description" content="
+
+本文是第七期分享主题 - 「AJAX通讯组件封装场景及使用」的文字稿，可以通过查看来巩固知识点。
+
+一、前言本文是根据2020.04.25 日，第三期分享主题「**AJAX通讯组件封装及使用..." />
+
+
+<meta name="robots" content="all" />
+<meta name="google" content="all" />
+<meta name="googlebot" content="all" />
+<meta name="verify" content="all" />
+    <!--Title-->
+
+<title>
+    
+    第七期 - 「AJAX通讯组件封装及使用」- (2020.4.25) |
+    
+    Zebra前端团队博客
+</title>
+
+<link rel="alternate" href="/atom.xml" title="Zebra前端团队博客" type="application/atom+xml">
+
+
+<link rel="icon" href="/favicon.ico">
+
+    
+
+
+<link rel="stylesheet" href="/css/bootstrap.min.css?rev=3.3.7.css">
+<link rel="stylesheet" href="/css/font-awesome.min.css?rev=4.7.0.css">
+<link rel="stylesheet" href="/css/style.css?rev=@@hash.css">
+
+    
+<div class="hide">
+    <script type="text/javascript">
+    var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+    document.write(unescape("%3Cspan class='cnzz_stat_icon_1263868967 hide' %3E%3Cscript%20src%3D%22https%3A%2F%2Fs95.cnzz.com%2Fz_stat.php%3Fweb_id%3D1272564536%22%3E%3C%2Fscript%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s19.cnzz.com/z_stat.php%3Fid%3D1263868967%26show%3Dpic1' type='text/javascript'%3E%3C/script%3E"));
+    </script>
+</div>
+
+
+
+
+    
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+<!--[if lte IE 8]>
+<style>
+    html{ font-size: 1em }
+</style>
+<![endif]-->
+<!--[if lte IE 9]>
+<div style="ie">你使用的浏览器版本过低，为了你更好的阅读体验，请更新浏览器的版本或者使用其他现代浏览器，比如Chrome、Firefox、Safari等。</div>
+<![endif]-->
+<body>
+    <header class="main-header"  style="background-image:url(
+    /./img/banner.jpg)"
+     >
+    <div class="main-header-box">
+        <a class="header-avatar" href="/" title='SCM'>
+            <img src="/img/avatar.jpg" alt="logo头像" class="img-responsive center-block">
+        </a>
+        <div class="branding">
+            <!--<h2 class="text-hide">Snippet主题,从未如此简单有趣</h2>-->
+            
+            <h2>
+                分享是件简单有趣的事情
+            </h2>
+            
+        </div>
+    </div>
+</header>
+    <nav class="main-navigation">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="navbar-header"><span class="nav-toggle-button collapsed pull-right" data-toggle="collapse" data-target="#main-menu" id="mnav">
+                        <span class="sr-only"></span>
+                        <i class="fa fa-bars"></i>
+                    </span>
+                    <a class="navbar-brand" href="http://blog.zebrateam.cn">
+                        Zebra前端团队博客</a>
+                </div>
+                <div class="collapse navbar-collapse" id="main-menu">
+                    <ul class="menu">
+                        
+                        <li role="presentation" class="text-center">
+                            <a href="/"><i class="fa "></i>
+                                首页</a>
+                        </li>
+                        
+                        <li role="presentation" class="text-center">
+                            <a href="/categories/分享专栏/"><i class="fa "></i>
+                                分享专栏</a>
+                        </li>
+                        
+                        <li role="presentation" class="text-center">
+                            <a href="/categories/解决方案/"><i class="fa "></i>
+                                解决方案</a>
+                        </li>
+                        
+                        <li role="presentation" class="text-center">
+                            <a href="/archives/"><i class="fa "></i>
+                                时间轴</a>
+                        </li>
+                        
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+    <section class="content-wrap">
+        <div class="container">
+            <div class="row">
+                <main class="col-md-8 main-content m-post">
+                    <p id="process"></p>
+<article class="post">
+    <div class="post-head">
+        <h1 id="第七期 - 「AJAX通讯组件封装及使用」- (2020.4.25)">
+            
+            第七期 - 「AJAX通讯组件封装及使用」- (2020.4.25)
+            
+        </h1>
+        <div class="post-meta">
+    
+    <span class="categories-meta fa-wrap">
+        <i class="fa fa-folder-open-o"></i>
+        <a class="category-link" href="/categories/%E5%88%86%E4%BA%AB%E4%B8%93%E6%A0%8F/">分享专栏</a>
+    </span>
+    
+    
+    <span class="fa-wrap">
+        <i class="fa fa-tags"></i>
+        <span class="tags-meta">
+            
+            <a class="tag-link" href="/tags/3-0/" rel="tag">3.0</a> <a class="tag-link" href="/tags/Zebra/" rel="tag">Zebra</a> <a class="tag-link" href="/tags/ajax/" rel="tag">ajax</a>
+            
+        </span>
+    </span>
+    
+    
+    
+    <span class="fa-wrap">
+        <i class="fa fa-clock-o"></i>
+        <span class="date-meta">
+            2020/04/25</span>
+    </span>
+    
+    
+</div>
+        
+        
+    </div>
+    
+    <div class="post-body post-content">
+        <p><img src="/images/zebra/7/banner.png" alt=""></p>
+<blockquote>
+<p>本文是第七期分享主题 - 「AJAX通讯组件封装场景及使用」的文字稿，可以通过查看来巩固知识点。</p>
+</blockquote>
+<h1 id="一、前言"><a href="#一、前言" class="headerlink" title="一、前言"></a>一、前言</h1><p><strong>本文是根据2020.04.25 日，第三期分享主题「**</strong>AJAX通讯组件封装及使用<strong>**」整理而来的文字稿。</strong></p>
+<p>本文分享以 “场景”和“实践” 为切入点，对AJAX常见使用场景分析及如何抽象封装使用展开话题，以思路引导为主，带你理解框架的思考及实现过程。<br /></p>
+<h1 id="二、AJAX概述"><a href="#二、AJAX概述" class="headerlink" title="二、AJAX概述"></a>二、AJAX概述</h1><h2 id="2-1-什么是AJAX？"><a href="#2-1-什么是AJAX？" class="headerlink" title="2.1 什么是AJAX？"></a>2.1 什么是AJAX？</h2><p>AJAX（Asynchronous Javascript And XML）翻译成中文就是“异步Javascript和XML”。即使用Javascript语言与服务器进行异步交互，传输的数据为XML（当然传输的数据不只是XML，可以是jSon或纯文本text）。<br /></p>
+<ul>
+<li>与服务器异步交互</li>
+<li>浏览器页面局部刷新</li>
+</ul>
+<h2 id="2-2-同步、异步交互"><a href="#2-2-同步、异步交互" class="headerlink" title="2.2 同步、异步交互"></a>2.2 同步、异步交互</h2><ul>
+<li>同步交互：客户端发出一个请求后，需要等待服务器响应结束后，才能发出第二个请求</li>
+<li>异步交互：客户端发出一个请求后，无需等待服务器响应结束，就可以发出第二个请求</li>
+</ul>
+<h2 id="2-3-AJAX常见场景"><a href="#2-3-AJAX常见场景" class="headerlink" title="2.3 AJAX常见场景"></a>2.3 AJAX常见场景</h2><ul>
+<li>进行数据验证</li>
+<li>表单提交</li>
+<li>自动更新页面(比如：新闻)</li>
+<li>请求数据局部更新结果(比如：查询表格展示)</li>
+<li>。。。</li>
+</ul>
+<h1 id="三、HTTP库选型"><a href="#三、HTTP库选型" class="headerlink" title="三、HTTP库选型"></a>三、HTTP库选型</h1><p>根据技术栈不同我们可以选用不同的开源库来快速集成，比如：<br /></p>
+<ul>
+<li>Jquery</li>
+<li>Axios</li>
+<li>umi-request</li>
+<li>。。。</li>
+</ul>
+<h2 id="3-1-jquery"><a href="#3-1-jquery" class="headerlink" title="3.1 jquery"></a>3.1 jquery</h2><h2 id="3-2-Axios"><a href="#3-2-Axios" class="headerlink" title="3.2 Axios"></a>3.2 Axios</h2><p><a href="https://github.com/axios/axios" target="_blank" rel="noopener">Axios</a> 是一个基于 promise 的 HTTP 库，可以用在浏览器和 node.js 中。<br /></p>
+<p><em><strong>Features:</strong></em></p>
+<ul>
+<li>从浏览器中创建 <a href="https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest" target="_blank" rel="noopener">XMLHttpRequests</a></li>
+<li>从 node.js 创建 <a href="http://nodejs.org/api/http.html" target="_blank" rel="noopener">http</a> 请求</li>
+<li>支持 <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise" target="_blank" rel="noopener">Promise</a> API</li>
+<li>拦截请求和响应</li>
+<li>转换请求数据和响应数据</li>
+<li>取消请求</li>
+<li>自动转换 JSON 数据</li>
+<li>客户端支持防御 <a href="http://en.wikipedia.org/wiki/Cross-site_request_forgery" target="_blank" rel="noopener">XSRF</a></li>
+</ul>
+<p>Using yarn:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yarn add axios</span><br></pre></td></tr></table></figure>
+
+<h2 id="3-3-umi-request"><a href="#3-3-umi-request" class="headerlink" title="3.3 umi-request"></a>3.3 umi-request</h2><p><a href="https://github.com/umijs/umi-request/blob/HEAD/README_zh-CN.md" target="_blank" rel="noopener">umi-request</a>网络请求库，基于 fetch 封装, 兼具 fetch 与 axios 的特点, 旨在为开发者提供一个统一的api调用方式, 简化使用, 并提供诸如缓存, 超时, 字符编码处理, 错误处理等常用功能.</p>
+<p><em><strong>支持功能：</strong></em></p>
+<ul>
+<li>url 参数自动序列化</li>
+<li>post 数据提交方式简化</li>
+<li>response 返回处理简化</li>
+<li>api 超时支持</li>
+<li>api 请求缓存支持</li>
+<li>支持处理 gbk</li>
+<li>类 axios 的 request 和 response 拦截器(interceptors)支持</li>
+<li>统一的错误处理方式</li>
+<li>类 koa 洋葱机制的 use 中间件机制支持</li>
+<li>类 axios 的取消请求</li>
+<li>支持 node 环境发送 http 请求</li>
+</ul>
+<h1 id="四、我们的实践"><a href="#四、我们的实践" class="headerlink" title="四、我们的实践"></a>四、我们的实践</h1><p>我们的请求封装组件是基于jquery ajax封装的，首先来了解jquery的几个相关方法post、get、ajax。</p>
+<h2 id="4-1-jquery相关方法介绍"><a href="#4-1-jquery相关方法介绍" class="headerlink" title="4.1 jquery相关方法介绍"></a>4.1 jquery相关方法介绍</h2><h3 id="4-1-1-post方法"><a href="#4-1-1-post方法" class="headerlink" title="4.1.1 post方法"></a>4.1.1 post方法</h3><p>通过远程 HTTP POST 请求载入信息。这是一个简单的 POST 请求功能以取代复杂 $.ajax 。请求成功时可调用回调函数。如果需要在出错时执行函数，请使用 $.ajax。<br /></p>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>描述</th>
+<th>类型</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>url</td>
+<td>发送请求地址</td>
+<td>String</td>
+</tr>
+<tr>
+<td>data</td>
+<td>待发送 Key/value 参数(可选项)</td>
+<td>Map</td>
+</tr>
+<tr>
+<td>callback</td>
+<td>发送成功时回调函数(可选项)</td>
+<td>Function</td>
+</tr>
+<tr>
+<td>type</td>
+<td>返回内容格式，xml, html, script, json, text, _default(可选项)</td>
+<td>String</td>
+</tr>
+</tbody></table>
+<p><br />向页面 test.php 发送数据，并输出结果（HTML 或 XML，取决于所返回的内容）：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$.post(<span class="string">"test.php"</span>, &#123; <span class="attr">name</span>: <span class="string">"John"</span>, <span class="attr">time</span>: <span class="string">"2pm"</span> &#125;,</span><br><span class="line">    <span class="function"><span class="keyword">function</span>(<span class="params">data</span>)</span>&#123;</span><br><span class="line">  		alert(<span class="string">"Data Loaded: "</span> + data);</span><br><span class="line">    &#125;</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+
+<h3 id="4-1-2-get方法"><a href="#4-1-2-get方法" class="headerlink" title="4.1.2 get方法"></a>4.1.2 get方法</h3><p><br />通过远程 HTTP GET 请求载入信息。这是一个简单的 GET 请求功能以取代复杂 $.ajax 。请求成功时可调用回调函数。如果需要在出错时执行函数，请使用 $.ajax。</p>
+<blockquote>
+<p>备注：参数与post方法一致，这里不做重复介绍。</p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$.<span class="keyword">get</span>("test.php", &#123; name: <span class="string">"John"</span>, <span class="attr">time</span>: <span class="string">"2pm"</span> &#125;,</span><br><span class="line">    <span class="function"><span class="keyword">function</span>(<span class="params">data</span>)</span>&#123;</span><br><span class="line">  	    alert(<span class="string">"Data Loaded: "</span> + data);</span><br><span class="line">    &#125;</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+
+<h3 id="4-1-3-ajax方法"><a href="#4-1-3-ajax方法" class="headerlink" title="4.1.3 ajax方法"></a>4.1.3 ajax方法</h3><p>通过 HTTP 请求加载远程数据。jQuery 底层 AJAX 实现。简单易用的高层实现见 $.get, $.post 等。$.ajax() 返回其创建的 XMLHttpRequest 对象。大多数情况下你无需直接操作该函数，除非你需要操作不常用的选项，以获得更多的灵活性。<br /><br>最简单的情况下，$.ajax()可以不带任何参数直接使用。<br /></p>
+<p><strong>注意</strong>，所有的选项都可以通过$.ajaxSetup()函数来全局设置。<br /><br><strong>回调函数</strong><br><br />如果要处理$.ajax()得到的数据，则需要使用回调函数。beforeSend、error、dataFilter、success、complete。<br /></p>
+<ul>
+<li>beforeSend 在发送请求之前调用，并且传入一个XMLHttpRequest作为参数</li>
+<li>error 在请求出错时调用。传入XMLHttpRequest对象，描述错误类型的字符串以及一个异常对象（如果有的话）</li>
+<li>dataFilter 在请求成功之后调用。传入返回的数据以及”dataType”参数的值。并且必须返回新的数据（可能是处理过的）传递给success回调函数</li>
+<li>success 当请求之后调用。传入返回后的数据，以及包含成功代码的字符串</li>
+<li>complete 当请求完成之后调用这个函数，无论成功或失败。传入XMLHttpRequest对象，以及一个包含成功或错误代码的字符串。</li>
+</ul>
+<h2 id="4-2-我们的需求"><a href="#4-2-我们的需求" class="headerlink" title="4.2 我们的需求"></a>4.2 我们的需求</h2><ul>
+<li>支持多上下文且发布阶段上下文可能会变动</li>
+<li>提交参数统一需要做warp操作，比如：{‘id’:’12’,’name’:’metro’} 转换为{reqJson : {‘id’:’12’,’name’:’metro’}}</li>
+<li>需要对返回报文(message、success)做全局解析(session失效，后端返回统一报文{success:false,message:’error.user.notLogin’}则作出相应动作，重登框自动弹出等)</li>
+<li>统一对返回message节点或者success: false情况下需要做统一提示(避免业务开发中重复判断处理)</li>
+<li>error情况下，异常信息收集记录日志(文件或接口持久化)</li>
+<li>兼容不同平台web or electron</li>
+<li>加密请求参数及解密返回报文</li>
+<li>……</li>
+</ul>
+<h2 id="4-3-我们的设计"><a href="#4-3-我们的设计" class="headerlink" title="4.3 我们的设计"></a>4.3 我们的设计</h2><p>基于需要满足上述各需求，我们初步从以下节点入手封装。<br /></p>
+<h3 id="4-3-1-支持多上下文"><a href="#4-3-1-支持多上下文" class="headerlink" title="4.3.1 支持多上下文"></a>4.3.1 支持多上下文</h3><p>不同上下文或者不同平台，最终涉及到都是url请求地址的拼接，对于暴露给开发者定义url时，我们只需定义接口路径，比如：getVersion.action，至于是何上下文呢，可以分为以下几种场景：<br /></p>
+<ul>
+<li>当前作用域内接口同一上下文</li>
+<li>有某几个特殊接口上下文不同</li>
+</ul>
+<p>出于以上场景，我们可以约定全局上下文，比如：defaultHostKey，针对特殊接口可以调用时指定，比如：hostKey参数。<br><br />对于上下文可能会发布前变动，我们可以支持全局环境变量可自定义。<br><br /><strong><em>场景描述：</em></strong><br /><em>全局默认上下文约定为”ecas”，发布阶段变更为”auth”。</em><br />_<br /><em><strong>我们的实现：提供环境变量 proxy来支持转换别名</strong></em></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">"proxy"</span>: &#123;</span><br><span class="line">     <span class="string">"ecas"</span>: &#123;</span><br><span class="line">         <span class="string">"server"</span>: <span class="string">"http://192.168.10.129"</span> <span class="comment">//服务地址</span></span><br><span class="line">         <span class="string">"alias"</span>: <span class="string">"auth"</span></span><br><span class="line">     &#125;</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>备注：场景alias 服务别名，例如<a href="http://192.168.10.129/ecas" target="_blank" rel="noopener">http://192.168.10.129/ecas</a>转换成<a href="http://192.168.10.129/ecas51" target="_blank" rel="noopener">http://192.168.10.129/</a>auth<br>针对上述考虑，只需要对url进行处理即可很好的支持。</p>
+</blockquote>
+<h3 id="4-3-2-参数warp处理"><a href="#4-3-2-参数warp处理" class="headerlink" title="4.3.2 参数warp处理"></a>4.3.2 参数warp处理</h3><p>根据后端的差异，大多后端服务需要做这样的处理，考虑个别项目可能不需要做这样统一处理。所以我们需要考虑项目可全局自定义(约定的Eui.Extra.warp即是这个目的)。<br><br /><strong><em>Q: 全局考虑就够了吗</em></strong></p>
+<p>A: Say No ! 业务场景中会存在某些接口特殊不需要的情况，所以在考虑SDK API时，需要支持自定义传递来覆盖全局默认值。<br /></p>
+<h3 id="4-3-3-登录session超时处理"><a href="#4-3-3-登录session超时处理" class="headerlink" title="4.3.3 登录session超时处理"></a>4.3.3 登录session超时处理</h3><p>与后端认证协商一致，通过返回指定的报文可作为判断依据，如果全局来做呢？<br><br />仔细的同学可能已经想到了利用ajax的Complete事件来实现。</p>
+<p>是的，没错，针对这个我们提供了<code>_Eui.Comm._``_recvCompleteDispatch_</code>就是基于此事件全局实现。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">recvCompleteDispatch(xhr, status) &#123;</span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">this</span>.dataType === <span class="string">"json"</span> &amp;&amp; status === <span class="string">"success"</span>) &#123;</span><br><span class="line">      <span class="keyword">let</span> response = xhr.responseJSON;</span><br><span class="line">      <span class="keyword">const</span> &#123; message &#125; = response;</span><br><span class="line">      <span class="comment">// 判断ecas未登录情况</span></span><br><span class="line">      <span class="keyword">if</span> (!Eui.isSuccess(response) &amp;&amp; !Eui.isStableLogined(message)) &#123;</span><br><span class="line">        <span class="keyword">let</span> action;</span><br><span class="line">        <span class="comment">// 免登录版本未登录，直接跳转到登录页</span></span><br><span class="line">        <span class="keyword">if</span> (!Eui.isLogin()) &#123;</span><br><span class="line">          action = <span class="string">'login'</span>;</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (Eui.Share.get(<span class="string">'systemStatus'</span>) !== <span class="string">'timeout'</span>) &#123;</span><br><span class="line">          Eui.Share.set(<span class="string">'systemStatus'</span>, <span class="string">'timeout'</span>);</span><br><span class="line">          action = <span class="string">'relogin'</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// iframe情况下将消息发出通知主页，否则直接打开</span></span><br><span class="line">        <span class="keyword">if</span> (action) &#123;</span><br><span class="line">          <span class="keyword">if</span> (Eui.iframe) &#123;</span><br><span class="line">            Eui.Ipc.send(<span class="string">"ipc:interface:status"</span>, &#123;</span><br><span class="line">              url: <span class="keyword">this</span>.url,</span><br><span class="line">              message,</span><br><span class="line">              action,</span><br><span class="line">            &#125;);</span><br><span class="line">          &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            Eui.openReloginWin(action, message === <span class="string">"error.user.sl.exit"</span>);</span><br><span class="line">          &#125;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>备注：这里只贴出核心代码，其他相关间接调用代码不做解释。</p>
+</blockquote>
+<h3 id="4-3-4-success统一消息提醒"><a href="#4-3-4-success统一消息提醒" class="headerlink" title="4.3.4 success统一消息提醒"></a>4.3.4 success统一消息提醒</h3><p>业务中，会存在这普遍交互要求，表单提交成功，给出相应的成功提示，如果都自己去判断处理，势必会写重复的方法调用。仔细一想，我们只需要将传递的success与约定默认的成功执行方法合并即可，考虑到特殊情况自行处理的，我们约定return false就不走默认处理逻辑。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">   * 基于返回值分发成功回调,可重写来实现默认处理。</span></span><br><span class="line"><span class="comment">   *</span></span><br><span class="line"><span class="comment">   * <span class="doctag">@param <span class="type">&#123;Object&#125;</span> </span>response 后端返回数据</span></span><br><span class="line"><span class="comment">   * <span class="doctag">@param <span class="type">&#123;Boolean&#125;</span> </span>response.success  成功状态</span></span><br><span class="line"><span class="comment">   * <span class="doctag">@param <span class="type">&#123;String&#125;</span> </span>[response.message] 返回信息</span></span><br><span class="line"><span class="comment">   * <span class="doctag">@param <span class="type">&#123;Object&#125;</span> </span>response.data 数据节点</span></span><br><span class="line"><span class="comment">   *</span></span><br><span class="line"><span class="comment">   */</span></span><br><span class="line">  recvSuccessDispatch(response) &#123;</span><br><span class="line">    <span class="keyword">const</span> msg = response.message,</span><br><span class="line">      &#123; dataType, autoTip = <span class="literal">true</span> &#125; = <span class="keyword">this</span>,</span><br><span class="line">      isSuccess = Eui.isSuccess(response);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (dataType === <span class="string">'json'</span>) &#123;</span><br><span class="line">      Eui.Logger.log(<span class="string">"debug"</span>, <span class="string">"ReqUrl =&gt; &#123;%s&#125;, Method type =&gt; &#123;%s&#125;, Params =&gt; &#123;%o&#125;,Response data =&gt;"</span>, <span class="keyword">this</span>.url, <span class="keyword">this</span>.type, Eui.Object.fromQueryString(<span class="keyword">this</span>.data || <span class="string">""</span>), response);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//如果是未登录情况，不提示@since 3.1.4</span></span><br><span class="line">    <span class="keyword">if</span> (!Eui.isStableLogined(msg)) &#123;</span><br><span class="line">      <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (dataType === <span class="string">"json"</span> &amp;&amp; autoTip &amp;&amp; (msg || !isSuccess)) &#123;</span><br><span class="line">      <span class="keyword">const</span> infoType = isSuccess ? <span class="string">"info"</span> : <span class="string">"warning"</span>,</span><br><span class="line">        msgKey = msg || <span class="string">"EXECUTE_FAILRE"</span>,</span><br><span class="line">        message = Eui.Messager.parseResultMsg(msgKey);</span><br><span class="line"></span><br><span class="line">      Eui.Comm.showHttpResMsg(infoType, message);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>备注：相关代码不做多余介绍。</p>
+</blockquote>
+<h3 id="4-3-5-error统一异常记录"><a href="#4-3-5-error统一异常记录" class="headerlink" title="4.3.5 error统一异常记录"></a>4.3.5 error统一异常记录</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">  * 基于返回值分发错误回调.</span></span><br><span class="line"><span class="comment">  * <span class="doctag">@param <span class="type">&#123;Object&#125;</span> </span>response  返回信息对象</span></span><br><span class="line"><span class="comment">  */</span></span><br><span class="line"> recvErrorDispatch(response) &#123;</span><br><span class="line">   Eui.Logger.log(<span class="string">"warn"</span>, <span class="string">"服务发生异常，状态码 =&gt; %s, 详情 =&gt; %s."</span>, response.status, response.responseText);</span><br><span class="line"> &#125;,</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>提示：当然这里可以自由发挥，根据自己的情况重写，实现自己的特定需求。</p>
+</blockquote>
+<h3 id="4-3-6-更多场景"><a href="#4-3-6-更多场景" class="headerlink" title="4.3.6 更多场景"></a>4.3.6 更多场景</h3><p>更多特色场景需求，比如：<br /></p>
+<ul>
+<li>全局ajax自定义头信息</li>
+<li>接口请求参数加密</li>
+<li>返回报文解密(dataFilter)</li>
+</ul>
+<h2 id="4-4-封装核心代码"><a href="#4-4-封装核心代码" class="headerlink" title="4.4 封装核心代码"></a>4.4 封装核心代码</h2><p><em><strong>在这里来看下封装SDK方法postToRemote核心代码：</strong></em></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br></pre></td><td class="code"><pre><span class="line">postToRemote : <span class="function"><span class="keyword">function</span>(<span class="params">url,params,successCallback,errorCallback</span>)</span>&#123;</span><br><span class="line">  <span class="keyword">var</span> self = <span class="keyword">this</span>,</span><br><span class="line">      args = <span class="built_in">arguments</span>,</span><br><span class="line">      len = args.length,</span><br><span class="line">      defaultSettings = self.defaultSettings;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">var</span> ajaxSetting = Eui.util.clone(defaultSettings);</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 如果第一个参数是对象表示多个配置项；</span></span><br><span class="line">  <span class="keyword">if</span>($.isObject(url))&#123;</span><br><span class="line">    $.extend(ajaxSetting,url);</span><br><span class="line">  &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">    $.extend(ajaxSetting,&#123;</span><br><span class="line">      url: url</span><br><span class="line">    &#125;);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 处理带成功回调情况</span></span><br><span class="line">  <span class="keyword">if</span>(len &gt; <span class="number">1</span>)&#123;</span><br><span class="line">    <span class="comment">//如果第二个参数是个成功回调函数</span></span><br><span class="line">    <span class="keyword">if</span>($.isFunction(params))&#123;</span><br><span class="line">      <span class="keyword">if</span>(!ajaxSetting.hasOwnProperty(<span class="string">'success'</span>))&#123;</span><br><span class="line">        ajaxSetting[<span class="string">"success"</span>] = params;</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">if</span>(successCallback &amp;&amp; !ajaxSetting.hasOwnProperty(<span class="string">'error'</span>))&#123;</span><br><span class="line">        ajaxSetting[<span class="string">"error"</span>] = successCallback;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;<span class="keyword">else</span>&#123;</span><br><span class="line"></span><br><span class="line">      <span class="keyword">if</span>(successCallback &amp;&amp; !ajaxSetting.hasOwnProperty(<span class="string">'success'</span>))&#123;</span><br><span class="line">        ajaxSetting[<span class="string">"success"</span>] = successCallback;</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">if</span>(errorCallback &amp;&amp; !ajaxSetting.hasOwnProperty(<span class="string">'error'</span>))&#123;</span><br><span class="line">        ajaxSetting[<span class="string">"error"</span>] = errorCallback;</span><br><span class="line">      &#125;</span><br><span class="line"></span><br><span class="line">      <span class="comment">// 避免需要自定义不包括参数的情况</span></span><br><span class="line">      <span class="keyword">var</span> lastParam = args[len - <span class="number">1</span>];</span><br><span class="line">      <span class="keyword">var</span> isWarp = $.isBoolean(lastParam) ? lastParam : Eui.Extra.warp;</span><br><span class="line">      $.extend(ajaxSetting,&#123;</span><br><span class="line">        data : Eui.Extra.warpReqParams(params, isWarp)</span><br><span class="line">      &#125;);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span>(!ajaxSetting.hasOwnProperty(<span class="string">"timeout"</span>))&#123;</span><br><span class="line">    $.extend(ajaxSetting,&#123;</span><br><span class="line">      timeout : self.ajaxTimeout</span><br><span class="line">    &#125;);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">var</span> ajaxEvents = &#123;&#125;;</span><br><span class="line"></span><br><span class="line">  self.events.forEach(<span class="function"><span class="keyword">function</span> (<span class="params">eventName</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> method = ajaxSetting[eventName] || $.emptyFn;</span><br><span class="line">    ajaxEvents[eventName] = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">      <span class="keyword">var</span> rs = method.apply(<span class="keyword">this</span>, <span class="built_in">arguments</span>);</span><br><span class="line">      <span class="keyword">if</span>(rs !== <span class="literal">false</span>)&#123;</span><br><span class="line">        <span class="keyword">var</span> defFnName = <span class="string">"recv"</span> + Eui.String.capitalize(eventName) + <span class="string">"Dispatch"</span>,</span><br><span class="line">            fn = self[defFnName] || $.emptyFn;</span><br><span class="line"></span><br><span class="line">        fn.apply(<span class="keyword">this</span>, <span class="built_in">arguments</span>);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;;</span><br><span class="line">  &#125;);</span><br><span class="line"></span><br><span class="line">  ajaxSetting = self.convertDataParams($.extend(ajaxSetting, ajaxEvents));</span><br><span class="line"></span><br><span class="line">  self.executeAjax(ajaxSetting);</span><br><span class="line">&#125;,</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>备注：该方法内部调用了作用域内的其他封装方法，这里不做详细介绍。</p>
+</blockquote>
+<h1 id="五、合理使用API"><a href="#五、合理使用API" class="headerlink" title="五、合理使用API"></a>五、合理使用API</h1><p>合理科学的调用方法，能避免多余累赘的代码，让代码更加的简洁而且有效的全局可控，方便做优化。<br /></p>
+<h2 id="5-1-postToRemote"><a href="#5-1-postToRemote" class="headerlink" title="5.1 postToRemote"></a>5.1 postToRemote</h2><p>我们先来看看封装的postToRemote方法支持的使用方式：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">postToRemote(ajaxSetting)</span><br><span class="line">postToRemote(ajaxSetting,callbackSuccess,errorCallback)</span><br><span class="line">postToRemote(ajaxSetting,params,callbackSuccess,errorCallback)</span><br><span class="line">postToRemote(url)</span><br><span class="line">postToRemote(url,callbackSuccess)</span><br><span class="line">postToRemote(url,callbackSuccess,errorCallback)</span><br><span class="line">postToRemote(url,params,callbackSuccess)</span><br><span class="line">postToRemote(url,params,callbackSuccess,errorCallback)</span><br></pre></td></tr></table></figure>
+<p><em><strong>参数介绍：</strong></em><br /></p>
+<ul>
+<li>url: 请求地址</li>
+<li>ajaxSetting: ajax所支持的所有配置项</li>
+<li>params: 参数</li>
+<li>callbackSuccess：ajax成功success回调函数</li>
+<li>errorCallback：ajax异常error回调函数</li>
+</ul>
+<blockquote>
+<p>备注：可根据自己的场景需要灵活调用不同格式的方法传参。</p>
+</blockquote>
+<p><a name="mpb2m"></a></p>
+<h3 id="5-2-Eui-fetch"><a href="#5-2-Eui-fetch" class="headerlink" title="5.2 Eui.fetch"></a>5.2 Eui.fetch</h3><p><br />该方法是针对postToRemote的promise二次封装，具有以下特性：<br /></p>
+<ul>
+<li>支持promise用法</li>
+<li>支持同步yield用法</li>
+<li>支持全局实现beforeResolveSuccess(即resolve ajax success回调之前调用)</li>
+<li>支持全局实现beforeRejectError(即reject ajax error回调之前调用)</li>
+</ul>
+<blockquote>
+<p>备注：支持postToRemote方法除callbackSuccess、errorCallback参数外所有参数，传参顺序一致，这里不再对参数作详细说明。</p>
+</blockquote>
+<p><em><strong>实现源码：</strong></em></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* 通信promise封装，参数与postToRemote类似。</span></span><br><span class="line"><span class="comment">* <span class="doctag">@param  <span class="type">&#123;...any&#125;</span> <span class="variable">args</span></span></span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line">fetch(...args) &#123;</span><br><span class="line">    <span class="keyword">let</span> len = args.length,</span><br><span class="line">        lastArg = args[len - <span class="number">1</span>],</span><br><span class="line">        ajaxArgs = [...args];</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">typeof</span> lastArg === <span class="string">'boolean'</span>) &#123;</span><br><span class="line">        ajaxArgs = args.slice(<span class="number">0</span>, <span class="number">-1</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resolve, reject</span>) =&gt;</span> &#123;</span><br><span class="line">        ajaxArgs.push(<span class="function">(<span class="params">res</span>) =&gt;</span> &#123;</span><br><span class="line">            <span class="keyword">return</span> resolve(Eui.Comm.beforeResolveSuccess(res));</span><br><span class="line">        &#125;, (xhr, textStatus) =&gt; &#123;</span><br><span class="line">            <span class="keyword">return</span> reject(Eui.Comm.beforeRejectError(textStatus, xhr));</span><br><span class="line">        &#125;);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (<span class="keyword">typeof</span> lastArg === <span class="string">'boolean'</span>) &#123;</span><br><span class="line">            ajaxArgs.push(lastArg);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        Eui.postToRemote(...ajaxArgs);</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;,</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>⚠️注意：相关事件执行顺序：beforeResolveSuccess -&gt; recvSuccessDispatch -&gt; resolve<br>beforeRejectError -&gt; recvErrorDispatch -&gt; reject</p>
+</blockquote>
+<h3 id="5-2-1-调用格式"><a href="#5-2-1-调用格式" class="headerlink" title="5.2.1 调用格式"></a>5.2.1 调用格式</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Eui.fetch(ajaxSetting)</span><br><span class="line">Eui.fetch(ajaxSetting,params)</span><br><span class="line">Eui.fetch(url)</span><br><span class="line">Eui.fetch(url,params)</span><br></pre></td></tr></table></figure>
+
+<p>** ⚠️特别提示：最后一个参数可以传isWarp(默认与Eui.Extra.warp一致)，用来判断是否需要对参数做Eui.Extra.warpReqParams(即包装参数reqJson格式)操作。<strong><br /></strong></p>
+<h3 id="5-2-2-yield-用法"><a href="#5-2-2-yield-用法" class="headerlink" title="5.2.2 yield 用法"></a>5.2.2 yield 用法</h3><p>常见使用场景，在modal层effects中，ajax请求同步写法支持。<br><br />比如，修改密码功能实现代码：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">*modifyPwdSubmit(&#123; payload &#125;, &#123; call, put &#125;) &#123;</span><br><span class="line">    <span class="keyword">const</span> response = <span class="keyword">yield</span> call(<span class="function"><span class="params">()</span> =&gt;</span></span><br><span class="line">        Eui.fetch(</span><br><span class="line">            &#123;</span><br><span class="line">            hostKey: Eui.env.authAppHostKey,</span><br><span class="line">            url: Eui.env.ecasMoreURLs.ModifyPasswordUrl,</span><br><span class="line">            &#125;,</span><br><span class="line">            Eui.Extra.addPrefixForObject(payload, <span class="string">'user'</span>),</span><br><span class="line">        ),</span><br><span class="line">    );</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (response.success) &#123;</span><br><span class="line">        <span class="keyword">yield</span> put(&#123;</span><br><span class="line">            type: <span class="string">'modifyPwdState'</span>,</span><br><span class="line">            payload: <span class="literal">false</span>,</span><br><span class="line">        &#125;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;,</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>备注：如果在effects中需要调用reducers中的方法，必须使用<code>yield call()</code>的方式，来保证同步执行。</p>
+</blockquote>
+<blockquote>
+<p><strong><em>如何按顺序调用多个effects中的方法而且后面的方法依赖前一个方法的结果？</em></strong><br><br />effects中的方法本质上返回Promise对象，基于此特性，所以我们可以这么定义：</p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</span><br><span class="line">  namespace: <span class="string">'list'</span>,</span><br><span class="line">  state: &#123;</span><br><span class="line">  &#125;,</span><br><span class="line">  effects: &#123;</span><br><span class="line">    *fnA(&#123; payload &#125;, &#123; call, put &#125;) &#123;</span><br><span class="line">        <span class="keyword">const</span> response = <span class="keyword">yield</span> call(<span class="function"><span class="params">()</span> =&gt;</span></span><br><span class="line">            Eui.fetch(<span class="string">'getVersion.action'</span>),</span><br><span class="line">        );</span><br><span class="line">        <span class="comment">// 将获取的版本号返回，作为fnB方法调用的参数</span></span><br><span class="line">        <span class="keyword">if</span> (Eui.isSuccess(response)) &#123;</span><br><span class="line">            <span class="keyword">const</span> &#123; <span class="attr">data</span>: &#123; version &#125; &#125; = response;</span><br><span class="line">            <span class="keyword">return</span> version;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">''</span>;</span><br><span class="line">    &#125;,</span><br><span class="line">    fnB(&#123; payload &#125;) &#123;</span><br><span class="line">        <span class="comment">// 拿到方法fnA返回的结果</span></span><br><span class="line">        Eui.Logger.log(<span class="string">'debug'</span>, <span class="string">'The payload value is =&gt; %s.'</span>, payload);</span><br><span class="line">    &#125;,</span><br><span class="line">  &#125;,</span><br><span class="line">  reducers: &#123;</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p><br /><em><strong>调用方法：</strong></em><br />_</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">dispatch(&#123;</span><br><span class="line">    type: <span class="string">'list/fnA'</span>,</span><br><span class="line">  &#125;).then(</span><br><span class="line">    version =&gt; &#123;</span><br><span class="line">      dispatch(&#123;</span><br><span class="line">        type: <span class="string">'list/fnB'</span>,</span><br><span class="line">        payload: version,</span><br><span class="line">      &#125;)</span><br><span class="line">    &#125;,</span><br><span class="line">  );</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>备注：从上面实例代码不难看出，只要将第一个方法结果return，作为fnB方法调用的参数payload。</p>
+</blockquote>
+<h3 id="5-2-3-Promise-用法"><a href="#5-2-3-Promise-用法" class="headerlink" title="5.2.3 Promise 用法"></a>5.2.3 Promise 用法</h3><p>该方法支持promise调用方式，如下：<br /></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">getVersion() &#123;</span><br><span class="line">    Eui.fetch(</span><br><span class="line">        <span class="string">'getVersion.action'</span>,</span><br><span class="line">    ).then(</span><br><span class="line">        response =&gt; &#123;</span><br><span class="line">            Eui.Logger.log(<span class="string">'debug'</span>, <span class="string">'success event resolve, response =&gt; %o.'</span>, response);</span><br><span class="line">        &#125;,</span><br><span class="line">        status =&gt; &#123;</span><br><span class="line">            Eui.Logger.log(<span class="string">'debug'</span>, <span class="string">'error event reject, status =&gt; %s.'</span>, status);</span><br><span class="line">        &#125;,</span><br><span class="line">    );</span><br><span class="line">&#125;,</span><br></pre></td></tr></table></figure>
+
+<h3 id="5-2-4-同步await写法"><a href="#5-2-4-同步await写法" class="headerlink" title="5.2.4 同步await写法"></a>5.2.4 同步await写法</h3><p>可以结合async和await来实现同步写法，如下：<br /></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">async</span> getVersion() &#123;</span><br><span class="line">    <span class="keyword">const</span> response = <span class="keyword">await</span> Eui.fetch(&#123;</span><br><span class="line">        url: <span class="string">'getVersion.action'</span>,</span><br><span class="line">        autoTip: <span class="literal">false</span>,</span><br><span class="line">    &#125;);</span><br><span class="line">    Eui.Logger.log(<span class="string">'debug'</span>, <span class="string">'await response =&gt; %o.'</span>, response);</span><br><span class="line">&#125;,</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>备注：then包括2个参数，第一个参数是进入ajax success回调后执行的resolve，第二个参数是进入ajax error回调后执行的reject。</p>
+</blockquote>
+<h3 id="5-2-5-阻止默认异常提示"><a href="#5-2-5-阻止默认异常提示" class="headerlink" title="5.2.5 阻止默认异常提示"></a>5.2.5 阻止默认异常提示</h3><p>框架默认对ajax succss回调recvSuccessDispatch做了以下统一处理，包括：<br /></p>
+<ul>
+<li>未登录情况下，弹出重登窗口(判断依据：Eui.isStableLogined)，不再做提示</li>
+<li>返回接口报文包含<code>message</code>或者<code>success</code>为false且<code>autoTip</code>(默认为<code>true</code>)不为false</li>
+</ul>
+<p>Eui.Comm.recvSuccessDispatch默认实现如下：<br /></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">recvSuccessDispatch(response) &#123;</span><br><span class="line">    <span class="keyword">const</span> msg = response.message,</span><br><span class="line">        &#123; dataType, autoTip = <span class="literal">true</span> &#125; = <span class="keyword">this</span>,</span><br><span class="line">        isSuccess = Eui.isSuccess(response);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (dataType === <span class="string">'json'</span>) &#123;</span><br><span class="line">        Eui.Logger.log(<span class="string">"debug"</span>, <span class="string">"ReqUrl =&gt; &#123;%s&#125;, Method type =&gt; &#123;%s&#125;, Params =&gt; &#123;%o&#125;,Response data =&gt;"</span>, <span class="keyword">this</span>.url, <span class="keyword">this</span>.type, Eui.Object.fromQueryString(<span class="keyword">this</span>.data || <span class="string">""</span>), response);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//如果是未登录情况，不提示@since 3.1.4</span></span><br><span class="line">    <span class="keyword">if</span> (!Eui.isStableLogined(msg)) &#123;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (dataType === <span class="string">"json"</span> &amp;&amp; autoTip &amp;&amp; (msg || !isSuccess)) &#123;</span><br><span class="line">        <span class="keyword">const</span> infoType = isSuccess ? <span class="string">"info"</span> : <span class="string">"warning"</span>,</span><br><span class="line">            msgKey = msg || <span class="string">"EXECUTE_FAILRE"</span>,</span><br><span class="line">            message = Eui.Messager.parseResultMsg(msgKey);</span><br><span class="line">            </span><br><span class="line">        Eui.Comm.showHttpResMsg(infoType, message);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong><em>当我们期望个性化提示信息或者不提示信息时，该怎么做呢？</em></strong><br><br />从上述的recvSuccessDispatch默认实现，不难看出，我们可以传参数<code>autoTip</code>为false来达到效果。<br><br />以下以<code>getVersion.action</code>接口为例：<br><br />假设正常情况下访问报文如下：<br /></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    &quot;data&quot;:&#123;</span><br><span class="line">        &quot;messageId&quot;:&quot;&#x2F;getVersion.action&quot;</span><br><span class="line">    &#125;,</span><br><span class="line">    &quot;success&quot;:false</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>默认情况下，会提示：<br><br /><img src="/images/zebra/7/01.png" alt="ajax_error.png"></p>
+<p><strong><em>场景一：不做提示</em></strong></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">async</span> getVersion() &#123;</span><br><span class="line">    <span class="keyword">const</span> response = <span class="keyword">await</span> Eui.fetch(&#123;</span><br><span class="line">        url: <span class="string">'getVersion.action'</span>,</span><br><span class="line">        autoTip: <span class="literal">false</span>,</span><br><span class="line">    &#125;);</span><br><span class="line">    Eui.Logger.log(<span class="string">'debug'</span>, <span class="string">'skip auto tip warning, await response =&gt; %o.'</span>, response);</span><br><span class="line">&#125;,</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>提示：关键字<code>autoTip</code>，第一个参数必须为对象格式，当然这里也可以用<code>.then</code>的方式。</p>
+</blockquote>
+<p><strong><em>场景二：在modal中的effects个性化提示</em></strong><br><br /><img src="/images/zebra/7/02.png" alt="ajax_custom_error.png"><br /><br><br />_<strong>实例代码</strong>_：<br /></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">*getVersion(&#123; payload &#125;, &#123; call, put &#125;) &#123;</span><br><span class="line">    <span class="keyword">const</span> response = <span class="keyword">yield</span> call(<span class="function"><span class="params">()</span> =&gt;</span></span><br><span class="line">        Eui.fetch(&#123;</span><br><span class="line">            url: <span class="string">'getVersion.action'</span>,</span><br><span class="line">            autoTip: <span class="literal">false</span>,</span><br><span class="line">        &#125;),</span><br><span class="line">    );</span><br><span class="line">    <span class="keyword">if</span> (!Eui.isSuccess(response)) &#123;</span><br><span class="line">        Eui.Extra.showToast(<span class="string">'warning'</span>, <span class="string">'获取版本号失败！'</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;,</span><br></pre></td></tr></table></figure>
+
+<p><em><strong>也可以：</strong></em></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">getVersion() &#123;</span><br><span class="line">    Eui.fetch(&#123;</span><br><span class="line">        url: <span class="string">'getVersion.action'</span>,</span><br><span class="line">        autoTip: <span class="literal">false</span>,</span><br><span class="line">    &#125;).then(</span><br><span class="line">    response =&gt; &#123;</span><br><span class="line">        <span class="keyword">if</span> (!Eui.isSuccess(response)) &#123;</span><br><span class="line">            Eui.Extra.showToast(<span class="string">'warning'</span>, <span class="string">'获取版本号失败！'</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;,</span><br></pre></td></tr></table></figure>
+
+<h3 id="5-2-6-全局对报文数据做二次处理"><a href="#5-2-6-全局对报文数据做二次处理" class="headerlink" title="5.2.6 全局对报文数据做二次处理"></a>5.2.6 全局对报文数据做二次处理</h3><p>在一些特殊场景下，如果想做框架默认的处理逻辑做重写，可在提供的扩展接口基础上做二次封装，比如：<code>beforeResolveSuccess</code>、<code>beforeRejectError</code>，方法均属于<a href="http://192.168.10.129/docs/eui-3.5/apidoc/index.html#!/api/Eui.Comm" target="_blank" rel="noopener"><code>Eui.Comm</code></a>。<br /></p>
+<p>默认代码如下：<br /></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* <span class="doctag">@new</span></span></span><br><span class="line"><span class="comment">* <span class="doctag">@since </span>3.5.9</span></span><br><span class="line"><span class="comment">* 在ajax resolve成功回调之前执行。</span></span><br><span class="line"><span class="comment">* <span class="doctag">@param <span class="type">&#123;Object&#125;</span> <span class="variable">response</span></span></span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line">beforeResolveSuccess(response) &#123;</span><br><span class="line">    <span class="keyword">return</span> response;</span><br><span class="line">&#125;,</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* <span class="doctag">@new</span></span></span><br><span class="line"><span class="comment">* <span class="doctag">@since </span>3.5.9</span></span><br><span class="line"><span class="comment">* 在ajax reject异常error回调之前执行。</span></span><br><span class="line"><span class="comment">* <span class="doctag">@param <span class="type">&#123;String&#125;</span> <span class="variable">status</span></span></span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line">beforeRejectError(status, _xhr) &#123;</span><br><span class="line">    <span class="keyword">return</span> status;</span><br><span class="line">&#125;,</span><br></pre></td></tr></table></figure>
+
+    </div>
+    
+    <div class="post-footer">
+        <div>
+            
+            转载声明：
+            商业转载请联系作者获得授权,非商业转载请注明出处 © <a href="" target="_blank">Zebra</a>
+            
+            
+        </div>
+        <div>
+            
+        </div>
+    </div>
+</article>
+<div class="article-nav prev-next-wrap clearfix">
+    
+    <a href="/2020/07/21/muti-theme3.0/" class="pre-post btn btn-default" title='解决方案 之 多主题集成及规范(一)'>
+        <i class="fa fa-angle-left fa-fw"></i><span class="hidden-lg">上一篇</span>
+        <span class="hidden-xs">
+            解决方案 之 多主题集成及规范(一)</span>
+    </a>
+    
+    
+    <a href="/2020/04/18/pc-lifecycle/" class="next-post btn btn-default" title='第六期 - 「PC客户端各生命周期详解」 - (2020.4.18)'>
+        <span class="hidden-lg">下一篇</span>
+        <span class="hidden-xs">
+            第六期 - 「PC客户端各生命周期详解」 - (2020.4.18)</span><i class="fa fa-angle-right fa-fw"></i>
+    </a>
+    
+</div>
+
+<div id="comments">
+    
+
+<div id="vcomments" class="valine"></div>
+
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="/assets/valine.min.js"></script>
+
+<script>
+new Valine({
+    av: AV,
+    el: '#vcomments',
+    appId: '0q0vid2kizGymmd0dNKs3lOY-gzGzoHsz',
+    appKey: 'wNj5sJAu5hReOirB3QbKqNiA',
+    placeholder: '说点什么吧',
+    notify: false,
+    verify: true,
+    avatar: 'mm',
+    meta: 'nick,mail'.split(','),
+    pageSize: '10',
+    path: window.location.pathname,
+    lang: 'zh-CN'.toLowerCase()
+})
+</script>
+
+
+</div>
+
+                </main>
+                
+                    <aside id="article-toc" role="navigation" class="col-md-4">
+    <div class="widget">
+        <h3 class="title">
+            文章目录
+        </h3>
+        
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#一、前言"><span class="toc-text">一、前言</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#二、AJAX概述"><span class="toc-text">二、AJAX概述</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#2-1-什么是AJAX？"><span class="toc-text">2.1 什么是AJAX？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-2-同步、异步交互"><span class="toc-text">2.2 同步、异步交互</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-3-AJAX常见场景"><span class="toc-text">2.3 AJAX常见场景</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#三、HTTP库选型"><span class="toc-text">三、HTTP库选型</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#3-1-jquery"><span class="toc-text">3.1 jquery</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-2-Axios"><span class="toc-text">3.2 Axios</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-3-umi-request"><span class="toc-text">3.3 umi-request</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#四、我们的实践"><span class="toc-text">四、我们的实践</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#4-1-jquery相关方法介绍"><span class="toc-text">4.1 jquery相关方法介绍</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#4-1-1-post方法"><span class="toc-text">4.1.1 post方法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-1-2-get方法"><span class="toc-text">4.1.2 get方法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-1-3-ajax方法"><span class="toc-text">4.1.3 ajax方法</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-2-我们的需求"><span class="toc-text">4.2 我们的需求</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-3-我们的设计"><span class="toc-text">4.3 我们的设计</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#4-3-1-支持多上下文"><span class="toc-text">4.3.1 支持多上下文</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-3-2-参数warp处理"><span class="toc-text">4.3.2 参数warp处理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-3-3-登录session超时处理"><span class="toc-text">4.3.3 登录session超时处理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-3-4-success统一消息提醒"><span class="toc-text">4.3.4 success统一消息提醒</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-3-5-error统一异常记录"><span class="toc-text">4.3.5 error统一异常记录</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-3-6-更多场景"><span class="toc-text">4.3.6 更多场景</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-4-封装核心代码"><span class="toc-text">4.4 封装核心代码</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#五、合理使用API"><span class="toc-text">五、合理使用API</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#5-1-postToRemote"><span class="toc-text">5.1 postToRemote</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#5-2-Eui-fetch"><span class="toc-text">5.2 Eui.fetch</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-2-1-调用格式"><span class="toc-text">5.2.1 调用格式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-2-2-yield-用法"><span class="toc-text">5.2.2 yield 用法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-2-3-Promise-用法"><span class="toc-text">5.2.3 Promise 用法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-2-4-同步await写法"><span class="toc-text">5.2.4 同步await写法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-2-5-阻止默认异常提示"><span class="toc-text">5.2.5 阻止默认异常提示</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-2-6-全局对报文数据做二次处理"><span class="toc-text">5.2.6 全局对报文数据做二次处理</span></a></li></ol></li></ol></li></ol>
+        
+    </div>
+</aside>
+                
+            </div>
+        </div>
+    </section>
+    <footer class="main-footer">
+    <div class="container">
+        <div class="row">
+        </div>
+    </div>
+</footer>
+<a id="back-to-top" class="icon-btn hide">
+    <i class="fa fa-chevron-up"></i>
+</a>
+    <div class="copyright">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="busuanzi">
+    
+</div>
+            </div>
+            <div class="col-sm-12">
+                <span>Copyright &copy;
+                    2020
+                    
+                </span> |
+                <span>
+                    Powered by <a href="//hexo.io" class="copyright-links" target="_blank" rel="nofollow">Hexo</a>
+                </span> |
+                <span>
+                    Theme by <a href="//github.com/shenliyang/hexo-theme-snippet.git" class="copyright-links" target="_blank" rel="nofollow">Snippet</a>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<script src="/assets/tagcanvas.min.js?rev=2.9.js"></script>
+
+<script>
+var tagOption = {
+    textColour: '#444', // 字体颜色
+    outlineMethod: 'block', // 选中模式
+    outlineColour: '#FFDAB9', // 选中模式的颜色
+    interval: 30 || 30, // 动画帧之间的时间间隔，值越大，转动幅度越大
+    textHeight: 13,
+    outlineRadius: 3,
+    freezeActive: true || '', // 选中的标签是否继续滚动
+    frontSelect: true || '', // 不选标签云后部的标签
+    initial: [0.1, -0.1],
+    depth: 0.5,
+    decel: 0.95,
+    maxSpeed: 0.03,
+    reverse: true || '', // 是否反向触发
+    fadeIn: 500, // 进入动画时间
+    wheelZoom: false || '' // 是否启用鼠标滚轮
+}
+TagCanvas.Start('tag-cloud-3d', '', tagOption);
+</script>
+
+
+
+<script src="/js/app.js?rev=@@hash.js"></script>
+
+</body>
+</html>
