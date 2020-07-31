@@ -16,6 +16,9 @@ menu:
   icon:
 - page: 工程化
   url: /categories/工程化/
+  icon: 
+- page: 辅助工具
+  url: /categories/辅助工具/
   icon:   
 - page: 时间轴
   url: /archives/
