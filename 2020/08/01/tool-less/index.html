@@ -1,0 +1,478 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+<head>
+    <!--Setting-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <meta http-equiv="Cache-Control" content="no-transform">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta name="apple-mobile-web-app-capable" content="Zebra前端团队博客">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no,email=no,adress=no">
+    <meta name="browsermode" content="application">
+    <meta name="screen-orientation" content="portrait">
+    <meta name="theme-version" content="1.0.0">
+    <meta name="root" content="/">
+    <link rel="dns-prefetch" href="http://blog.zebrateam.cn">
+    <!--SEO-->
+
+<meta name="keywords" content="Zebra,less,plugin,variable,color" />
+
+
+<meta name="description" content="业务背景项目开发到一定阶段或者改造项目要支持多主题定制，但是存在以下情况：
+
+less中存在大量color值；
+从众多模块中提取相同多color到一个变量，比较工作量大，效率低；
+需要对less..." />
+
+
+<meta name="robots" content="all" />
+<meta name="google" content="all" />
+<meta name="googlebot" content="all" />
+<meta name="verify" content="all" />
+    <!--Title-->
+
+<title>
+    
+    辅助工具 之「批量提取替换less颜色 - 多主题」 - (2020.08.01) |
+    
+    Zebra前端团队博客
+</title>
+
+<link rel="alternate" href="/atom.xml" title="Zebra前端团队博客" type="application/atom+xml">
+
+
+<link rel="icon" href="/favicon.ico">
+
+    
+
+
+<link rel="stylesheet" href="/css/bootstrap.min.css?rev=3.3.7.css">
+<link rel="stylesheet" href="/css/font-awesome.min.css?rev=4.7.0.css">
+<link rel="stylesheet" href="/css/style.css?rev=@@hash.css">
+
+    
+<div class="hide">
+    <script type="text/javascript">
+    var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+    document.write(unescape("%3Cspan class='cnzz_stat_icon_1263868967 hide' %3E%3Cscript%20src%3D%22https%3A%2F%2Fs95.cnzz.com%2Fz_stat.php%3Fweb_id%3D1272564536%22%3E%3C%2Fscript%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s19.cnzz.com/z_stat.php%3Fid%3D1263868967%26show%3Dpic1' type='text/javascript'%3E%3C/script%3E"));
+    </script>
+</div>
+
+
+
+
+    
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+<!--[if lte IE 8]>
+<style>
+    html{ font-size: 1em }
+</style>
+<![endif]-->
+<!--[if lte IE 9]>
+<div style="ie">你使用的浏览器版本过低，为了你更好的阅读体验，请更新浏览器的版本或者使用其他现代浏览器，比如Chrome、Firefox、Safari等。</div>
+<![endif]-->
+<body>
+    <header class="main-header"  style="background-image:url(
+    /./img/banner.jpg)"
+     >
+    <div class="main-header-box">
+        <a class="header-avatar" href="/" title='SCM'>
+            <img src="/img/avatar.jpg" alt="logo头像" class="img-responsive center-block">
+        </a>
+        <div class="branding">
+            <!--<h2 class="text-hide">Snippet主题,从未如此简单有趣</h2>-->
+            
+            <h2>
+                分享是件简单有趣的事情
+            </h2>
+            
+        </div>
+    </div>
+</header>
+    <nav class="main-navigation">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="navbar-header"><span class="nav-toggle-button collapsed pull-right" data-toggle="collapse" data-target="#main-menu" id="mnav">
+                        <span class="sr-only"></span>
+                        <i class="fa fa-bars"></i>
+                    </span>
+                    <a class="navbar-brand" href="http://blog.zebrateam.cn">
+                        Zebra前端团队博客</a>
+                </div>
+                <div class="collapse navbar-collapse" id="main-menu">
+                    <ul class="menu">
+                        
+                        <li role="presentation" class="text-center">
+                            <a href="/"><i class="fa "></i>
+                                首页</a>
+                        </li>
+                        
+                        <li role="presentation" class="text-center">
+                            <a href="/categories/分享专栏/"><i class="fa "></i>
+                                分享专栏</a>
+                        </li>
+                        
+                        <li role="presentation" class="text-center">
+                            <a href="/categories/解决方案/"><i class="fa "></i>
+                                解决方案</a>
+                        </li>
+                        
+                        <li role="presentation" class="text-center">
+                            <a href="/categories/工程化/"><i class="fa "></i>
+                                工程化</a>
+                        </li>
+                        
+                        <li role="presentation" class="text-center">
+                            <a href="/categories/辅助工具/"><i class="fa "></i>
+                                辅助工具</a>
+                        </li>
+                        
+                        <li role="presentation" class="text-center">
+                            <a href="/archives/"><i class="fa "></i>
+                                时间轴</a>
+                        </li>
+                        
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+    <section class="content-wrap">
+        <div class="container">
+            <div class="row">
+                <main class="col-md-8 main-content m-post">
+                    <p id="process"></p>
+<article class="post">
+    <div class="post-head">
+        <h1 id="辅助工具 之「批量提取替换less颜色 - 多主题」 - (2020.08.01)">
+            
+            辅助工具 之「批量提取替换less颜色 - 多主题」 - (2020.08.01)
+            
+        </h1>
+        <div class="post-meta">
+    
+    <span class="categories-meta fa-wrap">
+        <i class="fa fa-folder-open-o"></i>
+        <a class="category-link" href="/categories/%E8%BE%85%E5%8A%A9%E5%B7%A5%E5%85%B7/">辅助工具</a>
+    </span>
+    
+    
+    <span class="fa-wrap">
+        <i class="fa fa-tags"></i>
+        <span class="tags-meta">
+            
+            <a class="tag-link" href="/tags/Zebra/" rel="tag">Zebra</a> <a class="tag-link" href="/tags/color/" rel="tag">color</a> <a class="tag-link" href="/tags/less/" rel="tag">less</a> <a class="tag-link" href="/tags/plugin/" rel="tag">plugin</a> <a class="tag-link" href="/tags/variable/" rel="tag">variable</a>
+            
+        </span>
+    </span>
+    
+    
+    
+    <span class="fa-wrap">
+        <i class="fa fa-clock-o"></i>
+        <span class="date-meta">
+            2020/08/01</span>
+    </span>
+    
+    
+</div>
+        
+        
+    </div>
+    
+    <div class="post-body post-content">
+        <h2 id="业务背景"><a href="#业务背景" class="headerlink" title="业务背景"></a>业务背景</h2><p>项目开发到一定阶段或者改造项目要支持多主题定制，但是存在以下情况：</p>
+<ul>
+<li>less中存在大量color值；</li>
+<li>从众多模块中提取相同多color到一个变量，比较工作量大，效率低；</li>
+<li>需要对less中color中相关color样式提取到带前缀的class类空间下；</li>
+<li>。。。</li>
+</ul>
+<p>基于以上涉及color改造需求，封装了插件<a href="https://www.npmjs.com/package/@zebrateam/auto-complate-color-variable" target="_blank" rel="noopener">@zebrateam/auto-complate-color-variable</a>。</p>
+<h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>[PostCSS] plugin color variable. 替换颜色值为预定义的变量。目前支持 Less 和 Sass，支持批量替换多个文件及缺失定义变量检测并自动创建。</p>
+<h2 id="安装依赖"><a href="#安装依赖" class="headerlink" title="安装依赖"></a>安装依赖</h2><p>全局安装插件:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install @zebrateam&#x2F;auto-complate-color-variable -g</span><br></pre></td></tr></table></figure>
+
+<h2 id="支持特性"><a href="#支持特性" class="headerlink" title="支持特性"></a>支持特性</h2><p>定义颜色变量名的文件</p>
+<figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">@link-color:</span> <span class="number">#0a1</span>;</span><br></pre></td></tr></table></figure>
+
+<p>输入</p>
+<figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.foo</span> &#123;</span><br><span class="line">    <span class="attribute">color</span>: <span class="number">#0a1</span>;</span><br><span class="line">    <span class="attribute">background</span>: rgb(<span class="number">170</span>, <span class="number">170</span>, <span class="number">170</span>);</span><br><span class="line">    <span class="attribute">border</span>: <span class="number">1px</span> solid rgba(<span class="number">170</span>, <span class="number">170</span>, <span class="number">170</span>, <span class="number">0.1</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>输出</p>
+<figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.foo</span> &#123;</span><br><span class="line">  <span class="attribute">color</span>: <span class="variable">@link-color</span>;</span><br><span class="line">  <span class="attribute">background</span>: <span class="variable">@link-color</span>;</span><br><span class="line">  <span class="attribute">border</span>: <span class="number">1px</span> solid fade(<span class="variable">@link-color</span>, <span class="number">10%</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="配置变量"><a href="#配置变量" class="headerlink" title="配置变量"></a>配置变量</h2><p>.colorvarrc.json支持配置项详解：</p>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>描述</th>
+<th>类型</th>
+<th>默认值</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>variableFiles</td>
+<td>定义颜色变量的文件路径</td>
+<td>Array</td>
+<td>[]</td>
+</tr>
+<tr>
+<td>syntax</td>
+<td>语法，支持 less 和 scss</td>
+<td>String</td>
+<td>‘less’</td>
+</tr>
+<tr>
+<td>autoImport</td>
+<td>是否自动导入依赖的variableFiles</td>
+<td>Boolean</td>
+<td>false</td>
+</tr>
+<tr>
+<td>alias</td>
+<td>等同于 webpack 中的alias</td>
+<td>Object</td>
+<td>{}</td>
+</tr>
+<tr>
+<td>base</td>
+<td>基础路径，modules匹配时扫描进入目录</td>
+<td>String</td>
+<td>‘’</td>
+</tr>
+<tr>
+<td>autoComple</td>
+<td>是否自动补全缺失color变量，<br>checkMode为‘1’时有效</td>
+<td>Boolean</td>
+<td>false</td>
+</tr>
+<tr>
+<td>usingAlias</td>
+<td>自动导入 variableFile 时，使用 alias ，<br>例如 @import ‘~@/src/color.less’</td>
+<td>String</td>
+<td>‘’</td>
+</tr>
+<tr>
+<td>singleQuote</td>
+<td>自动导入时是否使用单引号， 默认 false</td>
+<td>Boolean</td>
+<td>false</td>
+</tr>
+<tr>
+<td>checkMode</td>
+<td>是否为检测模式，为‘1’时，<br>只检测缺失定义color变量</td>
+<td>Boolean</td>
+<td>‘0’</td>
+</tr>
+<tr>
+<td>cssTplPath</td>
+<td>转换color为变量，提取支持多主题模版的路径<br>（可以根目录相对路径文件）</td>
+<td>String</td>
+<td>‘./template/less.tpl’</td>
+</tr>
+<tr>
+<td>supportCssTpl</td>
+<td>是否选择css模版来转换样式</td>
+<td>Boolean</td>
+<td>false</td>
+</tr>
+<tr>
+<td>prettyCss</td>
+<td>是否美化代码</td>
+<td>Boolean</td>
+<td>true</td>
+</tr>
+</tbody></table>
+<h2 id="命令行参数"><a href="#命令行参数" class="headerlink" title="命令行参数"></a>命令行参数</h2><table>
+<thead>
+<tr>
+<th>参数</th>
+<th>描述</th>
+<th>类型</th>
+<th>别名</th>
+<th>是否必须</th>
+<th>例子</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>syntax</td>
+<td>语法: 支持 less 和 scss , 默认less</td>
+<td>String</td>
+<td>‘s’</td>
+<td>false</td>
+<td>pcvar ./index.less –syntax less</td>
+</tr>
+<tr>
+<td>base</td>
+<td>定义基础路径，用来批量转换多个文件</td>
+<td>String</td>
+<td>‘b’</td>
+<td>false</td>
+<td>pcvar –base src</td>
+</tr>
+<tr>
+<td>modules</td>
+<td>定义匹配文件规则</td>
+<td>String</td>
+<td>‘m’</td>
+<td>false</td>
+<td>pcvar –modules “<em>*/</em>.less”</td>
+</tr>
+<tr>
+<td>checkMode</td>
+<td>检测是否缺失color未定义变量<br>(1: 检测；0: 不检测，<br>检测模式时，不自动写入转换less文件)</td>
+<td>String</td>
+<td>‘c’</td>
+<td>false</td>
+<td>pcvar –modules “<em>*/</em>.less” –checkMode=1</td>
+</tr>
+</tbody></table>
+<h2 id="项目应用"><a href="#项目应用" class="headerlink" title="项目应用"></a>项目应用</h2><p>项目根目录创建文件<code>.colorvarrc.json</code>：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="string">"variableFiles"</span>: [<span class="string">"./config/theme.less"</span>],</span><br><span class="line">  <span class="string">"syntax"</span>: <span class="string">"less"</span>,</span><br><span class="line">  <span class="string">"autoImport"</span>: <span class="literal">true</span>,</span><br><span class="line">  <span class="string">"alias"</span>: &#123;</span><br><span class="line">    <span class="string">"@"</span>: <span class="string">"./config"</span> </span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="string">"base"</span>: <span class="string">"src/pages"</span>,</span><br><span class="line">  <span class="string">"autoComple"</span>: <span class="literal">true</span>,</span><br><span class="line">  <span class="string">"usingAlias"</span>: <span class="string">"@"</span>, </span><br><span class="line">  <span class="string">"singleQuote"</span>: <span class="literal">false</span>,</span><br><span class="line">  <span class="string">"supportCssTpl"</span>: <span class="literal">true</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="命令行"><a href="#命令行" class="headerlink" title="命令行"></a>命令行</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 检测模式，如果autoComple为true，则变量定义文件自动创建缺失变量</span></span><br><span class="line">.pcvar --m <span class="string">"**/*.less"</span> --c=1</span><br><span class="line"></span><br><span class="line"><span class="comment"># 批量转换多文件</span></span><br><span class="line">.pcvar --m <span class="string">"**/*.less"</span></span><br></pre></td></tr></table></figure>
+
+
+    </div>
+    
+    <div class="post-footer">
+        <div>
+            
+            转载声明：
+            商业转载请联系作者获得授权,非商业转载请注明出处 © <a href="" target="_blank">Zebra</a>
+            
+            
+        </div>
+        <div>
+            
+        </div>
+    </div>
+</article>
+<div class="article-nav prev-next-wrap clearfix">
+    
+    
+    <a href="/2020/07/31/standard-eslint/" class="next-post btn btn-default" title='工程化之「集成代码检测规则」 - (2020.7.31)'>
+        <span class="hidden-lg">下一篇</span>
+        <span class="hidden-xs">
+            工程化之「集成代码检测规则」 - (2020.7.31)</span><i class="fa fa-angle-right fa-fw"></i>
+    </a>
+    
+</div>
+
+<div id="comments">
+    
+
+<div id="vcomments" class="valine"></div>
+
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="/assets/valine.min.js"></script>
+
+<script>
+new Valine({
+    av: AV,
+    el: '#vcomments',
+    appId: '0q0vid2kizGymmd0dNKs3lOY-gzGzoHsz',
+    appKey: 'wNj5sJAu5hReOirB3QbKqNiA',
+    placeholder: '说点什么吧',
+    notify: false,
+    verify: true,
+    avatar: 'mm',
+    meta: 'nick,mail'.split(','),
+    pageSize: '10',
+    path: window.location.pathname,
+    lang: 'zh-CN'.toLowerCase()
+})
+</script>
+
+
+</div>
+
+                </main>
+                
+                    <aside id="article-toc" role="navigation" class="col-md-4">
+    <div class="widget">
+        <h3 class="title">
+            文章目录
+        </h3>
+        
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#业务背景"><span class="toc-text">业务背景</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#简介"><span class="toc-text">简介</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#安装依赖"><span class="toc-text">安装依赖</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#支持特性"><span class="toc-text">支持特性</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#配置变量"><span class="toc-text">配置变量</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#命令行参数"><span class="toc-text">命令行参数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#项目应用"><span class="toc-text">项目应用</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#命令行"><span class="toc-text">命令行</span></a></li></ol>
+        
+    </div>
+</aside>
+                
+            </div>
+        </div>
+    </section>
+    <footer class="main-footer">
+    <div class="container">
+        <div class="row">
+        </div>
+    </div>
+</footer>
+<a id="back-to-top" class="icon-btn hide">
+    <i class="fa fa-chevron-up"></i>
+</a>
+    <div class="copyright">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="busuanzi">
+    
+</div>
+            </div>
+            <div class="col-sm-12">
+                <span>Copyright &copy;
+                    2020
+                    
+                </span> |
+                <span>
+                    Powered by <a href="//hexo.io" class="copyright-links" target="_blank" rel="nofollow">Hexo</a>
+                </span> |
+                <span>
+                    Theme by <a href="//github.com/shenliyang/hexo-theme-snippet.git" class="copyright-links" target="_blank" rel="nofollow">Snippet</a>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<script src="/assets/tagcanvas.min.js?rev=2.9.js"></script>
+
+<script>
+var tagOption = {
+    textColour: '#444', // 字体颜色
+    outlineMethod: 'block', // 选中模式
+    outlineColour: '#FFDAB9', // 选中模式的颜色
+    interval: 30 || 30, // 动画帧之间的时间间隔，值越大，转动幅度越大
+    textHeight: 13,
+    outlineRadius: 3,
+    freezeActive: true || '', // 选中的标签是否继续滚动
+    frontSelect: true || '', // 不选标签云后部的标签
+    initial: [0.1, -0.1],
+    depth: 0.5,
+    decel: 0.95,
+    maxSpeed: 0.03,
+    reverse: true || '', // 是否反向触发
+    fadeIn: 500, // 进入动画时间
+    wheelZoom: false || '' // 是否启用鼠标滚轮
+}
+TagCanvas.Start('tag-cloud-3d', '', tagOption);
+</script>
+
+
+
+<script src="/js/app.js?rev=@@hash.js"></script>
+
+</body>
+</html>
