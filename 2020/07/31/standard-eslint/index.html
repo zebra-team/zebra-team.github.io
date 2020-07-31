@@ -1,0 +1,395 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+<head>
+    <!--Setting-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <meta http-equiv="Cache-Control" content="no-transform">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta name="apple-mobile-web-app-capable" content="Zebra前端团队博客">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no,email=no,adress=no">
+    <meta name="browsermode" content="application">
+    <meta name="screen-orientation" content="portrait">
+    <meta name="theme-version" content="1.0.0">
+    <meta name="root" content="/">
+    <link rel="dns-prefetch" href="http://blog.zebrateam.cn">
+    <!--SEO-->
+
+<meta name="keywords" content="Zebra,stylelint,prettier,husky,lint-staged,eslint" />
+
+
+<meta name="description" content="指定前端代码规范，是质量保证的重要手段，如何有效的检测规范是否有效执行呢？
+主要使用stylelint + prettier + husky + lint-staged + eslint 对我们..." />
+
+
+<meta name="robots" content="all" />
+<meta name="google" content="all" />
+<meta name="googlebot" content="all" />
+<meta name="verify" content="all" />
+    <!--Title-->
+
+<title>
+    
+    工程化之「集成代码检测规则」 - (2020.7.31) |
+    
+    Zebra前端团队博客
+</title>
+
+<link rel="alternate" href="/atom.xml" title="Zebra前端团队博客" type="application/atom+xml">
+
+
+<link rel="icon" href="/favicon.ico">
+
+    
+
+
+<link rel="stylesheet" href="/css/bootstrap.min.css?rev=3.3.7.css">
+<link rel="stylesheet" href="/css/font-awesome.min.css?rev=4.7.0.css">
+<link rel="stylesheet" href="/css/style.css?rev=@@hash.css">
+
+    
+<div class="hide">
+    <script type="text/javascript">
+    var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+    document.write(unescape("%3Cspan class='cnzz_stat_icon_1263868967 hide' %3E%3Cscript%20src%3D%22https%3A%2F%2Fs95.cnzz.com%2Fz_stat.php%3Fweb_id%3D1272564536%22%3E%3C%2Fscript%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s19.cnzz.com/z_stat.php%3Fid%3D1263868967%26show%3Dpic1' type='text/javascript'%3E%3C/script%3E"));
+    </script>
+</div>
+
+
+
+
+    
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+<!--[if lte IE 8]>
+<style>
+    html{ font-size: 1em }
+</style>
+<![endif]-->
+<!--[if lte IE 9]>
+<div style="ie">你使用的浏览器版本过低，为了你更好的阅读体验，请更新浏览器的版本或者使用其他现代浏览器，比如Chrome、Firefox、Safari等。</div>
+<![endif]-->
+<body>
+    <header class="main-header"  style="background-image:url(
+    /./img/banner.jpg)"
+     >
+    <div class="main-header-box">
+        <a class="header-avatar" href="/" title='SCM'>
+            <img src="/img/avatar.jpg" alt="logo头像" class="img-responsive center-block">
+        </a>
+        <div class="branding">
+            <!--<h2 class="text-hide">Snippet主题,从未如此简单有趣</h2>-->
+            
+            <h2>
+                分享是件简单有趣的事情
+            </h2>
+            
+        </div>
+    </div>
+</header>
+    <nav class="main-navigation">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="navbar-header"><span class="nav-toggle-button collapsed pull-right" data-toggle="collapse" data-target="#main-menu" id="mnav">
+                        <span class="sr-only"></span>
+                        <i class="fa fa-bars"></i>
+                    </span>
+                    <a class="navbar-brand" href="http://blog.zebrateam.cn">
+                        Zebra前端团队博客</a>
+                </div>
+                <div class="collapse navbar-collapse" id="main-menu">
+                    <ul class="menu">
+                        
+                        <li role="presentation" class="text-center">
+                            <a href="/"><i class="fa "></i>
+                                首页</a>
+                        </li>
+                        
+                        <li role="presentation" class="text-center">
+                            <a href="/categories/分享专栏/"><i class="fa "></i>
+                                分享专栏</a>
+                        </li>
+                        
+                        <li role="presentation" class="text-center">
+                            <a href="/categories/解决方案/"><i class="fa "></i>
+                                解决方案</a>
+                        </li>
+                        
+                        <li role="presentation" class="text-center">
+                            <a href="/categories/工程化/"><i class="fa "></i>
+                                工程化</a>
+                        </li>
+                        
+                        <li role="presentation" class="text-center">
+                            <a href="/archives/"><i class="fa "></i>
+                                时间轴</a>
+                        </li>
+                        
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+    <section class="content-wrap">
+        <div class="container">
+            <div class="row">
+                <main class="col-md-8 main-content m-post">
+                    <p id="process"></p>
+<article class="post">
+    <div class="post-head">
+        <h1 id="工程化之「集成代码检测规则」 - (2020.7.31)">
+            
+            工程化之「集成代码检测规则」 - (2020.7.31)
+            
+        </h1>
+        <div class="post-meta">
+    
+    <span class="categories-meta fa-wrap">
+        <i class="fa fa-folder-open-o"></i>
+        <a class="category-link" href="/categories/%E5%B7%A5%E7%A8%8B%E5%8C%96/">工程化</a>
+    </span>
+    
+    
+    <span class="fa-wrap">
+        <i class="fa fa-tags"></i>
+        <span class="tags-meta">
+            
+            <a class="tag-link" href="/tags/Zebra/" rel="tag">Zebra</a> <a class="tag-link" href="/tags/eslint/" rel="tag">eslint</a> <a class="tag-link" href="/tags/husky/" rel="tag">husky</a> <a class="tag-link" href="/tags/lint-staged/" rel="tag">lint-staged</a> <a class="tag-link" href="/tags/prettier/" rel="tag">prettier</a>
+            
+        </span>
+    </span>
+    
+    
+    
+    <span class="fa-wrap">
+        <i class="fa fa-clock-o"></i>
+        <span class="date-meta">
+            2020/07/31</span>
+    </span>
+    
+    
+</div>
+        
+        
+    </div>
+    
+    <div class="post-body post-content">
+        <p>指定前端代码规范，是质量保证的重要手段，如何有效的检测规范是否有效执行呢？</p>
+<p>主要使用stylelint + prettier + husky + lint-staged + eslint 对我们的规范进行实践，首先来介绍下这几个工具都是干什么的。</p>
+<ul>
+<li>eslint: <a href="https://eslint.bootcss.com" target="_blank" rel="noopener">ESLint</a> 是一个开源的JavaScript验证工具，相比JSLint，ESLint具有可配置性；</li>
+<li>husky: 可以用于实各种 <code>Git Hook</code>。这里主要用到 <code>pre-commit</code> 这个 hook，在执行 commit 之前，运行一些自定义操作;</li>
+<li>lint-staged: 用于对Git暂存区中的文件执行代码检测。</li>
+</ul>
+<p>知道了这几个包的作用后，我们开始来给项目实现一套在提交代码之前的stylelint、eslint检测。</p>
+<h2 id="一、Stylelint"><a href="#一、Stylelint" class="headerlink" title="一、Stylelint"></a>一、Stylelint</h2><p><a href="http://stylelint.docschina.org" target="_blank" rel="noopener">Stylelint</a>是一个强大的现代CSS检测器,可以让开发者在样式表中遵循一致的约定和避免错误。</p>
+<h3 id="1-1-安装依赖包"><a href="#1-1-安装依赖包" class="headerlink" title="1.1 安装依赖包"></a>1.1 安装依赖包</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yarn add stylelint -D</span><br></pre></td></tr></table></figure>
+<h3 id="1-2-规则配置"><a href="#1-2-规则配置" class="headerlink" title="1.2 规则配置"></a>1.2 规则配置</h3><p>接在在项目的根目录下创建stylelint相关文件：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># stylelint 规则</span></span><br><span class="line">touch .stylelintrc.js</span><br><span class="line">touch .stylelintrc.json</span><br></pre></td></tr></table></figure>
+<p><em>这里我们引用fabric的stylelint规则：</em></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> fabric = <span class="built_in">require</span>(<span class="string">'@umijs/fabric'</span>);</span><br><span class="line"></span><br><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">  ...fabric.stylelint,</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p><em>.stylelintrc.json文件：</em></p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">"extends"</span>: [<span class="string">"stylelint-config-standard"</span>, <span class="string">"stylelint-config-prettier"</span>],</span><br><span class="line">  <span class="attr">"rules"</span>: &#123;</span><br><span class="line">    <span class="attr">"declaration-empty-line-before"</span>: <span class="literal">null</span>,</span><br><span class="line">    <span class="attr">"no-descending-specificity"</span>: <span class="literal">null</span>,</span><br><span class="line">    <span class="attr">"selector-pseudo-class-no-unknown"</span>: <span class="literal">null</span>,</span><br><span class="line">    <span class="attr">"selector-pseudo-element-colon-notation"</span>: <span class="literal">null</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="1-3-执行脚本lint-style"><a href="#1-3-执行脚本lint-style" class="headerlink" title="1.3 执行脚本lint:style"></a>1.3 执行脚本lint:style</h3><p>接下来我们配置package.json里面的执行脚本</p>
+<figure class="highlight basic"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">"lint:style"</span>: <span class="string">"stylelint --fix \"src/**/*.less\" --syntax less"</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>备注：通过–fix自动解决不满足规则的格式。</p>
+</blockquote>
+<h2 id="二、Prettier"><a href="#二、Prettier" class="headerlink" title="二、Prettier"></a>二、Prettier</h2><p><a href="https://prettier.io" target="_blank" rel="noopener">Prettier</a> 是一个“有主见”的代码格式化工具，支持列表如下：</p>
+<ul>
+<li>JavaScript，包括 <a href="http://link.zhihu.com/?target=https%3A//github.com/tc39/proposals/blob/master/finished-proposals.md">ES2017</a></li>
+<li><a href="http://link.zhihu.com/?target=https%3A//facebook.github.io/jsx/">JSX</a></li>
+<li><a href="http://link.zhihu.com/?target=https%3A//flow.org/">Flow</a></li>
+<li><a href="http://link.zhihu.com/?target=https%3A//www.typescriptlang.org/">TypeScript</a></li>
+<li>CSS、<a href="http://link.zhihu.com/?target=http%3A//lesscss.org/">LESS</a> 和 <a href="http://link.zhihu.com/?target=http%3A//sass-lang.com/">SCSS</a></li>
+<li><a href="http://link.zhihu.com/?target=http%3A//json.org/">JSON</a></li>
+<li><a href="http://link.zhihu.com/?target=http%3A//graphql.org/">GraphQL</a></li>
+</ul>
+<p>简而言之，这个工具能够使输出代码保持风格一致。</p>
+<h3 id="2-1-安装依赖"><a href="#2-1-安装依赖" class="headerlink" title="2.1 安装依赖"></a>2.1 安装依赖</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yarn add prettier check-prettier -D</span><br></pre></td></tr></table></figure>
+<h3 id="2-2-规则配置"><a href="#2-2-规则配置" class="headerlink" title="2.2 规则配置"></a>2.2 规则配置</h3><p>项目根目录下创建相关配置文件：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># prettier 配置</span></span><br><span class="line">touch .prettierignore</span><br><span class="line">touch .prettierrc.js</span><br></pre></td></tr></table></figure>
+<p>忽略定义：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">**/*.svg</span><br><span class="line">package.json</span><br><span class="line">.umi</span><br><span class="line">.umi-production</span><br><span class="line">/dist</span><br><span class="line">.dockerignore</span><br><span class="line">.DS_Store</span><br><span class="line">.eslintignore</span><br><span class="line">.env</span><br><span class="line">*.png</span><br><span class="line">*.toml</span><br><span class="line">*.dll</span><br><span class="line">*.exe</span><br><span class="line">docker</span><br><span class="line">.editorconfig</span><br><span class="line">Dockerfile*</span><br><span class="line">.gitignore</span><br><span class="line">.prettierignore</span><br><span class="line">LICENSE</span><br><span class="line">.eslintcache</span><br><span class="line">*.lock</span><br><span class="line">yarn-error.log</span><br><span class="line">.history</span><br></pre></td></tr></table></figure>
+<p><em>这里我们引用fabric的prettier规则：</em></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> fabric = <span class="built_in">require</span>(<span class="string">'@umijs/fabric'</span>);</span><br><span class="line"></span><br><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">  ...fabric.prettier,</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h3 id="2-3-执行脚本"><a href="#2-3-执行脚本" class="headerlink" title="2.3 执行脚本"></a>2.3 执行脚本</h3><p>接下来package.json中定义执行脚本：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">"lint:prettier"</span>: <span class="string">"check-prettier lint"</span>,</span><br><span class="line"><span class="string">"prettier"</span>: <span class="string">"prettier -c --write \"**/*\""</span></span><br></pre></td></tr></table></figure>
+<h2 id="三、ESlint"><a href="#三、ESlint" class="headerlink" title="三、ESlint"></a>三、ESlint</h2><p>由于react技术栈基于<a href="https://umijs.org" target="_blank" rel="noopener">umijs</a>，所以我们直接继承@umijs/fabric的规则。</p>
+<h3 id="3-1-安装依赖"><a href="#3-1-安装依赖" class="headerlink" title="3.1 安装依赖"></a>3.1 安装依赖</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yarn add eslint @erajs/fabric -D</span><br></pre></td></tr></table></figure>
+<h3 id="3-2-规则配置"><a href="#3-2-规则配置" class="headerlink" title="3.2 规则配置"></a>3.2 规则配置</h3><p>进入你的项目中，假设为项目quickstart开始配置。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 进入项目根目录</span></span><br><span class="line"><span class="built_in">cd</span> quickstart</span><br><span class="line"><span class="comment"># 安装eslint,@umijs/fabric依赖</span></span><br><span class="line">yarn add eslint @erajs/fabric -D</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>接着在项目的根目录下创建eslint相关文件</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># eslint要忽略的文件</span></span><br><span class="line">touch .eslintignore</span><br><span class="line"><span class="comment"># eslint 的规则</span></span><br><span class="line">touch .eslintrc.js</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>在.eslintignore文件中填写eslint要过滤的文件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">dist</span><br><span class="line">test</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>配置 .eslintrc.js</p>
+</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">  extends: [<span class="built_in">require</span>.resolve(<span class="string">'@umijs/fabric/dist/eslint'</span>)],</span><br><span class="line">  globals: &#123;</span><br><span class="line">    Eui: <span class="literal">true</span>,</span><br><span class="line">    $: <span class="literal">true</span>,</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h3 id="3-3-执行脚本"><a href="#3-3-执行脚本" class="headerlink" title="3.3 执行脚本"></a>3.3 执行脚本</h3><p>接下来我们配置package.json里面的执行脚本</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">"scripts"</span>: &#123;</span><br><span class="line">	"lint:js": "eslint --cache --ext .js,.jsx,.ts,.tsx --format=pretty ./src"</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>备注：主要是检测js,jsx,ts,tsx 代码，可以通过–fix 把eslint能解决的问题都在检测的时候解决掉，比如格式，变量合并。这里我们通过<em>prettier插件来修复格式。</em></p>
+</blockquote>
+<p>接下来，我们要在git提交时对我们所写的代码进行检测。</p>
+<h2 id="四、husky-lint-staged"><a href="#四、husky-lint-staged" class="headerlink" title="四、husky + lint-staged"></a>四、husky + lint-staged</h2><h3 id="4-1-安装依赖"><a href="#4-1-安装依赖" class="headerlink" title="4.1 安装依赖"></a>4.1 安装依赖</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yarn add husky lint-staged -D</span><br></pre></td></tr></table></figure>
+<h3 id="4-2-钩子配置"><a href="#4-2-钩子配置" class="headerlink" title="4.2 钩子配置"></a>4.2 钩子配置</h3><p>接下来要在package.json里面配置一下我们的git钩子：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">"scripts"</span>: &#123;</span><br><span class="line">      <span class="attr">"lint-staged"</span>: <span class="string">"lint-staged"</span>,</span><br><span class="line">      <span class="attr">"lint-staged:js"</span>: <span class="string">"eslint --ext .js,.jsx,.ts,.tsx"</span></span><br><span class="line">    &#125;,</span><br><span class="line">  <span class="attr">"husky"</span>: &#123;</span><br><span class="line">      <span class="attr">"hooks"</span>: &#123;</span><br><span class="line">        <span class="attr">"pre-commit"</span>: <span class="string">"npm run lint-staged"</span></span><br><span class="line">      &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="attr">"lint-staged"</span>: &#123;</span><br><span class="line">      <span class="attr">"**/*.less"</span>: <span class="string">"stylelint --syntax less"</span>,</span><br><span class="line">      <span class="attr">"**/*.&#123;js,jsx,tsx,ts,less,md,json&#125;"</span>: [</span><br><span class="line">        <span class="string">"prettier --write"</span>,</span><br><span class="line">        <span class="string">"git add"</span></span><br><span class="line">      ],</span><br><span class="line">      <span class="attr">"**/*.&#123;js,jsx&#125;"</span>: <span class="string">"npm run lint-staged:js"</span>,</span><br><span class="line">      <span class="attr">"**/*.&#123;js,ts,tsx&#125;"</span>: <span class="string">"npm run lint-staged:js"</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>husky 里面定义了 git 的钩子函数，我们主要在 commit 之前进行检查，所以用到了 pre-commit 这个钩子。<br>lint-staged 在 pre-commit 的时候执行，定义了对 git 暂存区中的文件执行的任务，我们这里只对 js 文件做 eslint 的格式化校验。</p>
+<blockquote>
+<p>提醒：因为 pre-commit 这个钩子是需要配合 git 去用的，它主要对文件夹 <code>.git/hooks/pre-commit</code> 文件做手脚，当我们从 git 上拉下来项目时，如果之前没对 hooks 下的文件做修改，那 hooks 下的文件都是以 sample 结尾的，这个时候钩子函数是不起作用的，当我们安装了 husky 之后，husky 会自动对 hooks 下面的文件做修改，当你安装完 husky 之后，再打开 <code>.git/hooks</code> 文件夹，你会发现所有的钩子文件，都会存在一份带有.sample 的，一份不带.sample 的，不带.sample 的文件就是 husky 创建的，这个才会让 git 钩子起作用。所以我们最好是先拉项目，然后再安装 husky，否则可能会导致 husky 失效。如果你是新开发项目，开发完后才提交到 git，开发完之后，你可以先关联 git 仓库，然后重新安装一下 husky 这个包就可以了。</p>
+</blockquote>
+<h2 id="五、-editorconfig"><a href="#五、-editorconfig" class="headerlink" title="五、.editorconfig"></a>五、.editorconfig</h2><p>“EditorConfig帮助开发人员在不同的编辑器和IDE之间定义和维护一致的编码样式。EditorConfig项目由用于定义编码样式<strong>的文件格式</strong>和一组<strong>文本编辑器插件组成</strong>，这些<strong>插件</strong>使编辑器能够读取文件格式并遵循定义的样式。EditorConfig文件易于阅读，并且与版本控制系统配合使用。”</p>
+<p>不同的开发人员，不同的编辑器，有不同的编码风格，而EditorConfig就是用来协同团队开发人员之间的代码的风格及样式规范化的一个工具，而.editorconfig正是它的默认配置文件。</p>
+<p><em>示例文件：</em></p>
+<figure class="highlight perl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 告诉EditorConfig插件，这是根文件，不用继续往上查找root = true</span></span><br><span class="line"><span class="comment"># 匹配全部文件</span></span><br><span class="line">[*]</span><br><span class="line"><span class="comment"># 结尾换行符，可选"lf"、"cr"、"crlf"</span></span><br><span class="line">end_of_line = lf</span><br><span class="line"><span class="comment"># 在文件结尾插入新行</span></span><br><span class="line">insert_final_newline = true</span><br><span class="line"><span class="comment"># 删除一行中的前后空格</span></span><br><span class="line">trim_trailing_whitespace = true</span><br><span class="line"><span class="comment"># 匹配js和py结尾的文件</span></span><br><span class="line">[*.&#123;js,py&#125;]</span><br><span class="line"><span class="comment"># 设置字符集</span></span><br><span class="line">charset = utf-<span class="number">8</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 匹配py结尾的文件</span></span><br><span class="line">[*.py]</span><br><span class="line"><span class="comment"># 缩进风格，可选"space"、"tab"</span></span><br><span class="line">indent_style = space</span><br><span class="line"><span class="comment"># 缩进的空格数</span></span><br><span class="line">indent_size = <span class="number">4</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 以下匹配，类同</span></span><br><span class="line">[Makefile]</span><br><span class="line">indent_style = tab<span class="comment"># tab的宽度tab_width = 4</span></span><br><span class="line"><span class="comment"># 以下匹配，类同</span></span><br><span class="line">[lib/**.js]</span><br><span class="line">indent_style = space</span><br><span class="line">indent_size = <span class="number">2</span></span><br><span class="line"></span><br><span class="line">[&#123;package.json,.travis.yml&#125;]</span><br><span class="line">indent_style = space</span><br><span class="line">indent_size = <span class="number">2</span></span><br></pre></td></tr></table></figure>
+<h2 id="六、项目实践"><a href="#六、项目实践" class="headerlink" title="六、项目实践"></a>六、项目实践</h2><figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">"name"</span>: <span class="string">"quickstart-react"</span>,</span><br><span class="line">  <span class="attr">"version"</span>: <span class="string">"0.1.0"</span>,</span><br><span class="line">  <span class="attr">"scripts"</span>: &#123;</span><br><span class="line">    <span class="attr">"lint"</span>: <span class="string">"npm run lint:js &amp;&amp; npm run lint:style &amp;&amp; npm run lint:prettier"</span>,</span><br><span class="line">    <span class="attr">"lint-staged"</span>: <span class="string">"lint-staged"</span>,</span><br><span class="line">    <span class="attr">"lint-staged:js"</span>: <span class="string">"eslint --ext .js,.jsx,.ts,.tsx"</span>,</span><br><span class="line">    <span class="attr">"lint:fix"</span>: <span class="string">"eslint --fix --cache --ext .js,.jsx,.ts,.tsx --format=pretty ./src &amp;&amp; npm run lint:style"</span>,</span><br><span class="line">    <span class="attr">"lint:js"</span>: <span class="string">"eslint --cache --ext .js,.jsx,.ts,.tsx --format=pretty ./src"</span>,</span><br><span class="line">    <span class="attr">"lint:prettier"</span>: <span class="string">"check-prettier lint"</span>,</span><br><span class="line">    <span class="attr">"lint:style"</span>: <span class="string">"stylelint --fix \"src/**/*.less\" --syntax less"</span>,</span><br><span class="line">    <span class="attr">"prettier"</span>: <span class="string">"prettier -c --write \"**/*\""</span></span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="attr">"husky"</span>: &#123;</span><br><span class="line">    <span class="attr">"hooks"</span>: &#123;</span><br><span class="line">      <span class="attr">"pre-commit"</span>: <span class="string">"npm run lint-staged"</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="attr">"lint-staged"</span>: &#123;</span><br><span class="line">    <span class="attr">"**/*.less"</span>: <span class="string">"stylelint --syntax less"</span>,</span><br><span class="line">    <span class="attr">"**/*.&#123;js,jsx,tsx,ts,less,md,json&#125;"</span>: [</span><br><span class="line">      <span class="string">"prettier --write"</span>,</span><br><span class="line">      <span class="string">"git add"</span></span><br><span class="line">    ],</span><br><span class="line">    <span class="attr">"**/*.&#123;js,jsx&#125;"</span>: <span class="string">"npm run lint-staged:js"</span>,</span><br><span class="line">    <span class="attr">"**/*.&#123;js,ts,tsx&#125;"</span>: <span class="string">"npm run lint-staged:js"</span></span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="attr">"dependencies"</span>: &#123;</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="attr">"devDependencies"</span>: &#123;</span><br><span class="line">    <span class="attr">"@umijs/fabric"</span>: <span class="string">"^1.2.1"</span>,</span><br><span class="line">    <span class="attr">"check-prettier"</span>: <span class="string">"^1.0.3"</span>,</span><br><span class="line">    <span class="attr">"husky"</span>: <span class="string">"^3.0.0"</span>,</span><br><span class="line">    <span class="attr">"lint-staged"</span>: <span class="string">"^9.0.0"</span>,</span><br><span class="line">    <span class="attr">"prettier"</span>: <span class="string">"^1.17.1"</span>,</span><br><span class="line">    <span class="attr">"stylelint"</span>: <span class="string">"^10.1.0"</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>备注：以上配置只列出了必须依赖，及相关scripts脚本，具体规范配置参考每个小章节。</p>
+</blockquote>
+
+    </div>
+    
+    <div class="post-footer">
+        <div>
+            
+            转载声明：
+            商业转载请联系作者获得授权,非商业转载请注明出处 © <a href="" target="_blank">Zebra</a>
+            
+            
+        </div>
+        <div>
+            
+        </div>
+    </div>
+</article>
+<div class="article-nav prev-next-wrap clearfix">
+    
+    
+    <a href="/2020/07/21/muti-theme3.0/" class="next-post btn btn-default" title='解决方案 之 多主题集成及规范(一)'>
+        <span class="hidden-lg">下一篇</span>
+        <span class="hidden-xs">
+            解决方案 之 多主题集成及规范(一)</span><i class="fa fa-angle-right fa-fw"></i>
+    </a>
+    
+</div>
+
+<div id="comments">
+    
+
+<div id="vcomments" class="valine"></div>
+
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="/assets/valine.min.js"></script>
+
+<script>
+new Valine({
+    av: AV,
+    el: '#vcomments',
+    appId: '0q0vid2kizGymmd0dNKs3lOY-gzGzoHsz',
+    appKey: 'wNj5sJAu5hReOirB3QbKqNiA',
+    placeholder: '说点什么吧',
+    notify: false,
+    verify: true,
+    avatar: 'mm',
+    meta: 'nick,mail'.split(','),
+    pageSize: '10',
+    path: window.location.pathname,
+    lang: 'zh-CN'.toLowerCase()
+})
+</script>
+
+
+</div>
+
+                </main>
+                
+                    <aside id="article-toc" role="navigation" class="col-md-4">
+    <div class="widget">
+        <h3 class="title">
+            文章目录
+        </h3>
+        
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#一、Stylelint"><span class="toc-text">一、Stylelint</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-1-安装依赖包"><span class="toc-text">1.1 安装依赖包</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-2-规则配置"><span class="toc-text">1.2 规则配置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-3-执行脚本lint-style"><span class="toc-text">1.3 执行脚本lint:style</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#二、Prettier"><span class="toc-text">二、Prettier</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-1-安装依赖"><span class="toc-text">2.1 安装依赖</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2-规则配置"><span class="toc-text">2.2 规则配置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-3-执行脚本"><span class="toc-text">2.3 执行脚本</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#三、ESlint"><span class="toc-text">三、ESlint</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#3-1-安装依赖"><span class="toc-text">3.1 安装依赖</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-2-规则配置"><span class="toc-text">3.2 规则配置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-3-执行脚本"><span class="toc-text">3.3 执行脚本</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#四、husky-lint-staged"><span class="toc-text">四、husky + lint-staged</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#4-1-安装依赖"><span class="toc-text">4.1 安装依赖</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-2-钩子配置"><span class="toc-text">4.2 钩子配置</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#五、-editorconfig"><span class="toc-text">五、.editorconfig</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#六、项目实践"><span class="toc-text">六、项目实践</span></a></li></ol>
+        
+    </div>
+</aside>
+                
+            </div>
+        </div>
+    </section>
+    <footer class="main-footer">
+    <div class="container">
+        <div class="row">
+        </div>
+    </div>
+</footer>
+<a id="back-to-top" class="icon-btn hide">
+    <i class="fa fa-chevron-up"></i>
+</a>
+    <div class="copyright">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="busuanzi">
+    
+</div>
+            </div>
+            <div class="col-sm-12">
+                <span>Copyright &copy;
+                    2020
+                    
+                </span> |
+                <span>
+                    Powered by <a href="//hexo.io" class="copyright-links" target="_blank" rel="nofollow">Hexo</a>
+                </span> |
+                <span>
+                    Theme by <a href="//github.com/shenliyang/hexo-theme-snippet.git" class="copyright-links" target="_blank" rel="nofollow">Snippet</a>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<script src="/assets/tagcanvas.min.js?rev=2.9.js"></script>
+
+<script>
+var tagOption = {
+    textColour: '#444', // 字体颜色
+    outlineMethod: 'block', // 选中模式
+    outlineColour: '#FFDAB9', // 选中模式的颜色
+    interval: 30 || 30, // 动画帧之间的时间间隔，值越大，转动幅度越大
+    textHeight: 13,
+    outlineRadius: 3,
+    freezeActive: true || '', // 选中的标签是否继续滚动
+    frontSelect: true || '', // 不选标签云后部的标签
+    initial: [0.1, -0.1],
+    depth: 0.5,
+    decel: 0.95,
+    maxSpeed: 0.03,
+    reverse: true || '', // 是否反向触发
+    fadeIn: 500, // 进入动画时间
+    wheelZoom: false || '' // 是否启用鼠标滚轮
+}
+TagCanvas.Start('tag-cloud-3d', '', tagOption);
+</script>
+
+
+
+<script src="/js/app.js?rev=@@hash.js"></script>
+
+</body>
+</html>
